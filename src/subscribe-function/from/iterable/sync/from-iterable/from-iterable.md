@@ -12,11 +12,11 @@ See [fromIterator](../from-iterator/from-iterator.md) for more details.
 
 ### Examples
 
-#### Simple AsyncIterable which emits values from 0 to 9
+#### Simple Iterable which emits values from 0 to 9
 
 ```ts
 const subscribe = fromIterable(
-  (async function * () {
+  (function * () {
     for (let i = 0; i < 10; i++) {
       yield i;
     }

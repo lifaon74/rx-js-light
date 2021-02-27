@@ -17,7 +17,7 @@ or somehow an *[EventListener](https://developer.mozilla.org/en-US/docs/Web/API/
 
 ### Examples
 
-#### SubscribeFunction which emits 'void' every 500ms when subscribed*
+#### SubscribeFunction which emits 'void' every 500ms when subscribed
 
 ```ts
 const subscribe: ISubscribeFunction<void> = (emit: IEmitFunction<void>): IUnsubscribeFunction => {

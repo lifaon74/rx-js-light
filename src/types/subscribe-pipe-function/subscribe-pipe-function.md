@@ -6,7 +6,7 @@ interface ISubscribePipeFunction<GIn, GOut> {
 }
 ```
 
-An *SubscribePipeFunction* receives a value, performs some operation on it, and may emit something.
+An *SubscribePipeFunction* receives a value, performs some operation on it, and may emit something else.
 
 Similar to [EmitPipeFunction](../emit-pipe-function/emit-pipe-function.md) but works with
 [SubscribeFunction](../subscribe-function/subscribe-function.md) instead.

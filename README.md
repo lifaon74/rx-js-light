@@ -92,7 +92,7 @@ or directly using [skypack](https://www.skypack.dev/):
 - [Notification](src/misc/notifications/notifications.md) (ak: *next*, *complete* and *error*)
 - [MulticastSource](src/source/multicast-source/multicast-source.md) (ak: Subject)
 - [ReplayLastSource](src/source/replay-last-source/replay-last-source.md) (ak: BehaviorSubject)
-- [Subscription](src/misc/subscription) (kind of: Subscription)
+- [Subscription](src/misc/subscription/subscription.md) (kind of: Subscription)
 
 Most of public functions or interfaces have their own documentation into a `.md` file in their respective directories. 
 
@@ -126,7 +126,7 @@ Most of public functions or interfaces have their own documentation into a `.md`
 
 - a promise
   - with a factory: [fromPromiseFactory](src/subscribe-function/from/promise/from-promise-factory/from-promise-factory.md)
-  - without a factory ⚠: [fromPromise](src/subscribe-function/from/promise/from-promise/from-promise.md)
+  - without a factory ⚠️: [fromPromise](src/subscribe-function/from/promise/from-promise/from-promise.md)
 
 - a readable stream
   - [w3c streams](https://streams.spec.whatwg.org/#rs-class)
@@ -142,13 +142,13 @@ Most of public functions or interfaces have their own documentation into a `.md`
   
 - many subscribe functions. When any value is received:
   - re-emit it concurrently: [merge](src/subscribe-function/from/many/merge/merge.ts)
-  - combine the values in an array and emit it: [combine-latest](src/subscribe-function/from/many/combine-latest/combine-latest.md)
+  - combine the values in an array and emit it: [combineLatest](src/subscribe-function/from/many/combine-latest/combine-latest.md)
   - combine the values in an array, runs a function with these values, and emit distinct returned
     values: [reactiveFunction](src/subscribe-function/from/many/reactive-function/reactive-function.md)
     - arithmetic:
-      [reactiveAdd](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-add.ts)
-      [reactiveSubtract](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-subtract.ts)
-      [reactiveMultiply](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-multiply.ts)
+      [reactiveAdd](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-add.ts),
+      [reactiveSubtract](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-subtract.ts),
+      [reactiveMultiply](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-multiply.ts),
       [reactiveDivide](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-divide.ts)
     - logic:
       [reactiveAnd](src/subscribe-function/from/many/reactive-function/built-in/logic/reactive-and.ts),
@@ -194,7 +194,7 @@ Most of public functions or interfaces have their own documentation into a `.md`
 - only one EmitFunction: [createUnicastSource](src/source/unicast-source/unicast-source.md)
 - one or many EmitFunction and stores the last emitted value:
   [createReplayLastSource](src/source/replay-last-source/replay-last-source.md),
-  [createMulticastReplayLastSource](src/source/replay-last-source/derived/create-multicast-replay-last-source.ts)
+  [createMulticastReplayLastSource](src/source/replay-last-source/derived/create-multicast-replay-last-source.ts),
   [createUnicastReplayLastSource](src/source/replay-last-source/derived/create-unicast-replay-last-source.ts)
 
 #### others

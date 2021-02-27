@@ -6,7 +6,7 @@ interface IEmitPipeFunction<GIn, GOut> {
 }
 ```
 
-An *EmitPipeFunction* receives a value, performs some operation on it, and may emit something.
+An *EmitPipeFunction* receives a value, performs some operation on it, and may emit something else.
 
 Somehow, this is both a *push destination* (returned EmitFunction), and a *push source* (received EmitFunction)
 
