@@ -1,0 +1,128 @@
+import { SameLength } from './shared-types';
+
+export type UnaryFunction<GArg = any, GReturn = any> = (arg: GArg) => GReturn;
+
+export type FollowsPipeConstraint<GFunctions extends UnaryFunction[], GFirstArg = any> =
+  GFunctions extends []
+    ? true
+    : (
+      GFunctions extends [infer GFirst, ...infer GRest]
+        ? (
+          GFirst extends ((arg: GFirstArg) => infer GFirstReturn)
+            ? (
+              GRest extends UnaryFunction[]
+                ? FollowsPipeConstraint<GRest, GFirstReturn>
+                : false
+              )
+            : false
+          )
+        : false
+      );
+
+
+export type PipeFirstArg<GFunctions extends UnaryFunction[]> =
+  GFunctions extends [infer GFirst, ...infer GRest]
+    ? (
+      GFirst extends ((arg: infer GFirstArg) => any)
+        ? GFirstArg
+        : never
+      )
+    : never;
+
+export type PipeLastReturn<GFunctions extends UnaryFunction[]> =
+  GFunctions extends [...infer GRest, infer GLast]
+    ? (
+      GLast extends ((arg: any) => infer GFirstReturn)
+        ? GFirstReturn
+        : never
+      )
+    : never;
+
+export type PipeReturn<GFunctions extends UnaryFunction[]> = (arg: PipeFirstArg<GFunctions>) => PipeLastReturn<GFunctions>;
+
+// type PipeConstraint<GFunctions extends TPipeFunction[], GFirstArg = any> =
+//   true extends FollowsPipeConstraint<GFunctions>
+//     ? TPipeFunction[]
+//     : never;
+
+export type PipeConstraint<GFunctions extends UnaryFunction[], GFirstArg = any> =
+  [GFunctions] extends [[]]
+    ? []
+    : (
+      [GFunctions] extends [[infer GFirst, ...infer GRest]]
+        ? (
+          GFirst extends ((arg: GFirstArg) => infer GFirstReturn)
+            ? (
+              GRest extends UnaryFunction[]
+                ? [any, ...PipeConstraint<GRest, GFirstReturn>]
+                : [(arg: GFirstArg) => any, ...SameLength<GRest>]
+              )
+            : [(arg: GFirstArg) => any, ...SameLength<GRest>]
+          )
+        : never[]
+      );
+
+export function pipe<GFunctions extends PipeConstraint<GFunctions>>(
+  ...fns: GFunctions
+): PipeReturn<GFunctions> {
+  return (firstArg: PipeFirstArg<GFunctions>): PipeLastReturn<GFunctions> => {
+    return (fns as UnaryFunction[]).reduce((arg: any, fnc: UnaryFunction) => fnc(arg), firstArg);
+  };
+}
+
+export function pipeNow<GFunctions extends PipeConstraint<GFunctions>>(
+  value: PipeFirstArg<GFunctions>,
+  ...fns: GFunctions
+): PipeLastReturn<GFunctions> {
+  return pipe<GFunctions>(...fns)(value);
+}
+
+
+
+// type F0 = () => string;
+// type F1 = (a: number) => string;
+// type F2 = (a: string) => boolean;
+// type F3 = (a: boolean) => bigint;
+// type F4 = (a: never) => bigint;
+//
+// // const g: (F0 extends F1 ? true : false); // true
+//
+// const a: FollowsPipeConstraint<[], any> = null as any; // true
+// const a: PipeConstraint<[], any> = null as any; // []
+// const a: FollowsPipeConstraint<[F0], void> = null as any; // true
+// const a: PipeConstraint<[F0], void> = null as any; // [any]
+// const a: FollowsPipeConstraint<[F1], number> = null as any; // true
+// const a: PipeConstraint<[F1], number> = null as any; // [any]
+// const a: FollowsPipeConstraint<[F1], string> = null as any; // false
+// const a: PipeConstraint<[F1], string> = null as any; // [invalid]
+// const a: FollowsPipeConstraint<[F1, F2], any> = null as any; // true
+// const a: PipeConstraint<[F1, F2], any> = null as any; // [any, any]
+// const a: FollowsPipeConstraint<[F1, F3], any> = null as any; // false
+// const a: PipeConstraint<[F1, F3], any> = null as any; // [any, invalid]
+// const a: PipeConstraint<[F1, F3, F0], any> = null as any; // [any, invalid, any]
+// const a: FollowsPipeConstraint<[F1, F2, F3], any> = null as any; // true
+// const a: PipeConstraint<[F1, F2, F3], any> = null as any; // [any, any, any]
+// const a: FollowsPipeConstraint<[F1, F2, F1], any> = null as any; // false
+// const a: PipeConstraint<[F1, F2, F1], any> = null as any; // [any, any, invalid]
+// const a: FollowsPipeConstraint<F1[], any> = null as any; // false
+// const a: PipeConstraint<F1[], any> = null as any; // never[]
+//
+// const a: PipeLastReturn<[F1, F2, F3]> = null as any; // bigint
+// const a: PipeLastReturn<[]> = null as any; // never
+//
+// const a: PipeFirstArg<[F1, F2, F3]> = null as any; // number
+// const a: PipeFirstArg<[F0]> = null as any; // number
+// const a: PipeFirstArg<[]> = null as any; // never
+
+/*----*/
+
+// https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983
+
+export function compose(...fns: UnaryFunction[]) {
+  return (firstArg: any): any => {
+    return fns.reduceRight((arg: any, fnc: UnaryFunction) => fnc(arg), firstArg);
+  }
+}
+
+
+

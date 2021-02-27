@@ -1,0 +1,64 @@
+import { IInferDefaultNotificationsUnionGValue } from '../../../../misc/notifications/default-notifications-union.type';
+import { IEmitPipeFunction } from '../../../../types/emit-pipe-function/emit-pipe-function.type';
+import { ISubscribePipeFunction } from '../../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
+import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
+import { createNextNotification } from '../../../../misc/notifications/built-in/next/create-next-notification';
+import {
+  IGenericNextNotification, INextNotification
+} from '../../../../misc/notifications/built-in/next/next-notification.type';
+import { fromUnion, GetUnionValue, toUnion, Union, UnionMerge, UnionReplace } from '../../../../misc/types/union.type';
+import { IGenericNotification } from '../../../../misc/notifications/notification.type';
+
+// export type IEmitPipeToSubscribePipeNotificationsConstraint<GInNotificationsUnion extends GenericUnion> = SuperUnionConstraint<GInNotificationsUnion, Union<IGenericNextNotification>>;
+// export type IEmitPipeToSubscribePipeNotificationsConstraint = Union<IGenericNextNotification | IGenericNotification>;
+export type IEmitPipeToSubscribePipeNotificationsConstraint = UnionMerge<Union<IGenericNextNotification>, Union<IGenericNotification>>;
+
+export type IEmitPipeToSubscribePipeInValue<// generics
+  GInNotificationsUnion extends IEmitPipeToSubscribePipeNotificationsConstraint,
+  //
+  > = IInferDefaultNotificationsUnionGValue<GetUnionValue<GInNotificationsUnion>>;
+
+export type IEmitPipeToSubscribePipeOutNotifications<// generics
+  GInNotificationsUnion extends IEmitPipeToSubscribePipeNotificationsConstraint,
+  GOutValue
+  //
+  > = UnionReplace<GInNotificationsUnion, Union<IGenericNextNotification>, Union<INextNotification<GOutValue>>>;
+
+export type IEmitPipeToSubscribePipeWithNotificationsReturn<// generics
+  GInNotificationsUnion extends IEmitPipeToSubscribePipeNotificationsConstraint,
+  GOutValue
+  //
+  > = ISubscribePipeFunction<GInNotificationsUnion, IEmitPipeToSubscribePipeOutNotifications<GInNotificationsUnion, GOutValue>>;
+
+/**
+ * Converts an emit pipe function to a subscribe pipe function
+ */
+export function emitPipeToSubscribePipeWithNotifications<// generics
+  GInNotificationsUnion extends IEmitPipeToSubscribePipeNotificationsConstraint,
+  GOutValue
+  //
+  >(
+  emitPipeFunction: IEmitPipeFunction<IEmitPipeToSubscribePipeInValue<GInNotificationsUnion>, GOutValue>,
+): IEmitPipeToSubscribePipeWithNotificationsReturn<GInNotificationsUnion, GOutValue> {
+  type GInValue = IEmitPipeToSubscribePipeInValue<GInNotificationsUnion>;
+  type GOutNotificationsUnion = IEmitPipeToSubscribePipeOutNotifications<GInNotificationsUnion, GOutValue>;
+
+  return (subscribe: ISubscribeFunction<GInNotificationsUnion>): ISubscribeFunction<GOutNotificationsUnion> => {
+    return (emit: IEmitFunction<GOutNotificationsUnion>): IUnsubscribeFunction => {
+
+      const next: IEmitFunction<GInValue> = emitPipeFunction((value: GOutValue) => {
+        emit(toUnion(createNextNotification<GOutValue>(value)));
+      });
+
+      return subscribe((notificationsUnion: GInNotificationsUnion) => {
+        const notification: IGenericNotification = fromUnion(notificationsUnion);
+        if (notification.name === 'next') {
+          next(notification.value);
+        } else {
+          emit(notificationsUnion as GOutNotificationsUnion);
+        }
+      });
+    };
+  };
+}

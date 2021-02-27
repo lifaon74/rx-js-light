@@ -1,0 +1,215 @@
+import { ISubscribeFunction } from '../../../types';
+import { ContainerNode } from '../container-node';
+import { uuid } from '../../../misc/helpers/uuid';
+import { attachNode } from '../../dom-mutation/node/attach-node';
+import { detachNode } from '../../dom-mutation/node/detach-node';
+import { subscribeOnNodeConnectedTo } from '../../misc/subscribe-on-node-connected-to';
+import { createTimeout, TUndoTimer } from '../../../misc/timer/create-timer';
+import { noop } from '../../../misc/helpers/noop';
+import { isDocumentFragment } from '../../dom-mutation/node/is-document-fragment';
+
+// export function createReactiveConditionalNodeStatic(
+//   subscribe: ISubscribeFunction<boolean>,
+//   node: Node,
+// ): Comment {
+//   const containerNode: ContainerNode = new ContainerNode(`IF - ${ uuid() }`, true);
+//
+//   subscribeOnNodeConnectedTo<boolean>(containerNode, subscribe, (value: boolean) => {
+//     if (value) {
+//       attachNode(node, containerNode, null);
+//     } else {
+//       detachNode(node);
+//     }
+//   });
+//
+//   return containerNode;
+// }
+
+/*----------*/
+
+export interface IReactiveConditionalNodeCreateFunction {
+  (): Node;
+}
+
+export interface IReactiveConditionalNodeOptions {
+  /**
+   * When the node will be destroyed
+   *   - 0 or less : immediately
+   *   - ]0, Number.MAX_SAFE_INTEGER[ : after 'destroyTimeout' ms disconnected of the DOM
+   *   - Number.POSITIVE_INFINITY : never
+   */
+  destroyTimeout?: number; // (default: 0)
+}
+
+export function createReactiveConditionalNode(
+  subscribe: ISubscribeFunction<boolean>,
+  createNode: IReactiveConditionalNodeCreateFunction,
+  {
+    destroyTimeout = 0,
+  }: IReactiveConditionalNodeOptions = {},
+): Comment {
+  const containerNode: ContainerNode = new ContainerNode(`IF - ${ uuid() }`, true);
+
+  let nodes: Node[] | null = null;
+  let removeTimer: TUndoTimer = noop;
+
+  subscribeOnNodeConnectedTo<boolean>(containerNode, subscribe, (value: boolean) => {
+    if (value) {
+      if (nodes === null) {
+        const node: Node = createNode();
+        if (isDocumentFragment(node)) {
+          nodes = [];
+          let _node: Node | null;
+          while ((_node = node.firstChild) !== null) {
+            detachNode(_node);
+            nodes.push(_node);
+          }
+        } else {
+          nodes = [node];
+        }
+      }
+      for (let i = 0, l = nodes.length; i < l; i++) {
+        attachNode(nodes[i], containerNode, null);
+      }
+      removeTimer();
+    } else if (nodes !== null) {
+      for (let i = 0, l = nodes.length; i < l; i++) {
+        detachNode(nodes[i]);
+      }
+      if (destroyTimeout <= 0) {
+        nodes = null;
+      } else if (destroyTimeout <= Number.MAX_SAFE_INTEGER) {
+        removeTimer = createTimeout(() => {
+          nodes = null;
+        }, destroyTimeout);
+      }
+    }
+  });
+
+  return containerNode;
+}
+
+// export function createReactiveConditionalNode(
+//   subscribe: ISubscribeFunction<boolean>,
+//   createNode: () => Node,
+//   {
+//     destroyTimeout = 0,
+//   }: ICreateReactiveConditionalNodeOptions = {},
+// ): Comment {
+//   const containerNode: ContainerNode = new ContainerNode(`IF - ${ uuid() }`, true);
+//
+//   let node: Node | null = null;
+//   let nodes: Node[] = [];
+//   let removeTimer: TUndoTimer = noop;
+//
+//   subscribeOnNodeConnectedTo<boolean>(containerNode, subscribe, (value: boolean) => {
+//     if (value) {
+//       if (node === null) {
+//         node = createNode();
+//         if (isDocumentFragment(node)) {
+//           nodes = Array.from(node.childNodes);
+//         }
+//       }
+//       attachNode(node, containerNode, null);
+//       removeTimer();
+//     } else if (node !== null) {
+//       if (isDocumentFragment(node)) {
+//         for (let i = 0, l = nodes.length; i < l; i++) {
+//           attachNode(nodes[i]);
+//         }
+//       }
+//       detachNode(node);
+//       if (destroyTimeout <= 0) {
+//         node = null;
+//       } else if (destroyTimeout <= Number.MAX_SAFE_INTEGER) {
+//         removeTimer = createTimeout(() => {
+//           node = null;
+//         }, destroyTimeout);
+//       }
+//     }
+//   });
+//
+//   return containerNode;
+// }
+
+// export function createReactiveConditionalNode(
+//   subscribe: ISubscribeFunction<boolean>,
+//   createNode: () => Node,
+//   {
+//     destroyTimeout = 0,
+//   }: ICreateReactiveConditionalNodeOptions = {},
+// ): Comment {
+//   const containerNode: ContainerNode = new ContainerNode(`IF - ${ uuid() }`, true);
+//
+//   let node: Node | null = null;
+//   let nodes: Node[] | null = null;
+//   let removeTimer: TUndoTimer = noop;
+//
+//   subscribeOnNodeConnectedTo<boolean>(containerNode, subscribe, (value: boolean) => {
+//     if (nodes === null) {
+//       const node: Node = createNode();
+//       if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+//         nodes = Array.from(node.childNodes);
+//       } else {
+//         nodes = [node];
+//       }
+//     }
+//     if (value) {
+//       for (let i = 0, l = nodes.length; i < l; i++) {
+//         attachNode(nodes[i], containerNode, null);
+//       }
+//       removeTimer();
+//     } else {
+//       for (let i = 0, l = nodes.length; i < l; i++) {
+//         detachNode(nodes[i]);
+//       }
+//       if (destroyTimeout <= 0) {
+//         nodes = null;
+//       } else if (destroyTimeout <= Number.MAX_SAFE_INTEGER) {
+//         removeTimer = createTimeout(() => {
+//           nodes = null;
+//         }, destroyTimeout);
+//       }
+//     }
+//   });
+//
+//   return containerNode;
+// }
+
+
+// export function createReactiveConditionalNode(
+//   subscribe: ISubscribeFunction<boolean>,
+//   createNode: () => Node,
+//   {
+//     destroyTimeout = 0,
+//   }: ICreateReactiveConditionalNodeOptions = {},
+// ): Comment {
+//   const node: ContainerNode = new ContainerNode(`IF - ${ uuid() }`, true);
+//
+//   let _node: Node | null = null;
+//   let removeTimer: TUndoTimer = noop;
+//
+//   subscribeOnNodeConnectedTo<boolean>(node, subscribe, (value: boolean) => {
+//     if (_node === null) {
+//       _node = createNode();
+//     }
+//     if (value) {
+//       attachNode(_node, node, null);
+//       removeTimer();
+//     } else {
+//       detachNode(_node);
+//       if (destroyTimeout <= 0) {
+//         _node = null;
+//       } else if (destroyTimeout <= Number.MAX_SAFE_INTEGER) {
+//         removeTimer = createTimeout(() => {
+//           _node = null;
+//         }, destroyTimeout);
+//       }
+//     }
+//   });
+//
+//   return node;
+// }
+
+
+

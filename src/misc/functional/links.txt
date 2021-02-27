@@ -1,0 +1,3 @@
+https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983
+https://medium.com/better-programming/compose-and-pipe-in-javascript-medium-d1e1b2b21f83
+https://www.codementor.io/@michelre/use-function-composition-in-javascript-gkmxos5mj

@@ -1,0 +1,21 @@
+{
+  "name": "@lifaon/rx-js-light",
+  "version": "1.0.0",
+  "description": "Blazing fast Observables",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lifaon74/rx-js-light"
+  },
+  "keywords": [
+    "rx-js",
+    "ReactiveX",
+    "Streams",
+    "Observables",
+    "Observable",
+    "Stream"
+  ],
+  "author": "Valentin Richard",
+  "license": "MIT",
+  "access": "public",
+  "dependencies": {}
+}

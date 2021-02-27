@@ -1,0 +1,39 @@
+import { ISubscribeFunction } from '../../../../types';
+import { ContainerNode } from '../../container-node';
+import { subscribeOnNodeConnectedTo } from '../../../misc/subscribe-on-node-connected-to';
+import { ITemplate } from '../template-interface';
+import { createEmptyTemplate } from '../create-empty-template';
+import { detachNode } from '../../../dom-mutation/node/detach-node';
+import { attachNode } from '../../../dom-mutation/node/attach-node';
+
+
+/**
+ * A Node which injects a different template according to a SubscribeFunction
+ */
+export class ReactiveIfNode extends ContainerNode {
+  constructor(
+    subscribe: ISubscribeFunction<boolean>,
+    templateTrue: ITemplate<[]> = createEmptyTemplate,
+    templateFalse: ITemplate<[]> = createEmptyTemplate,
+  ) {
+    super();
+    let nodes: Node[] = [];
+
+    subscribeOnNodeConnectedTo<boolean>(this, subscribe, (value: boolean) => {
+      while (nodes.length > 0) {
+        detachNode(nodes.pop() as Node);
+      }
+
+      const fragment: DocumentFragment = value
+        ? templateTrue()
+        : templateFalse();
+
+      let _node: Node | null;
+      while ((_node = fragment.firstChild) !== null) {
+        detachNode(_node);
+        attachNode(_node, this, null);
+        nodes.push(_node);
+      }
+    });
+  }
+}

@@ -1,0 +1,106 @@
+<div class="resize-container">
+  <div class="resize left top"></div>
+  <div class="resize left center"></div>
+  <div class="resize left bottom"></div>
+
+  <div class="resize right top"></div>
+  <div class="resize right center"></div>
+  <div class="resize right bottom"></div>
+
+  <div class="resize center top"></div>
+  <div class="resize center bottom"></div>
+</div>
+
+
+<div class="frame">
+  <div class="header">
+    <div class="header-elements">
+      <div class="home">
+        <div
+            class="home-button"
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="tabs-relative-container">
+<!--          <div class="tabs-absolute-container">-->
+
+<!--          </div>-->
+        </div>
+      </div>
+
+      <div class="window-buttons">
+        <div
+            class="menu-button"
+            (click)="$.onClickMenuButton"
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div
+            class="minimize-button"
+            (click)="$.onClickMinimizeButton"
+        ></div>
+        <div
+            class="maximize-button"
+            *if="$.maximizeButtonVisible"
+            (click)="$.onClickMaximizeButton"
+        ></div>
+        <div
+            class="reduce-button"
+            *if="$.reduceButtonVisible"
+            (click)="$.onClickReduceButton"
+        ></div>
+        <div
+            class="close-button"
+            (click)="$.onClickCloseButton"
+        ></div>
+      </div>
+
+<!--      <div class="window-buttons">-->
+<!--        <div-->
+<!--            class="menu-button"-->
+<!--            [title]="$translate('window.header.button.menu')"-->
+<!--            (click)="$.onClickMenuButton"-->
+<!--        >-->
+<!--          <div></div>-->
+<!--          <div></div>-->
+<!--          <div></div>-->
+<!--        </div>-->
+<!--        <div-->
+<!--            class="minimize-button"-->
+<!--            [title]="$translate('window.header.button.minimize')"-->
+<!--            (click)="$.onClickMinimizeButton"-->
+<!--        ></div>-->
+<!--        <div-->
+<!--            class="maximize-button"-->
+<!--            *if="$and($not(data.$isMaximized), data.$enableUserResize)"-->
+<!--            [title]="$translate('window.header.button.maximize')"-->
+<!--            (click)="$.onClickMaximizeButton"-->
+<!--        ></div>-->
+<!--        <div-->
+<!--            class="reduce-button"-->
+<!--            *if="$and(data.$isMaximized, data.$enableUserResize)"-->
+<!--            [title]="$translate('window.header.button.reduce')"-->
+<!--            (click)="$.onClickReduceButton"-->
+<!--        ></div>-->
+<!--        <div-->
+<!--            class="close-button"-->
+<!--            [title]="$translate('window.header.button.close')"-->
+<!--            (click)="$.onClickCloseButton"-->
+<!--        ></div>-->
+<!--      </div>-->
+    </div>
+  </div>
+
+  <div class="content">
+    content
+  </div>
+</div>
+

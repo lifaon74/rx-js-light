@@ -1,0 +1,104 @@
+// import { noop } from '../helpers/noop';
+// import { IEmitFunction, IUnsubscribeFunction } from '../../types';
+// import { ISource } from './source-interface';
+//
+// export interface ISourceOnActive {
+//   (): void;
+// }
+//
+// export interface ISourceOnInactive {
+//   (): void;
+// }
+//
+// export interface ICreateSourceOptions {
+//   readonly onActive?: ISourceOnActive;
+//   readonly onInactive?: ISourceOnInactive;
+// }
+//
+// /**
+//  * A MulticastSource is used to emit one value to multiple observers
+//  *  - if the source receives its first observer (from 0 to 1 observer), onActive is called.
+//  *  - if the source loose its last observer (from 1 to 0 observer), onInactive is called.
+//  */
+// export function createMulticastSource<GValue>(
+//   options?: ICreateSourceOptions
+// ): ISource<GValue> {
+//
+//   const onActive: ISourceOnActive = ((options === void 0) || (options.onActive === void 0)) ? noop : options.onActive;
+//   const onInactive: ISourceOnInactive = ((options === void 0) || (options.onInactive === void 0)) ? noop : options.onInactive;
+//
+//   let _emitFunctions: IEmitFunction<GValue>[] = [];
+//   let _isDispatching = false;
+//
+//   const _cloneEmitFunctionsIfDispatching = (): void => {
+//     if (_isDispatching) {
+//       _emitFunctions = _emitFunctions.slice();
+//     }
+//   };
+//
+//   return Object.freeze({
+//     getObservers(): readonly IEmitFunction<GValue>[] {
+//       return _emitFunctions;
+//     },
+//     emit: (value: GValue): void => {
+//       if (_isDispatching) {
+//         throw new Error(`The Source is already dispatching a value. You probably created a recursive loop.`);
+//       } else {
+//         const emitFunctions: IEmitFunction<GValue>[] = _emitFunctions;
+//         const lengthMinusOne: number = emitFunctions.length - 1;
+//         if (lengthMinusOne >= 0) {
+//           _isDispatching = true;
+//           for (let i = 0; i < lengthMinusOne; i++) {
+//             emitFunctions[i](value);
+//           }
+//           _isDispatching = false;
+//           emitFunctions[lengthMinusOne](value);
+//         }
+//       }
+//     },
+//     subscribe: (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {
+//       if (_emitFunctions.includes(emit)) {
+//         throw new Error(`Already subscribed to this Source`);
+//       } else {
+//         let running: boolean = true;
+//         _cloneEmitFunctionsIfDispatching();
+//         _emitFunctions.push(emit);
+//         if (_emitFunctions.length === 1) {
+//           onActive();
+//         }
+//         return () => {
+//           if (running) {
+//             running = false;
+//             _cloneEmitFunctionsIfDispatching();
+//             _emitFunctions.splice(_emitFunctions.indexOf(emit), 1);
+//             if (_emitFunctions.length === 0) {
+//               onInactive();
+//             }
+//           }
+//         };
+//       }
+//     },
+//   });
+// }
+//
+//
+//
+
+
+// export function multicastOperator<GValue>(): IOperatorFunction<GValue, GValue> {
+//   return (subscribe: ISubscribeFunction<GValue>): ISubscribeFunction<GValue> => {
+//     let unsubscribe: IUnsubscribeFunction;
+//     const source: ISource<GValue> = createMulticastSource<GValue>({
+//       onActive(): void {
+//         unsubscribe = subscribe((value: GValue) => {
+//           source.emit(value);
+//         });
+//       },
+//       onInactive(): void {
+//         unsubscribe();
+//       },
+//     });
+//     return source.subscribe;
+//   };
+// }
+

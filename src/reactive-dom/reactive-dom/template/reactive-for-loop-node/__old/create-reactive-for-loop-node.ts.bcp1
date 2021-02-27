@@ -1,0 +1,233 @@
+import { IEmitFunction, ISubscribeFunction } from '../../../../types';
+import { ContainerNode } from '../../container-node';
+import { uuid } from '../../../../misc/helpers/uuid';
+import { subscribeOnNodeConnectedTo } from '../../../misc/subscribe-on-node-connected-to';
+import { ITemplate, ITemplateNodeList } from '../../../light-dom/template/template-interface';
+import { trackByIdentity } from './track-by-identity';
+import { createSource } from '../../../../misc/source/create-source';
+import { ISource } from '../../../../misc/source/source-interface';
+import { getChildNodes } from '../../../light-dom/node/others/get-child-nodes';
+import { pipeSubscribeFunction } from '../../../../misc/helpers/pipe-subscribe-function';
+import { replayLastSharedOperator } from '../../../../operators/replay/replay-last/replay-last';
+import { distinctOperator } from '../../../../operators/distinct';
+import { detachStandardNode } from '../../../light-dom/node/move/standard/detach-standard-node';
+import { IStandardNode } from '../../../light-dom/node/type/is-standard-node';
+
+interface INodesAndIndex {
+  nodes: ITemplateNodeList;
+  index: IEmitFunction<number>;
+}
+
+// map from a value to a list of template's node
+type ITrackByMap = Map<any, INodesAndIndex[]>;
+
+function createTrackByMap(): ITrackByMap {
+  return new Map<any, INodesAndIndex[]>();
+}
+
+/**
+ * Gets and removes a INodesAndIndex from 'trackByMap'
+ */
+function popNodesOfTrackByMap(
+  trackByMap: ITrackByMap,
+  trackedBy: any,
+): INodesAndIndex {
+  const nodeList: INodesAndIndex[] = trackByMap.get(trackedBy) as INodesAndIndex[];
+  const nodes: INodesAndIndex = nodeList.shift() as INodesAndIndex; // or pop
+  if (nodeList.length === 0) {
+    trackByMap.delete(trackedBy);
+  }
+  return nodes;
+}
+
+/**
+ * Appends a INodesAndIndex into 'trackByMap'
+ */
+function pushNodesIntoTrackByMap(
+  trackByMap: ITrackByMap,
+  trackedBy: any,
+  nodes: INodesAndIndex,
+): void {
+  if (trackByMap.has(trackedBy)) {
+    (trackByMap.get(trackedBy) as INodesAndIndex[]).push(nodes);
+  } else {
+    trackedBy.set(trackedBy, [nodes]);
+  }
+}
+
+
+/*--*/
+
+// type IStandardNodeOrDocumentFragment = IStandardNode | DocumentFragment;
+//
+// interface IGenerateNodesFromItemsReturn {
+//   readonly currentTrackByMap: ITrackByMap; // the trackByMap generated
+//   readonly nodes: IStandardNodeOrDocumentFragment[]; // the list of nodes to append (DocumentFragment) / move (IStandardNode)
+// }
+
+type ITemplateNodeListOrDocumentFragment = ITemplateNodeList | DocumentFragment;
+
+interface IGenerateNodesFromItemsReturn {
+  readonly currentTrackByMap: ITrackByMap; // the trackByMap generated
+  readonly nodes: ITemplateNodeListOrDocumentFragment[]; // the list of nodes to append (DocumentFragment) / move (ITemplateNodeList)
+}
+
+/**
+ * Generates the list of nodes to insert or move from a list of items,
+ * INFO: for performance reason, the nodes will be moved / attached after we remove the unused ones
+ */
+function generateNodesFromItems<GItem>(
+  previousTrackByMap: ITrackByMap,
+  template: IReactiveForLoopNodeTemplate<GItem>,
+  items: Iterable<GItem>,
+  trackBy: IReactiveForLoopNodeTrackByFunction<GItem>,
+): IGenerateNodesFromItemsReturn {
+  const currentTrackByMap: ITrackByMap = createTrackByMap();
+  const nodes: ITemplateNodeListOrDocumentFragment[] = [];
+
+  // iterate over the list of received items
+  let index: number = 0;
+  const itemsIterator: Iterator<GItem> = items[Symbol.iterator]();
+  let itemsIteratorResult: IteratorResult<GItem>;
+  while (!(itemsIteratorResult = itemsIterator.next()).done) {
+    const item: GItem = itemsIteratorResult.value;
+
+    // generates the trackBy value
+    const trackedBy: any = trackBy(item, index);
+
+    if (previousTrackByMap.has(trackedBy)) { // if the nodes already exists for this trackBy value
+      const currentNodes: INodesAndIndex = popNodesOfTrackByMap(previousTrackByMap, trackedBy); // removes an entry from previousTrackByMap
+      pushNodesIntoTrackByMap(currentTrackByMap, trackedBy, currentNodes); // and put it into currentTrackByMap
+      // moveStandardNodes(currentNodes.nodes, containerNode, null); // then move nodes at their proper place
+      currentNodes.index(index);
+      nodes.push(currentNodes.nodes);
+    } else {
+
+      // create index source
+      const indexSource: ISource<number> = createSource<number>();
+      const subscribeIndex: ISubscribeFunction<number> = pipeSubscribeFunction(indexSource.subscribe, [
+        distinctOperator<number>(),
+        replayLastSharedOperator<number>(),
+      ]);
+      indexSource.emit(index);
+
+      // create fragment from template
+      const fragment: DocumentFragment = template(item, subscribeIndex);
+
+      // insert it into currentTrackByMap
+      pushNodesIntoTrackByMap(currentTrackByMap, trackedBy, {
+        nodes: getChildNodes(fragment),
+        index: indexSource.emit,
+      });
+
+      nodes.push(fragment);
+      // attachDocumentFragment(fragment, containerNode, null);
+    }
+
+    index++;
+  }
+
+  return {
+    currentTrackByMap,
+    nodes,
+  };
+}
+
+/**
+ * Detaches from the DOM all nodes present in 'trackByMap'
+ */
+function detachNodesOfTrackByMap(
+  trackByMap: ITrackByMap,
+): void {
+  const trackByMapIterator: Iterator<INodesAndIndex[]> = trackByMap.values();
+  let trackByMapIteratorResult: IteratorResult<INodesAndIndex[]>;
+  while (!(trackByMapIteratorResult = trackByMapIterator.next()).done) {
+    const nodeList: INodesAndIndex[] = trackByMapIteratorResult.value;
+    for (let i = 0, li = nodeList.length; i < li; i++) {
+      const nodes: ITemplateNodeList = nodeList[i].nodes;
+      for (let j = 0, lj = nodes.length; j < lj; j++) {
+        detachStandardNode(nodes[i]);
+      }
+    }
+  }
+}
+
+
+/**
+ * Detaches from the DOM all nodes present in 'trackByMap'
+ */
+function attachOrMoveNodes(
+  nodes: IStandardNodeOrDocumentFragment[],
+  parentNode: Node,
+): void {
+  let _node: Node | null = parentNode.firstChild; // the node to replace
+  for (let i = 0, l = nodes.length; i < l; i++) {
+    const node: Node = newNodes[i];
+
+    if (node !== _node) {
+      // console.log('insertBefore', i);
+      // this.insertBefore(node, _node);
+      AttachNode(node, instance, _node);
+    }
+
+    const indexEmitter: ISource<number> = nodeToIndexEmitterMap.get(node) as ISource<number>;
+    indexEmitter.emit(i);
+
+    _node = (node === instance.lastChild) ? null : node.nextSibling;
+  }
+}
+
+
+/*--------*/
+
+export type IReactiveForLoopNodeTemplateArguments<GItem> = [item: GItem, index: ISubscribeFunction<number>];
+
+export type IReactiveForLoopNodeTemplate<GItem> = ITemplate<IReactiveForLoopNodeTemplateArguments<GItem>>;
+
+
+export interface IReactiveForLoopNodeTrackByFunction<GItem> {
+  (item: GItem, index: number): any;
+}
+
+export interface ICreateReactiveForLoopNodeOptions<GItem> {
+  trackBy?: IReactiveForLoopNodeTrackByFunction<GItem>;
+}
+
+
+// const NODE_TO_INDEX_EMITTER_MAP = new WeakMap<Node, IEmitFunction<number>>();
+
+export function createReactiveForLoopNode<GItem, GTrackByValue>(
+  subscribe: ISubscribeFunction<Iterable<GItem>>,
+  template: IReactiveForLoopNodeTemplate<GItem>,
+  {
+    trackBy = trackByIdentity,
+  }: ICreateReactiveForLoopNodeOptions<GItem> = {},
+): Comment {
+  const containerNode: ContainerNode = new ContainerNode(`FOR LOOP - ${ uuid() }`, true);
+
+  let previousTrackByMap: ITrackByMap = createTrackByMap();
+
+
+  subscribeOnNodeConnectedTo<Iterable<GItem>>(containerNode, subscribe, (items: Iterable<GItem>) => {
+
+    // generate the list of nodes to insert or move from a list of items
+    const { currentTrackByMap, nodes }: IGenerateNodesFromItemsReturn = generateNodesFromItems(
+      previousTrackByMap,
+      template,
+      items,
+      trackBy,
+    );
+
+    // every nodes remaining into previousTrackByMap are nodes that must be removed
+    detachNodesOfTrackByMap(previousTrackByMap);
+    previousTrackByMap = currentTrackByMap;
+
+
+  });
+
+  return containerNode;
+}
+
+
+
+
