@@ -1,11 +1,12 @@
 import { IProgress } from './progress-interface';
+import { freeze } from '../helpers/freeze';
 
 
 export function createProgress(
   loaded: number,
   total: number,
 ): IProgress {
-  return Object.freeze({
+  return freeze({
     loaded,
     total,
   });

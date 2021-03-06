@@ -10,6 +10,7 @@ export interface IExpressionFunction<GValue> {
 
 /**
  * Creates an Observable that runs 'callback' when idle time is available, and emit distinct returned values.
+ * @deprecated - EXPERIMENTAL
  */
 export function expression<GValue>(
   callback: IExpressionFunction<GValue>,

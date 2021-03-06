@@ -6,7 +6,7 @@ function mergeAllSubscribePipe<GValue>(
 ): ISubscribePipeFunction<ISubscribeFunction<GValue>, GValue>
 ```
 
-This function subscribes to a *SubscribeFunction* that emits *SubscribeFunctions*, also known as a higher-order *SubscribeFunction*.
+This function subscribes to a *SubscribeFunction* that emits some *SubscribeFunctions*, also known as a higher-order *SubscribeFunction*.
 
 Each time it observes one of these emitted inner *SubscribeFunction*, it subscribes to that and delivers all the values
 from the inner *SubscribeFunction* on the output *SubscribeFunction*.
@@ -17,18 +17,25 @@ If reached, it unsubscribes the least recent ones.
 The RxJS equivalent is [mergeAll](https://rxjs-dev.firebaseapp.com/api/operators/mergeAll)
 
 
-
 ### Examples
 
-TODO
-
-#### Title
+#### Example 1
 
 ```ts
+const subscribe = pipeSubscribeFunction(interval(1000), [
+  mapSubscribePipe(() => of(Math.random())),
+  mergeAllSubscribePipe(1),
+]);
+
+subscribe((value) => {
+  console.log(value);
+});
 ```
 
 Output:
 
 ```text
+0.04631441789007029
+0.05798639920106741
+...
 ```
-

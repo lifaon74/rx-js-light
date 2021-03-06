@@ -1,4 +1,4 @@
-import { isNull } from '../is-type/is-null';
+import { isNullish } from '../is-type/is-nullish';
 
 export interface IObjectPropertyPathOnIncomplete {
   (): any;
@@ -24,7 +24,7 @@ export function getObjectPropertyPathValue<GValue>(
   for (let i = 0, l = path.length; i < l; i++) {
     const propertyKey: PropertyKey = path[i];
     data = data[propertyKey];
-    if (isNull(data)) {
+    if (isNullish(data)) {
       return onIncompletePath();
     }
   }
@@ -50,7 +50,7 @@ export function setObjectPropertyPathValue<GValue>(
   for (let i = 0; i < lengthMinusOne; i++) {
     const propertyKey: PropertyKey = path[i];
     data = data[propertyKey];
-    if (isNull(data)) {
+    if (isNullish(data)) {
       return onIncompletePath();
     }
   }

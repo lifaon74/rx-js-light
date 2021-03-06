@@ -1,6 +1,7 @@
 import { IEmitFunction } from '../../types/emit-function/emit-function.type';
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
 import { IUnicastSource } from './unicast-source.type';
+import { freeze } from '../../misc/helpers/freeze';
 
 
 export function createUnicastSource<GValue>(
@@ -28,7 +29,7 @@ export function createUnicastSource<GValue>(
     }
   };
 
-  return Object.freeze({
+  return freeze({
     getObserver: (): IEmitFunction<GValue> | null => {
       return _emitFunction;
     },

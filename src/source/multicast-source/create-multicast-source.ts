@@ -2,11 +2,10 @@ import { noop } from '../../misc/helpers/noop';
 import { IEmitFunction } from '../../types/emit-function/emit-function.type';
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
 import { IMulticastSource } from './multicast-source.type';
+import { freeze } from '../../misc/helpers/freeze';
 
 
-export function createMulticastSource<GValue>(
-  disableDuplicateSubscribeVerification: boolean = false,
-): IMulticastSource<GValue> {
+export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
   let _emitFunctions: IEmitFunction<GValue>[] = [];
   let _dispatchingEmitFunctions: IEmitFunction<GValue>[]; // what is dispatched
   let _dispatchingCount: number = 0; // number of dispatch remaining
@@ -44,24 +43,74 @@ export function createMulticastSource<GValue>(
     };
   };
 
-  return Object.freeze({
+  return freeze({
     getObservers: (): readonly IEmitFunction<GValue>[] => {
       return _emitFunctions;
     },
     emit,
-    subscribe: (
-      disableDuplicateSubscribeVerification
-        ? subscribe
-        : (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {
-          if (_emitFunctions.includes(emit)) {
-            throw new Error(`Already subscribed to this Source`);
-          } else {
-            return subscribe(emit);
-          }
-        }
-    ),
+    subscribe,
   });
 }
+
+
+// export function createMulticastSource<GValue>(
+//   disableDuplicateSubscribeVerification: boolean = false,
+// ): IMulticastSource<GValue> {
+//   let _emitFunctions: IEmitFunction<GValue>[] = [];
+//   let _dispatchingEmitFunctions: IEmitFunction<GValue>[]; // what is dispatched
+//   let _dispatchingCount: number = 0; // number of dispatch remaining
+//
+//   const emit: IEmitFunction<GValue> = (value: GValue): void => {
+//     if (_dispatchingCount === 0) {
+//       // fix dispatching variables
+//       _dispatchingEmitFunctions = _emitFunctions; // copied as reference for faster execution time
+//       _dispatchingCount = _dispatchingEmitFunctions.length;
+//       // iterates until we have nothing more to dispatch
+//       for (let i = 0; _dispatchingCount > 0; i++, _dispatchingCount--) {
+//         _dispatchingEmitFunctions[i](value);
+//       }
+//     } else {
+//       throw new Error(`The Source is already dispatching a value. You probably created a recursive loop.`);
+//     }
+//   };
+//
+//   const subscribe: ISubscribeFunction<GValue> = (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {
+//     let running: boolean = true;
+//     // if we are dispatching, we must clone _emitFunctions, to avoid changing _dispatchingEmitFunctions
+//     if (_dispatchingCount > 0) { // if we are dispatching
+//       _emitFunctions = _emitFunctions.slice(); // clone _emitFunctions to avoid mutating _dispatchingEmitFunctions
+//     }
+//     _emitFunctions.push(emit);
+//     return () => {
+//       if (running) {
+//         running = false;
+//         if (_dispatchingCount > 0) { // if we are dispatching
+//           _dispatchingEmitFunctions[_dispatchingEmitFunctions.indexOf(emit)] = noop; // remove from _dispatchingEmitFunctions the emit function
+//           _emitFunctions = _emitFunctions.slice(); // clone _emitFunctions to avoid mutating _dispatchingEmitFunctions
+//         }
+//         _emitFunctions.splice(_emitFunctions.indexOf(emit), 1);
+//       }
+//     };
+//   };
+//
+//   return freeze({
+//     getObservers: (): readonly IEmitFunction<GValue>[] => {
+//       return _emitFunctions;
+//     },
+//     emit,
+//     subscribe: (
+//       disableDuplicateSubscribeVerification
+//         ? subscribe
+//         : (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {
+//           if (_emitFunctions.includes(emit)) {
+//             throw new Error(`Already subscribed to this Source`);
+//           } else {
+//             return subscribe(emit);
+//           }
+//         }
+//     ),
+//   });
+// }
 
 
 /**
@@ -132,7 +181,6 @@ export function createMulticastSource<GValue>(
 //   });
 // }
 //
-
 
 
 // export function createMulticastSource<GValue>(

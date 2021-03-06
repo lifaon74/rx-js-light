@@ -1,6 +1,7 @@
 import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../../../types';
 import { createMulticastSource } from '../../../../source/multicast-source/create-multicast-source';
 import { IMulticastSource } from '../../../../source/multicast-source/multicast-source.type';
+import { freeze } from '../../../../misc/helpers/freeze';
 
 
 interface IResizeObserverAndSubscription {
@@ -10,13 +11,13 @@ interface IResizeObserverAndSubscription {
 
 let RESIZE_OBSERVER_AND_SUBSCRIPTION_CACHED: IResizeObserverAndSubscription;
 
-export function getResizeObserverAndSubscription(): IResizeObserverAndSubscription {
+function getResizeObserverAndSubscription(): IResizeObserverAndSubscription {
   if (RESIZE_OBSERVER_AND_SUBSCRIPTION_CACHED === void 0) {
-    const source: IMulticastSource<ReadonlyArray<ResizeObserverEntry>> = createMulticastSource<ReadonlyArray<ResizeObserverEntry>>(true);
+    const source: IMulticastSource<ReadonlyArray<ResizeObserverEntry>> = createMulticastSource<ReadonlyArray<ResizeObserverEntry>>();
     const observer: ResizeObserver = new ResizeObserver((entries: ReadonlyArray<ResizeObserverEntry>) => {
       source.emit(entries);
     });
-    RESIZE_OBSERVER_AND_SUBSCRIPTION_CACHED = Object.freeze({
+    RESIZE_OBSERVER_AND_SUBSCRIPTION_CACHED = freeze({
       subscribe: source.subscribe,
       observer,
     });

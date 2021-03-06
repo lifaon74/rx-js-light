@@ -1,6 +1,6 @@
 import { IOnAborted } from './wrap-promise-with-abort-signal';
 import { createAbortError } from '../errors/abort-error/create-abort-error';
-import { isNull } from '../helpers/is-type/is-null';
+import { isNullish } from '../helpers/is-type/is-nullish';
 import { IGenericFunction } from '../functional/shared-types/generic-function.type';
 
 
@@ -52,7 +52,7 @@ export function wrapFunctionWithOptionalAbortSignalAndThrow<GFunction extends IG
   callback: GFunction,
   signal: AbortSignal | null | undefined,
 ): GFunction {
-  if (isNull(signal)) {
+  if (isNullish(signal)) {
     return callback;
   } else {
     return wrapFunctionWithAbortSignal<GFunction, () => never>(callback, signal, (): never => {

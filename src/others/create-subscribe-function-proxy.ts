@@ -1,6 +1,6 @@
 import { ISubscribeFunction } from '../types/subscribe-function/subscribe-function.type';
 import { pipeSubscribeFunction } from '../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
-import { mapSubscribePipe } from '../subscribe-function/subscribe-pipe/emit-pipe-related/map-subscribe-pipe';
+import { mapSubscribePipe } from '../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import { getOptionalObjectPropertyPathValue } from '../misc/helpers/property-path/get-object-property-path-value';
 
 export type ISubscribeFunctionProxy<GData> = {

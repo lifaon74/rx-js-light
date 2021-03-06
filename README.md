@@ -61,6 +61,9 @@ Differences with RxJS:
 
 ## 📦 Installation
 
+**BETA**: the lib is currently in beta, meaning it's stable enough for 95% of its functions,
+but little may evolve in the future. Feel free to test and give feedback.
+
 ```bash
 yarn add @lifaon/rx-js-light
 # or
@@ -80,6 +83,12 @@ however, in a **browser** environment, you'll need to resolve external imports t
 etc...
 or directly using [skypack](https://www.skypack.dev/):
 [https://cdn.skypack.dev/@lifaon/rx-js-light](https://cdn.skypack.dev/@lifaon/rx-js-light)
+
+**INFO:** you won't be able to directly measure the size of this library
+(ex: [bundlephobia](https://bundlephobia.com/)) as it has been optimized for tree-shacking and minification.
+No bundle is shipped with this lib: this ensures you properly optimize your project.
+If you only use typings, the lib will be 0 bytes, if you use only one function, only this one will be included, etc...
+So the size of this library will always be optimal. [You may find an example here](src/examples/example03.md)
 
 
 ## 📕 Documentation
@@ -117,8 +126,12 @@ Most of public functions or interfaces have their own documentation into a `.md`
   - async
     - async iterable: [fromAsyncIterable](src/subscribe-function/from/iterable/async/from-async-iterable/from-async-iterable.md)
     - async iterator ⚠️: [fromAsyncIterator](src/subscribe-function/from/iterable/async/from-async-iterator/from-async-iterator.md)
-  
-- an EventTarget: [fromEventTarget](src/subscribe-function/from/dom/from-event-target/from-event-target.md)
+
+- (something related to the DOM)
+  - an EventTarget: [fromEventTarget](src/subscribe-function/from/dom/from-event-target/from-event-target.md)
+  - an IntersectionObserver: [fromIntersectionObserver](src/subscribe-function/from/dom/from-intersection-observer/from-intersection-observer.md)
+  - an ResizeObserver: [fromResizeObserver](src/subscribe-function/from/dom/from-resize-observer/from-resize-observer.md)
+  - a css @media query: [fromMatchMedia](src/subscribe-function/from/dom/from-match-media/from-match-media.md)
   
 - a list of values:
   - without notifications: [of](src/subscribe-function/from/others/of/of.md)
@@ -180,13 +193,14 @@ Most of public functions or interfaces have their own documentation into a `.md`
 
 - emits only distinct received values: [distinctSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe.ts)
 - filters received values: [filterSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/filter-subscribe-pipe.ts)
-- transforms received values: [mapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/map-subscribe-pipe.ts)
+- transforms received values: [mapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe.ts)
 - reads received values, and re-emits them without transformations: [tapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/tap-subscribe-pipe.ts)
 - allows one SubscribeFunction to emit its values to many SubscribeFunction: [shareSubscribePipe](src/subscribe-function/subscribe-pipe/source-related/share-subscribe-pipe.ts)
+- reduce the order of a SubscribeFunction of SubscribeFunctions: [mergeAllSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-all-subscribe-pipe.md)
+- map a SubscribeFunction and reduce the order of a SubscribeFunction of SubscribeFunctions: [mergeMapSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-subscribe-pipe.ts)
 
 [comment]: <> (TODO better tree for source-related folder)
-[comment]: <> (TODO merge-all)
-[comment]: <> (TODO merge-map)
+
 
 #### emit a value myself => create a Source which emits values to
 
@@ -199,9 +213,9 @@ Most of public functions or interfaces have their own documentation into a `.md`
 
 #### others
 
-- chain many SubscribePipeFunctions: [pipeSubscribePipeFunctions](src/functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions.ts)
+- chain many SubscribePipeFunctions: [pipeSubscribePipeFunctions](src/functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions.md)
 - chain many SubscribePipeFunctions with a
-  SubscribeFunction: [pipeSubscribeFunction](src/functions/piping/pipe-subscribe-function/pipe-subscribe-function.ts)
+  SubscribeFunction: [pipeSubscribeFunction](src/functions/piping/pipe-subscribe-function/pipe-subscribe-function.md)
 
 
 

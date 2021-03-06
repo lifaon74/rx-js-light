@@ -1,5 +1,5 @@
 import { emitPipeToSubscribePipe } from './emit-pipe-to-subscribe-pipe';
-import { IMapFunction, mapEmitPipe } from '../../../pipes/map-emit-pipe';
+import { IMapFunction, mapEmitPipe } from '../../../pipes/map/map-emit-pipe';
 import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 import { ITabCallback, tapEmitPipe } from '../../../pipes';
 

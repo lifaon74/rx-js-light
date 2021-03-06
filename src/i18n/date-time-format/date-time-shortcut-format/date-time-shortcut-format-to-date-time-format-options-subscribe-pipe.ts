@@ -1,6 +1,6 @@
 import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 import { IDateTimeFormatOptions } from '../date-time-format.type';
-import { mapSubscribePipe } from '../../../subscribe-function/subscribe-pipe/emit-pipe-related/map-subscribe-pipe';
+import { mapSubscribePipe } from '../../../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import {
   dateTimeShortcutFormatToDateTimeFormatOptions, IDateTimeShortcutFormat
 } from './date-time-shortcut-format-to-date-time-format-options';

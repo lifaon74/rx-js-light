@@ -7,9 +7,7 @@ interface IMulticastSource<GValue> extends ISource<GValue> {
 ```
 
 ```ts
-function createMulticastSource<GValue>(
-  disableDuplicateSubscribeVerification: boolean = false,
-): ISource<GValue>;
+function createMulticastSource<GValue>(): ISource<GValue>;
 ```
 
 A *MulticastSource* is used to emit one value to multiple observers (*EmitFunction*).

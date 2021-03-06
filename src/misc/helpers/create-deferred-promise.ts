@@ -1,3 +1,5 @@
+import { freeze } from './freeze';
+
 export interface IDeferredPromise<GValue> {
   readonly promise: Promise<GValue>;
   readonly resolve: (value: GValue | PromiseLike<GValue>) => void;
@@ -16,7 +18,7 @@ export function createDeferredPromise<GValue>(): IDeferredPromise<GValue> {
     reject = _reject;
   });
 
-  return Object.freeze({
+  return freeze({
     promise,
     resolve,
     reject,

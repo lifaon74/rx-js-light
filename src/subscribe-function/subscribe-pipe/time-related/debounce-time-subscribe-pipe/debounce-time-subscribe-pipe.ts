@@ -1,8 +1,8 @@
-import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
-import { ISubscribeFunction, IUnsubscribeFunction } from '../../../types/subscribe-function/subscribe-function.type';
-import { IEmitFunction } from '../../../types/emit-function/emit-function.type';
-import { IAbortTimer } from '../../../misc/timer/abort-timer.type';
-import { createTimeout } from '../../../misc/timer/create-timeout';
+import { ISubscribePipeFunction } from '../../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
+import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
+import { IAbortTimer } from '../../../../misc/timer/abort-timer.type';
+import { createTimeout } from '../../../../misc/timer/create-timeout';
 
 
 
@@ -24,3 +24,4 @@ export function debounceTimeSubscribePipe<GValue>(
     };
   };
 }
+

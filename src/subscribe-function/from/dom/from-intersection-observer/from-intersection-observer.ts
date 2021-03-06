@@ -1,7 +1,5 @@
 import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../../../types';
 
-// https://github.com/lifaon74/observables/blob/master/src/observables/dom-resize/ResizeObserver.ts
-
 export function fromIntersectionObserver(
   element: Element,
   options?: IntersectionObserverInit,

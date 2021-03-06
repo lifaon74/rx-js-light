@@ -1,4 +1,4 @@
-import { IMapFunction } from '../../../../../pipes/map-emit-pipe';
+import { IMapFunction } from '../../../../../pipes/map/map-emit-pipe';
 import { mapSubscribePipeWithNotifications } from '../../../emit-pipe-related/with-notifications/map-subscribe-pipe-with-notifications';
 import {
   IDefaultNotificationsUnion, IGenericDefaultNotificationsUnion

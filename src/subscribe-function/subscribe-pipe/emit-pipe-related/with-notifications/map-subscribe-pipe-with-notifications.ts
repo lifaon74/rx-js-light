@@ -1,4 +1,4 @@
-import { IMapFunction, mapEmitPipe } from '../../../../pipes/map-emit-pipe';
+import { IMapFunction, mapEmitPipe } from '../../../../pipes/map/map-emit-pipe';
 import {
   emitPipeToSubscribePipeWithNotifications, IInferEmitPipeToSubscribePipeEmitPipeInValue,
   IEmitPipeToSubscribePipeWithNotificationsReturn

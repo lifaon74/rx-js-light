@@ -1,8 +1,10 @@
+import { freeze } from '../helpers/freeze';
+
 export function createFastArrayIterator<GValue>(): IFastArrayIterator<GValue> {
   let _array: GValue[] = [];
   let _isIterating = false;
 
-  return Object.freeze({
+  return freeze({
     isIterating(): boolean {
       return _isIterating;
     },

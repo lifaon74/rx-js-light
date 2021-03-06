@@ -2,6 +2,7 @@ import { IReplayLastSource } from './replay-last-source.type';
 import { IEmitFunction } from '../../types/emit-function/emit-function.type';
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
 import { ISource } from '../source.type';
+import { freeze } from '../../misc/helpers/freeze';
 
 export interface ICreateReplayLastSourceOptions<GValue> {
   initialValue?: GValue;
@@ -34,7 +35,7 @@ export function createReplayLastSource<GValue, GSource extends ISource<GValue>>(
     return source.subscribe(emit);
   };
 
-  return Object.freeze({
+  return freeze({
     ...source,
     getValue: (): GValue => {
       return currentValue as GValue;

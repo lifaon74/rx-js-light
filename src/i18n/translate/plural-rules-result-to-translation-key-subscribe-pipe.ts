@@ -1,5 +1,5 @@
 import { ISubscribePipeFunction } from '../../types/subscribe-pipe-function/subscribe-pipe-function.type';
-import { mapSubscribePipe } from '../../subscribe-function/subscribe-pipe/emit-pipe-related/map-subscribe-pipe';
+import { mapSubscribePipe } from '../../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import { distinctSubscribePipe } from '../../subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe';
 import { pipeSubscribePipeFunctions } from '../../functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions';
 import { IPluralRulesResult } from '../plural-rules/plural-rules.type';

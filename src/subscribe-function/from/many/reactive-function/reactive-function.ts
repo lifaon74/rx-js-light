@@ -2,7 +2,7 @@ import { combineLatest, ICombineLatestSubscribeFunctionsValues } from '../combin
 import { TMapValueTupleToSubscribeFunctionTuple } from '../types';
 import { pipeSubscribeFunction } from '../../../../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
 import { ISubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
-import { mapSubscribePipe } from '../../../subscribe-pipe/emit-pipe-related/map-subscribe-pipe';
+import { mapSubscribePipe } from '../../../subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import { distinctSubscribePipe } from '../../../subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe';
 import { passthrough } from '../../../../misc/helpers/passthrough';
 import { IGenericFunction } from '../../../../misc/functional/shared-types/generic-function.type';

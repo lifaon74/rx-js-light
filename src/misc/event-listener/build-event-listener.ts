@@ -1,6 +1,7 @@
 import { ISource } from '../../source/source.type';
 import { createMulticastSource } from '../../source/multicast-source/create-multicast-source';
 import { ISubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { freeze } from '../helpers/freeze';
 
 /* MAP **/
 
@@ -62,7 +63,7 @@ export interface IListenerDBuilderFunctions<GTarget extends object, GValue> {
 export function createListenerBuilderFunctions<GTarget extends object, GValue>(
   map: TListenersMap<GTarget, GValue>,
 ): IListenerDBuilderFunctions<GTarget, GValue> {
-  return Object.freeze({
+  return freeze({
     listener: createListenerFunction<GTarget, GValue>(map),
     dispatch: createListenerDispatchFunction<GTarget, GValue>(map),
   });

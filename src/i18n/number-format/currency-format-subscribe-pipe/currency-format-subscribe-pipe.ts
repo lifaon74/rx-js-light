@@ -2,7 +2,7 @@ import { ISubscribeFunction } from '../../../types/subscribe-function/subscribe-
 import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 import { numberFormatSubscribePipe } from '../number-format-subscribe-pipe/number-format-subscribe-pipe';
 import { pipeSubscribeFunction } from '../../../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
-import { mapSubscribePipe } from '../../../subscribe-function/subscribe-pipe/emit-pipe-related/map-subscribe-pipe';
+import { mapSubscribePipe } from '../../../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import { INumberFormatOptions } from '../number-format.type';
 import { ILocales } from '../../locales/locales.type';
 
