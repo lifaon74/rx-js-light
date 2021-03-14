@@ -20,7 +20,7 @@ export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
         _dispatchingEmitFunctions[i](value);
       }
     } else {
-      throw new Error(`The Source is already dispatching a value. You probably created a recursive loop.`);
+      throw new Error(`Already dispatching.`);
     }
   };
 

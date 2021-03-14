@@ -12,6 +12,7 @@
     "async",
     "observable"
   ],
+  "sideEffects": false,
   "author": "Valentin Richard",
   "license": "MIT",
   "access": "public",
