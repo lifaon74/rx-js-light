@@ -8,7 +8,7 @@ export function pipe<// generics
   GUnaryFunction extends IGenericUnaryFunction
   //
   >(
-  fns: GFunctions
+  fns: GFunctions,
 ): IInferPipeReturn<GFunctions, GUnaryFunction> {
   return ((firstArg: unknown): unknown => {
     return (fns as GUnaryFunction[]).reduce((value: any, fnc: GUnaryFunction) => fnc(value), firstArg);
@@ -37,14 +37,14 @@ export function pipe<// generics
 //   }
 // }
 
-export function pipeSpread<// generics
-  GFunctions extends IPipeConstraint<GFunctions, any, GUnaryFunction>,
-  GUnaryFunction extends IGenericUnaryFunction
-  //
-  >(
-  ...fns: GFunctions
-): IInferPipeReturn<GFunctions, GUnaryFunction> {
-  return pipe<GFunctions, GUnaryFunction>(fns);
-}
+// export function pipeSpread<// generics
+//   GFunctions extends IPipeConstraint<GFunctions, any, GUnaryFunction>,
+//   GUnaryFunction extends IGenericUnaryFunction
+//   //
+//   >(
+//   ...fns: GFunctions
+// ): IInferPipeReturn<GFunctions, GUnaryFunction> {
+//   return pipe<GFunctions, GUnaryFunction>(fns);
+// }
 
 

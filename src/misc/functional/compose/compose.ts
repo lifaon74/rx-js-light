@@ -15,14 +15,14 @@ export function compose<// generics
   }) as IInferComposeReturn<GFunctions, GUnaryFunction>;
 }
 
-export function composeSpread<// generics
-  GFunctions extends IComposeConstraint<GFunctions, any, GUnaryFunction>,
-  GUnaryFunction extends IGenericUnaryFunction
-  //
-  >(
-  ...fns: GFunctions
-): IInferComposeReturn<GFunctions, GUnaryFunction> {
-  return compose<GFunctions, GUnaryFunction>(fns);
-}
+// export function composeSpread<// generics
+//   GFunctions extends IComposeConstraint<GFunctions, any, GUnaryFunction>,
+//   GUnaryFunction extends IGenericUnaryFunction
+//   //
+//   >(
+//   ...fns: GFunctions
+// ): IInferComposeReturn<GFunctions, GUnaryFunction> {
+//   return compose<GFunctions, GUnaryFunction>(fns);
+// }
 
 

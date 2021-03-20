@@ -1,5 +1,6 @@
 import { ISameLength } from '../../shared-types/shared.type';
 import { IGenericUnaryFunction } from '../../shared-types/unary-function.type';
+import { IPipeNonTupleConstraint } from '../../shared-types/pipe-non-tuple-constraint.type';
 
 export type IPipeConstraint<// generics
   GFunctions extends readonly GUnaryFunction[], // list of unary functions
@@ -20,19 +21,7 @@ export type IPipeConstraint<// generics
               )
             : [(value: GFirstArgument) => any, ...ISameLength<GRest>]
           )
-        : (
-          [GFunctions] extends [(infer GFunction)[]]
-            ? (
-              GFunction extends ((value: infer GArgument) => infer GReturn)
-                ? (
-                  GArgument extends GReturn
-                    ? any[]
-                    : never[]
-                  )
-                : never[]
-              )
-            : never[]
-          )
+        : IPipeNonTupleConstraint<GFunctions>
       // : any[]
       // : GFunctions // cant because of circular constraint
       // : never[]
@@ -44,11 +33,11 @@ export type IPipeConstraint<// generics
 
 
 // type F0 = () => string;
-type F1 = (a: number) => string;
+// type F1 = (a: number) => string;
 // type F2 = (a: string) => boolean;
 // type F3 = (a: boolean) => bigint;
 // type F4 = (a: never) => bigint;
-type F5 = (a: number) => number;
+// type F5 = (a: number) => number;
 //
 // // // const g: (F0 extends F1 ? true : false); // true
 // //

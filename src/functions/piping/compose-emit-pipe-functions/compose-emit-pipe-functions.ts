@@ -16,9 +16,6 @@ export type IComposeEmitPipeFunctionsReturn<// generics
   >
   = IInferComposeReturn<GFunctions, IGenericEmitPipeFunction>;
 
-/**
- * @deprecated - EXPERIMENTAL - use at your own risks
- */
 export function composeEmitPipeFunctions<// generics
   GFunctions extends IComposeEmitPipeFunctionsConstraint<any, GFunctions>
   //
@@ -28,15 +25,15 @@ export function composeEmitPipeFunctions<// generics
   return compose<GFunctions, IGenericEmitPipeFunction>(fns);
 }
 
-/**
- * @deprecated - EXPERIMENTAL - use at your own risks
- */
-export function composeEmitPipeFunctionsSpread<// generics
-  GFunctions extends IComposeEmitPipeFunctionsConstraint<any, GFunctions>
-  //
-  >(
-  ...fns: GFunctions
-): IComposeEmitPipeFunctionsReturn<GFunctions> {
-  return composeEmitPipeFunctions<GFunctions>(fns);
-}
+// /**
+//  * @deprecated - EXPERIMENTAL - use at your own risks
+//  */
+// export function composeEmitPipeFunctionsSpread<// generics
+//   GFunctions extends IComposeEmitPipeFunctionsConstraint<any, GFunctions>
+//   //
+//   >(
+//   ...fns: GFunctions
+// ): IComposeEmitPipeFunctionsReturn<GFunctions> {
+//   return composeEmitPipeFunctions<GFunctions>(fns);
+// }
 

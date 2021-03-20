@@ -5,7 +5,7 @@ import { ISubscribeFunction } from '../../../../types/subscribe-function/subscri
 import { mapSubscribePipe } from '../../../subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import { distinctSubscribePipe } from '../../../subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe';
 import { passthrough } from '../../../../misc/helpers/passthrough';
-import { IGenericFunction } from '../../../../misc/functional/shared-types/generic-function.type';
+import { IGenericFunction } from '../../../../misc/types/generic-function.type';
 
 
 export type IReactiveFunctionSubscribeFunctions<GFunction extends IGenericFunction> = TMapValueTupleToSubscribeFunctionTuple<Parameters<GFunction>>;

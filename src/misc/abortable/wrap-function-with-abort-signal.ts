@@ -1,7 +1,7 @@
 import { IOnAborted } from './wrap-promise-with-abort-signal';
 import { createAbortError } from '../errors/abort-error/create-abort-error';
 import { isNullish } from '../helpers/is-type/is-nullish';
-import { IGenericFunction } from '../functional/shared-types/generic-function.type';
+import { IGenericFunction } from '../types/generic-function.type';
 
 
 export type IWrapFunctionWithAbortSignalReturnedFunctionReturn<GFunction extends IGenericFunction, GOnAborted extends IOnAborted> =

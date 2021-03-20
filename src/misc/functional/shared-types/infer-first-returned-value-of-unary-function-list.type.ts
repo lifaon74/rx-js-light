@@ -15,8 +15,7 @@ export type IInferFirstReturnedValueOfUnaryFunctionList<// generics
       )
     : never;
 
-export type IInferFirstReturnedValueOfUnaryFunctionListOrValue<
-  // generics
+export type IInferFirstReturnedValueOfUnaryFunctionListOrValue<// generics
   GFunctions extends readonly IGenericUnaryFunction[],
   GValue,
   //

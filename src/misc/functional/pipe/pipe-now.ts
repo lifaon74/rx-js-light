@@ -11,19 +11,19 @@ export function pipeNow<// generics
   //
   >(
   value: GValue,
-  fns: GFunctions
+  fns: GFunctions,
 ): IInferPipeNowReturn<GValue, GFunctions> {
   return pipe<GFunctions, GUnaryFunction>(fns)(value as never) as IInferPipeNowReturn<GValue, GFunctions>;
 }
 
-export function pipeNowSpread<// generics
-  GValue,
-  GFunctions extends IPipeConstraint<GFunctions, GValue, GUnaryFunction>,
-  GUnaryFunction extends IGenericUnaryFunction
-  //
-  >(
-  value: GValue,
-  ...fns: GFunctions
-): IInferPipeNowReturn<GValue, GFunctions> {
-  return pipeNow<GValue, GFunctions, GUnaryFunction>(value, fns);
-}
+// export function pipeNowSpread<// generics
+//   GValue,
+//   GFunctions extends IPipeConstraint<GFunctions, GValue, GUnaryFunction>,
+//   GUnaryFunction extends IGenericUnaryFunction
+//   //
+//   >(
+//   value: GValue,
+//   ...fns: GFunctions
+// ): IInferPipeNowReturn<GValue, GFunctions> {
+//   return pipeNow<GValue, GFunctions, GUnaryFunction>(value, fns);
+// }

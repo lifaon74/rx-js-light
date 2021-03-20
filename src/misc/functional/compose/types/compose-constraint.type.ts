@@ -1,9 +1,12 @@
 import { ISameLength } from '../../shared-types/shared.type';
 import { IGenericUnaryFunction } from '../../shared-types/unary-function.type';
+import { IPipeNonTupleConstraint } from '../../shared-types/pipe-non-tuple-constraint.type';
+
+
 
 export type IComposeConstraint<// generics
   GFunctions extends readonly GUnaryFunction[], // list of unary functions
-  GFirstReturn, // type of the first expected argument
+  GFirstReturn, // type of the first expected returned value
   GUnaryFunction extends IGenericUnaryFunction // shape of the unary function
   //
   > =
@@ -20,22 +23,32 @@ export type IComposeConstraint<// generics
               )
             : [(value: any) => GFirstReturn, ...ISameLength<GRest>]
           )
-        : (
-          [GFunctions] extends [(infer GFunction)[]]
-            ? (
-              GFunction extends ((value: infer GArgument) => infer GReturn)
-                ? (
-                  GArgument extends GReturn
-                    ? any[]
-                    : never[]
-                  )
-                : never[]
-              )
-            : never[]
-          )
-      // : GFunctions // cant because of circular constraint
-      // : never[]
+        : IPipeNonTupleConstraint<GFunctions>
       );
+
+// export type IComposeConstraint<
+//   // generics
+//   GFunctions extends readonly GUnaryFunction[], // list of unary functions
+//   GLastArgument, // type of the last expected argument
+//   GUnaryFunction extends IGenericUnaryFunction // shape of the unary function
+//   //
+//   > =
+//   [GFunctions] extends [[]] // to avoid circular constraint
+//     ? []
+//     : (
+//       [GFunctions] extends [[...infer GRest, infer GLast]] // to avoid circular constraint
+//         ? (
+//           GLast extends ((value: GLastArgument) => infer GFirstReturn)
+//             ? (
+//               GRest extends GUnaryFunction[]
+//                 ? [...IComposeConstraint<GRest, GFirstReturn, GUnaryFunction>, any]
+//                 : [...ISameLength<GRest>, (value: GLastArgument) => any]
+//               )
+//             : [(value: GLastArgument) => any, ...ISameLength<GRest>]
+//           )
+//         : IPipeNonTupleConstraint<GFunctions>
+//       );
+
 
 // export type IComposeConstraint<
 //   // generics

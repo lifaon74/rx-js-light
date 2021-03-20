@@ -20,7 +20,7 @@ export function pipeSubscribePipeFunctions<// generics
   GFunctions extends ISubscribePipeFunctionPipeConstraint<GFunctions>
   //
   >(
-  fns: GFunctions
+  fns: GFunctions,
 ): IPipeSubscribePipeFunctionsReturn<GFunctions> {
   return pipe<GFunctions, IGenericSubscribePipeFunction>(fns);
 }

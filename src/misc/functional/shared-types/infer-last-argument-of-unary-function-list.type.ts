@@ -16,6 +16,14 @@ export type IInferLastArgumentOfUnaryFunctionList<// generics
     : never;
 
 
+// export type IInferLastArgumentOfUnaryFunctionListOrValue<// generics
+//   GFunctions extends readonly IGenericUnaryFunction[],
+//   GValue,
+//   //
+//   > =
+//   GFunctions extends []
+//     ? GValue
+//     : IInferLastArgumentOfUnaryFunctionList<GFunctions>;
 
 // type F0 = () => string;
 // type F1 = (a: number) => string;

@@ -26,18 +26,18 @@ export function pipeSubscribeFunction<// generics
   //
   >(
   subscribe: GSubscribeFunction,
-  fns: GFunctions
+  fns: GFunctions,
 ): ISubscribeFunctionPipeReturn<GSubscribeFunction, GFunctions> {
   return pipeNow<GSubscribeFunction, GFunctions, IGenericSubscribePipeFunction>(subscribe, fns);
 }
 
-export function pipeSubscribeFunctionSpread<// generics
-  GSubscribeFunction extends IGenericSubscribeFunction,
-  GFunctions extends ISubscribeFunctionPipeConstraint<GSubscribeFunction, GFunctions>
-  //
-  >(
-  subscribe: GSubscribeFunction,
-  ...fns: GFunctions
-): ISubscribeFunctionPipeReturn<GSubscribeFunction, GFunctions> {
-  return pipeSubscribeFunction<GSubscribeFunction, GFunctions>(subscribe, fns);
-}
+// export function pipeSubscribeFunctionSpread<// generics
+//   GSubscribeFunction extends IGenericSubscribeFunction,
+//   GFunctions extends ISubscribeFunctionPipeConstraint<GSubscribeFunction, GFunctions>
+//   //
+//   >(
+//   subscribe: GSubscribeFunction,
+//   ...fns: GFunctions
+// ): ISubscribeFunctionPipeReturn<GSubscribeFunction, GFunctions> {
+//   return pipeSubscribeFunction<GSubscribeFunction, GFunctions>(subscribe, fns);
+// }
