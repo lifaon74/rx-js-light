@@ -1,4 +1,4 @@
-import { IProgress } from './progress-interface';
+import { IProgress } from './progress.type';
 
 
 export function isProgressLengthComputable(

@@ -61,9 +61,6 @@ Differences with RxJS:
 
 ## 📦 Installation
 
-**BETA**: the lib is currently in beta, meaning it's stable enough for 95% of its functions,
-but little may evolve in the future. Feel free to test and give feedback.
-
 ```bash
 yarn add @lifaon/rx-js-light
 # or

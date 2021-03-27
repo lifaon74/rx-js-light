@@ -6,3 +6,22 @@ export {
 export {
   distinctSubscribePipe as distinct
 } from '../subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe';
+
+export { pipeSubscribeFunction as pipeSF } from '../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
+export { mapSubscribePipe as mapSP } from '../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
+export {
+  filterSubscribePipe as filterSP
+} from '../subscribe-function/subscribe-pipe/emit-pipe-related/filter-subscribe-pipe';
+export {
+  distinctSubscribePipe as distinctSP
+} from '../subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe';
+
+
+export { pipeSubscribeFunction as pipe$$ } from '../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
+export { mapSubscribePipe as map$$$ } from '../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
+export {
+  filterSubscribePipe as filter$$$
+} from '../subscribe-function/subscribe-pipe/emit-pipe-related/filter-subscribe-pipe';
+export {
+  distinctSubscribePipe as distinct$$$
+} from '../subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe';

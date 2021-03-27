@@ -1,7 +1,7 @@
 import { INextNotification } from './built-in/next/next-notification.type';
-import { ICompleteNotification } from './built-in/complete-notification';
 import { IGenericNotification } from './notification.type';
 import { IErrorNotification } from './built-in';
+import { ICompleteNotification } from './built-in/complete';
 
 
 export type IDefaultNotificationsUnion<GValue> =

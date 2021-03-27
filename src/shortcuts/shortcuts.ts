@@ -13,7 +13,7 @@ name$$:
 name$$$:
   - () => () => SubscribeFunction
   - () => SubscribePipeFunction
-  - generator of generator of SubscribeFunction
+  - generator of generator of SubscribeFunction => pipes
 
 $name: EmitFunction
 

@@ -27,7 +27,7 @@
     "dev:package:tcs:cjs:onsuccess": "npm-run-all build:package:rename:cjs",
     "_________________OTHERS_________________": "",
     "clean:dist": "shx rm -rf ./dist",
-    "publish:package": "yarn publish ../dist --access public --tag beta",
+    "publish:package": "yarn publish ../dist --access public",
     "link:package": "cd ../dist && yarn link",
     "generate:toc": "markdown-toc ../README.md"
   },

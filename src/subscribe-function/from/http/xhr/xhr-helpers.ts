@@ -3,6 +3,32 @@ import { toTypedEventTarget } from '../../../../misc/event-listener/to-typed-eve
 import { createAbortError } from '../../../../misc/errors/abort-error/create-abort-error';
 import { createNetworkError } from '../../../../misc/errors/network-error/create-network-error';
 
+
+/** TYPES **/
+
+export interface XHRResponseInit extends ResponseInit {
+  url?: string;
+}
+
+export class XHRResponse extends Response {
+  protected _url: string;
+
+  constructor(
+    body?: BodyInit | null,
+    init?: XHRResponseInit,
+  ) {
+    super(body, init);
+    // @ts-ignore
+    this._url = init?.url ?? super.url;
+  }
+
+  get url(): string {
+    return this._url;
+  }
+}
+
+/** TYPES **/
+
 export type XHRResponseTypeExtended = XMLHttpRequestResponseType | 'binary-string';
 
 export function areReadableStreamSupported(): boolean {
@@ -447,11 +473,12 @@ export function parseRawHeaders(
  */
 export function XHRResponseToResponseInit(
   xhr: XMLHttpRequest,
-): ResponseInit {
+): XHRResponseInit {
   return {
     headers: new Headers(parseRawHeaders(xhr.getAllResponseHeaders())),
     status: xhr.status,
     statusText: xhr.statusText,
+    url: xhr.responseURL,
   };
 }
 
@@ -467,15 +494,15 @@ export function XHRResponseToResponse(
   switch (responseType) {
     case '':
     case 'text':
-      return new Response(xhr.response as string, init);
+      return new XHRResponse(xhr.response as string, init);
     case 'arraybuffer':
-      return new Response(xhr.response as ArrayBuffer, init);
+      return new XHRResponse(xhr.response as ArrayBuffer, init);
     case 'blob':
-      return new Response(xhr.response as Blob, init);
+      return new XHRResponse(xhr.response as Blob, init);
     case 'document':
     case 'json':
     case 'binary-string':
-      return new Response(XHRResponseToBlob(xhr, responseType), init);
+      return new XHRResponse(XHRResponseToBlob(xhr, responseType), init);
     default:
       throw new TypeError(`Unsupported response type '${ responseType }'`);
   }
@@ -489,7 +516,7 @@ export function XHRResponseToResponseUsingReadableStream(
   xhr: XMLHttpRequest,
   responseType?: XHRResponseTypeExtended
 ): Response {
-  return new Response(
+  return new XHRResponse(
     XHRResponseToReadableStream(xhr, responseType),
     XHRResponseToResponseInit(xhr),
   );

@@ -3,8 +3,3 @@ export interface IProgress {
   readonly total: number;
 }
 
-export type IGenericProgress = IProgress;
-
-
-
-
