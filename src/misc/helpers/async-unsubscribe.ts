@@ -1,5 +1,6 @@
 import { IUnsubscribeFunction } from '../../types';
 import { noop } from './noop';
+import { isReferenceError } from '../errors';
 
 export const DEFAULT_ON_ERROR_FOR_ASYNC_UNSUBSCRIBE = (error: any) => {
   throw error;
@@ -18,10 +19,7 @@ export function asyncUnsubscribe(
   try {
     unsubscribe = getUnsubscribe();
   } catch (error) {
-    if (
-      (error instanceof ReferenceError)
-      || (error.type === 'ReferenceError')
-    ) {
+    if (isReferenceError(error)) {
       setImmediate(() => {
         try {
           getUnsubscribe()();

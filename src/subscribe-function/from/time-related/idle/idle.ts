@@ -7,7 +7,9 @@ import { IAbortTimer } from '../../../../misc/timer/abort-timer.type';
 /**
  * Creates a SubscribeFunction that emits when idle time is available.
  */
-export function idle(): ISubscribeFunction<IdleDeadline> {
+export function idle(
+  options?: IdleRequestOptions,
+): ISubscribeFunction<IdleDeadline> {
   return (emit: IEmitFunction<IdleDeadline>): IUnsubscribeFunction => {
     let running: boolean = true;
     let abort: IAbortTimer;
@@ -17,7 +19,7 @@ export function idle(): ISubscribeFunction<IdleDeadline> {
         if (running) {
           loop();
         }
-      });
+      }, options);
     };
     loop();
     return (): void => {

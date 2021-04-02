@@ -1,5 +1,4 @@
 [![npm (scoped)](https://img.shields.io/npm/v/@lifaon/rx-js-light.svg)](https://www.npmjs.com/package/@lifaon/rx-js-light)
-![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@lifaon/rx-js-light.svg)
 ![npm](https://img.shields.io/npm/dm/@lifaon/rx-js-light.svg)
 ![NPM](https://img.shields.io/npm/l/@lifaon/rx-js-light.svg)
 ![npm type definitions](https://img.shields.io/npm/types/@lifaon/rx-js-light.svg)
@@ -101,6 +100,9 @@ So the size of this library will always be optimal. [You may find an example her
 - [Subscription](src/misc/subscription/subscription.md) (kind of: Subscription)
 
 Most of public functions or interfaces have their own documentation into a `.md` file in their respective directories. 
+
+If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](https://github.com/lifaon74/rx-js-light-shortcuts)
+
 
 ## 🔥️ Select the right function
 

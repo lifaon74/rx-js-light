@@ -4,7 +4,8 @@ import { createNotification } from '../../../../../misc/notifications/create-not
 import { createEventListener, IRemoveEventListener } from '../../../../../misc/event-listener/create-event-listener';
 import { toTypedEventTarget } from '../../../../../misc/event-listener/to-typed-event-target';
 import {
-  areReadableStreamSupported, initAndSendXHRFromRequest, XHRResponseToReadableStream, XHRResponseToResponse,
+  areReadableStreamSupported, initAndSendXHRFromRequest, XHRResponse, XHRResponseToReadableStream,
+  XHRResponseToResponse,
   XHRResponseToResponseInit, XHRResponseTypeExtended
 } from '../xhr-helpers';
 import { IProgress } from '../../../../../misc/progress/progress.type';
@@ -155,7 +156,7 @@ export function fromXHR(
               }
             } else {
               if (xhr.readyState === xhr.HEADERS_RECEIVED) {
-                next(new Response(stream, XHRResponseToResponseInit(xhr)));
+                next(new XHRResponse(stream, XHRResponseToResponseInit(xhr)));
               }
             }
           }

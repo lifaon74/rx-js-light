@@ -1,13 +1,13 @@
-import { IReactiveFunctionSubscribeFunctions, reactiveFunction } from '../../reactive-function';
+import { IReactiveFunctionSubscribeFunctions } from '../../reactive-function';
 import { ISubscribeFunction } from '../../../../../../types/subscribe-function/subscribe-function.type';
+import { distinctReactiveFunction } from '../others/distinct-reactive-function';
 
 export function reactiveLowerThanOrEqual(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof lowerThanOrEqual>
 ): ISubscribeFunction<ReturnType<typeof lowerThanOrEqual>> {
-  return reactiveFunction(
+  return distinctReactiveFunction(
     lowerThanOrEqual,
     subscribeFunctions,
-    true,
   );
 }
 

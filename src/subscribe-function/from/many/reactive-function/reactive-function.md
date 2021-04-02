@@ -4,8 +4,7 @@
 function reactiveFunction<GFunction extends IGenericFunction>(
   fnc: GFunction,
   subscribeFunctions: IReactiveFunctionSubscribeFunctions<GFunction>,
-  distinct: boolean = false,
-): IReactiveFunctionReturn<GFunction>
+): IReactiveFunctionReturn<GFunction>;
 ```
 
 Used to create a *"reactive function"* from a list of SubscribeFunctions: when a SubscribeFunction changes,
@@ -17,7 +16,6 @@ It simply does:
 ```ts
 pipeSubscribeFunction(combineLatest<GSubscribeFunctions>(subscribeFunctions), [
   mapSubscribePipe<GCombineLastSubscribeFunctions, GOut>((args: GCombineLastSubscribeFunctions) => fnc(...(args as any))),
-  distinct ? distinctSubscribePipe<GOut>() : passthrough,
 ]);
 ```
 

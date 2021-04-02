@@ -1,13 +1,13 @@
-import { IReactiveFunctionSubscribeFunctions, reactiveFunction } from '../../reactive-function';
+import { IReactiveFunctionSubscribeFunctions } from '../../reactive-function';
 import { ISubscribeFunction } from '../../../../../../types/subscribe-function/subscribe-function.type';
+import { distinctReactiveFunction } from '../others/distinct-reactive-function';
 
 export function reactiveGreaterThan(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof greaterThan>
 ): ISubscribeFunction<ReturnType<typeof greaterThan>> {
-  return reactiveFunction(
+  return distinctReactiveFunction(
     greaterThan,
     subscribeFunctions,
-    true,
   );
 }
 

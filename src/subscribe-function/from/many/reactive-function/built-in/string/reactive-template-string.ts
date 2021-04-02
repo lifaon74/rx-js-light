@@ -1,6 +1,6 @@
 import { ISubscribeFunction } from '../../../../../../types/subscribe-function/subscribe-function.type';
-import { reactiveFunction } from '../../reactive-function';
 import { of } from '../../../../others';
+import { distinctReactiveFunction } from '../others';
 
 /**
  * Creates a SubscribeFunction from a string template.
@@ -14,7 +14,7 @@ export function reactiveTemplateString(
   if (lengthMinusOne === 0) { // meaning subscribeFunctions === 0
     return of(parts[0]);
   } else {
-    return reactiveFunction((...values: any[]) => {
+    return distinctReactiveFunction((...values: any[]) => {
       let str: string = '';
       for (let i = 0; i < lengthMinusOne; i++) {
         str += parts[i] + values[i];

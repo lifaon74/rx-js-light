@@ -1,7 +1,9 @@
 ## interval
 
 ```ts
-function idle(): ISubscribeFunction<IdleDeadline>
+function idle(
+  options?: IdleRequestOptions,
+): ISubscribeFunction<IdleDeadline>
 ```
 
 Creates a SubscribeFunction that emits when idle time is available.
