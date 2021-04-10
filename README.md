@@ -10,9 +10,8 @@ This library provides tools to generate and consume blazing fast Observables and
 However, it is not RxJS: **it's faster, smaller, and tries to be simpler.** Give it a try, and you'll love it !  
 Because it's extremely light and performant, you may include it even in your smallest projects.
 
-
 [<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](src/examples/tutorial.md)
-
+[<img src="https://img.shields.io/badge/-purpose of rx js light-blue?style=for-the-badge" />](src/examples/goal.md)
 
 If you're not familiar with the concept of Observables you may
 check [the rxjs documentation](https://rxjs-dev.firebaseapp.com/guide/observable), or
@@ -41,22 +40,17 @@ subscribe(() => {
 
 This example displays the mouse position, with an *activate / deactivate* mechanism when we click.
 
-Differences with RxJS:
+---
 
-- no classes: this choice allows blazing fast performances and very small bundle size. Indeed, creating a class with
-  the `new` keyword is slow, and method names can't be mangled (minimized), where function calls are really well
-  optimized by javascript engines. However, it has a minor cost: chaining operators or method calls are done through
-  functions, which is a little less elegant (in terms of code readability).
+**For new incomers, starting with Observables looks truly complicated, and it's easy to think them useless:**
 
-- no `next`, `complete` and `error`: instead this lib use [notifications](src/misc/notifications/notifications.md).
-  In reality, not all *Observables* require to emit a final state. For example, the RxJS `interval`
-  never reaches a `complete` state. It just sends numbers. Moreover, some *Observables* may want to emit more
-  than this 3 *events*: we may imagine an XHR
-  Observable which emits an `upload-progress` and `download-progress` *events*.
+It's a different manner to thing how to compose your code: you don't *compute* static things => you react to changes.
+It's kind of pure asynchronous code.
 
-- some concepts / operators / methods may have a different behaviour or name.
-  Take care to read the documentation before any hasty use.
-  
+Mastering Observables allows you to code in a more concise way, with fewer variables, better resources' management,
+and with less inconsistent states in your application, as one change will cascade properly and update every other linked Observables.
+
+
 
 ## 📦 Installation
 
@@ -84,7 +78,7 @@ or directly using [skypack](https://www.skypack.dev/):
 (ex: [bundlephobia](https://bundlephobia.com/)) as it has been optimized for tree-shacking and minification.
 No bundle is shipped with this lib: this ensures you properly optimize your project.
 If you only use typings, the lib will be 0 bytes, if you use only one function, only this one will be included, etc...
-So the size of this library will always be optimal. [You may find an example here](src/examples/example03.md)
+So the size of this library will always be optimal. [You may find an example here](src/examples/example03.md).
 
 
 ## 📕 Documentation
@@ -215,8 +209,23 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 - chain many SubscribePipeFunctions: [pipeSubscribePipeFunctions](src/functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions.md)
 - chain many SubscribePipeFunctions with a
   SubscribeFunction: [pipeSubscribeFunction](src/functions/piping/pipe-subscribe-function/pipe-subscribe-function.md)
-
-
+  
 
 Can't find a function that suits your needs ? Open a discussion, or create your own and share it !
 
+## Differences with RxJS:
+
+- no classes: this choice allows blazing fast performances and very small bundle size. Indeed, creating a class with
+  the `new` keyword is slow, and method names can't be mangled (minimized), where function calls are really well
+  optimized by javascript engines. However, it has a minor cost: chaining operators or method calls are done through
+  functions, which is a little less elegant (in terms of code readability).
+
+- no `next`, `complete` and `error`: instead this lib use [notifications](src/misc/notifications/notifications.md).
+  In reality, not all *Observables* require to emit a final state. For example, the RxJS `interval`
+  never reaches a `complete` state. It just sends numbers. Moreover, some *Observables* may want to emit more
+  than this 3 *events*: we may imagine an XHR
+  Observable which emits an `upload-progress` and `download-progress` *events*.
+
+- some concepts / operators / methods may have a different behaviour or name.
+  Take care to read the documentation before any hasty use.
+  
