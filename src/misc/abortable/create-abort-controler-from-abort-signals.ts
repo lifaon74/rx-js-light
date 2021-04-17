@@ -5,7 +5,7 @@ import { createEventListener, IRemoveEventListener } from '../event-listener/cre
  * Creates an AbortController which will be aborted if/when one of the 'signals' is aborted
  */
 export function createAbortControllerFromAbortSignals(
-  signals: AbortSignal[]
+  signals: readonly AbortSignal[],
 ): AbortController {
   const abortController: AbortController = new AbortController();
 

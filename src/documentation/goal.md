@@ -100,7 +100,7 @@ function rxJSLightPerformancesExample() {
 
 ### Computed properties
 
-I'll call a *computed variable* a variable with depends on other variables: 
+I'll call a *computed variable* a variable which depends on other variables: 
 
 ```ts
 let count = 5;
@@ -131,9 +131,10 @@ and immediately reflected or cascaded to other computed variables using it.
 const $count$ = let$$(5);
 const $name$ = let$$('Alice');
 const str$ = string$$`${ $count$.subscribe } cars for ${ $name$.subscribe }`;
+// $count$.emit(10) will instaltly update str$ 
 ```
 
-Each of your variables which may mutate over time, **SHOULD** be converted into *SubscribeFunctions*.
+Each variables mutating over time, **SHOULD** be converted into *SubscribeFunctions*.
 And every computed values **SHOULD** be *SubscribeFunctions* built from piping these variables (mostly using map or filter for example).
 
 
@@ -155,7 +156,7 @@ If the user double-clicks or more, you'll end up with concurrent http requests, 
 `rx-js-light` covers very well this use case, because *SubscribeFunctions* are lazy sources which when unsubscribed, 
 release their resources and cancel any pending tasks.
 
-So every async job, **SHOULD** start from an *SubscribeFunctions*.
+So every async job, **SHOULD** begin with an *SubscribeFunctions*.
 
 Example:
 
@@ -172,7 +173,7 @@ container.appendChild(resultContainer);
 /* THE COMPLEX PART */
 const subscribe = pipe$$(fromEventTarget<'click', MouseEvent>(button, 'click'), [ // creates an observable listening to 'clicks' on 'button'
   debounce$$$<MouseEvent>(1000), // if the user clics twice or more, we only keep the last event for a period of 1000ms
-  mergeMap$$$<MouseEvent, ISubscribeFunctionFromFetchNotifications>( // mergeMap maps incoming values and converts an Observable of Observables into a lower order Observable
+  mergeMap$$$<MouseEvent, ISubscribeFunctionFromFetchNotifications>( // maps incoming values and converts an Observable of Observables into a lower order Observable
     () => fromFetch(API_URL), // creates an Observable performing an http request using the fetch API
     1, // limit to one the number of parallel merged Observables (optimization => cancels previous request, if any)
   ),

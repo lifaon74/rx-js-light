@@ -7,11 +7,11 @@
 
 This library provides tools to generate and consume blazing fast Observables and Observers.
 
-However, it is not RxJS: **it's faster, smaller, and tries to be simpler.** Give it a try, and you'll love it !  
+However, it is not RxJS: **it's faster (~3x), smaller (~10x), and tries to be simpler.** Give it a try, and you'll love it !  
 Because it's extremely light and performant, you may include it even in your smallest projects.
 
-[<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](src/examples/tutorial.md)
-[<img src="https://img.shields.io/badge/-purpose of rx js light-blue?style=for-the-badge" />](src/examples/goal.md)
+[<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](./src/documentation/examples/tutorial.md)
+[<img src="https://img.shields.io/badge/-purpose of rx js light-blue?style=for-the-badge" />](./src/documentation/examples/goal.md)
 
 If you're not familiar with the concept of Observables you may
 check [the rxjs documentation](https://rxjs-dev.firebaseapp.com/guide/observable), or
@@ -42,10 +42,10 @@ This example displays the mouse position, with an *activate / deactivate* mechan
 
 ---
 
-**For new incomers, starting with Observables looks truly complicated, and it's easy to think them useless:**
+**For new incomers, [starting with Observables looks truly complicated](https://dev.to/mfcodeworks/comment/11agc), and it's easy to think them useless:**
 
-It's a different manner to thing how to compose your code: you don't *compute* static things => you react to changes.
-It's kind of pure asynchronous code.
+It's a different manner to thing how to compose your code: you don't ***compute*** or ***get*** static things => you ***react*** to changes.
+It's kind of pure asynchronous code. You'll code with **PUSH** stuff instead of the traditional **PULL** approach.
 
 Mastering Observables allows you to code in a more concise way, with fewer variables, better resources' management,
 and with less inconsistent states in your application, as one change will cascade properly and update every other linked Observables.
@@ -78,7 +78,7 @@ or directly using [skypack](https://www.skypack.dev/):
 (ex: [bundlephobia](https://bundlephobia.com/)) as it has been optimized for tree-shacking and minification.
 No bundle is shipped with this lib: this ensures you properly optimize your project.
 If you only use typings, the lib will be 0 bytes, if you use only one function, only this one will be included, etc...
-So the size of this library will always be optimal. [You may find an example here](src/examples/example03.md).
+So the size of this library will always be optimal. [You may find an example here](./src/documentation/examples/example03.md).
 
 
 ## 📕 Documentation

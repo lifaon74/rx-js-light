@@ -42,7 +42,7 @@ export function wrapFunctionWithAbortSignalAndThrow<GFunction extends IGenericFu
   signal: AbortSignal,
 ): GFunction {
   return wrapFunctionWithAbortSignal<GFunction, () => never>(callback, signal, (): never => {
-    throw createAbortError();
+    throw createAbortError({ signal });
   }) as GFunction;
 }
 
@@ -56,7 +56,7 @@ export function wrapFunctionWithOptionalAbortSignalAndThrow<GFunction extends IG
     return callback;
   } else {
     return wrapFunctionWithAbortSignal<GFunction, () => never>(callback, signal, (): never => {
-      throw createAbortError();
+      throw createAbortError({ signal });
     }) as GFunction;
   }
 }

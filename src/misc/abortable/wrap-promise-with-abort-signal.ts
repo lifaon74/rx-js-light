@@ -1,6 +1,8 @@
 import { createEventListener, IRemoveEventListener } from '../event-listener/create-event-listener';
 import { toTypedEventTarget } from '../event-listener/to-typed-event-target';
 import { createAbortError } from '../errors/abort-error/create-abort-error';
+import { IPromiseFactory } from './promise-factory.type';
+import { DEFAULT_ABORTED_PROMISE_FACTORY } from './default-aborted-promise-factory.constant';
 
 export interface IOnFulfilled<GValue> {
   (value: GValue): void;
@@ -18,7 +20,7 @@ export interface IOnAborted {
  * Awaits that the promise is resolved or aborted and calls the proper callback
  */
 export function awaitPromiseFactoryWithAbortSignal<GValue>(
-  promiseFactory: (signal: AbortSignal) => Promise<GValue>,
+  promiseFactory: IPromiseFactory<GValue>,
   signal: AbortSignal,
   onFulfilled: IOnFulfilled<GValue>,
   onRejected: IOnRejected,
@@ -81,30 +83,37 @@ export function awaitPromiseWithAbortSignal<GValue>(
   );
 }
 
+
+export function abortSignalPromiseBranching<GValue>(
+  signal: AbortSignal,
+  promiseFactoryNotAborted: IPromiseFactory<GValue>,
+  promiseFactoryAborted: IPromiseFactory<GValue> = DEFAULT_ABORTED_PROMISE_FACTORY,
+): Promise<GValue> {
+  return signal.aborted
+    ? promiseFactoryAborted(signal)
+    : promiseFactoryNotAborted(signal);
+}
+
 /**
  * Wraps a promise factory with an AbortSignal:
  * - if aborted, returns a rejected promise
  * - else returns the promise
  */
 export function wrapPromiseFactoryWithAbortSignal<GValue>(
-  promiseFactory: (signal: AbortSignal) => Promise<GValue>,
+  promiseFactory: IPromiseFactory<GValue>,
   signal: AbortSignal,
 ): Promise<GValue> {
   return new Promise<GValue>((
     resolve: (value: GValue) => void,
     reject: (error: any) => void
   ) => {
-    if (signal.aborted) {
-      reject(createAbortError());
-    } else {
-      awaitPromiseWithAbortSignal(
-        promiseFactory(signal),
-        signal,
-        resolve,
-        reject,
-        () => reject(createAbortError())
-      );
-    }
+    awaitPromiseFactoryWithAbortSignal(
+      promiseFactory,
+      signal,
+      resolve,
+      reject,
+      () => reject(createAbortError({ signal }))
+    );
   });
 }
 
@@ -117,3 +126,29 @@ export function wrapPromiseWithAbortSignal<GValue>(
     signal,
   );
 }
+
+/*----*/
+
+
+//
+// export function promiseResolveWithAbortSignal<GValue>(
+//   value: GValue,
+//   signal: AbortSignal,
+// ): Promise<GValue> {
+//   return abortSignalBranching(signal, () => Promise.resolve(value));
+// }
+//
+// export function promiseRejectWithAbortSignal<GValue>(
+//   error: any,
+//   signal: AbortSignal,
+// ): Promise<GValue> {
+//   return abortSignalBranching(signal, () => Promise.reject(error));
+// }
+//
+// export function promiseAllWithAbortSignal<GValue>(
+//   promises: GValue[],
+//   signal: AbortSignal,
+// ): Promise<GValue[]> {
+//   return abortSignalBranching(signal, () => Promise.all(promises));
+// }
+

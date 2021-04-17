@@ -1,13 +1,16 @@
 import { ISubscribeFunction } from '../../../../types';
-import { ISubscribeFunctionToPromiseNotifications, toPromiseAll } from '../all';
-import { ISubscribeFunctionToPromiseOptions } from '../to-promise';
+import { ISubscribeFunctionToPromiseAllOptions, ISubscribeFunctionToPromiseNotifications, toPromiseAll } from '../all';
 
+export type ISubscribeFunctionToPromiseLastOptions = Omit<ISubscribeFunctionToPromiseAllOptions, 'maxNumberOfValues'>;
 
 export function toPromiseLast<GValue>(
   subscribe: ISubscribeFunction<ISubscribeFunctionToPromiseNotifications<GValue>>,
-  options?: ISubscribeFunctionToPromiseOptions
+  options?: ISubscribeFunctionToPromiseLastOptions,
 ): Promise<GValue> {
-  return toPromiseAll<GValue>(subscribe, options)
+  return toPromiseAll<GValue>(subscribe, {
+    ...options,
+    maxNumberOfValues: 1,
+  })
     .then((values: GValue[]): GValue => {
       if (values.length === 0) {
         throw new Error(`Not enough values`);
