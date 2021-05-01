@@ -10,21 +10,22 @@ This library provides tools to generate and consume blazing fast Observables and
 However, it is not RxJS: **it's faster (~3x), smaller (~10x), and tries to be simpler.** Give it a try, and you'll love it !  
 Because it's extremely light and performant, you may include it even in your smallest projects.
 
-[<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](./src/documentation/examples/tutorial.md)
-[<img src="https://img.shields.io/badge/-purpose of rx js light-blue?style=for-the-badge" />](./src/documentation/examples/goal.md)
+[<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](./src/documentation/tutorial.md)
+[<img src="https://img.shields.io/badge/-purpose of rx js light-blue?style=for-the-badge" />](./src/documentation/goal.md)
+[performances](./src/documentation/performances.md)
 
 If you're not familiar with the concept of Observables you may
 check [the rxjs documentation](https://rxjs-dev.firebaseapp.com/guide/observable), or
 [this excellent tutorial](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 
-The main purpose of Observables is to **react to changes**.
+The main purpose of Observables is to *provide an elegant framework for async events and elements*.
 
 **If anything in your app happens asynchronously, there is a high chance that an Observable will make that easier for you.**
 
 *Example:*
 
 ```js
-const subscription = new Subscription(
+const subscription = createSubscription(
   fromEventTarget(window, 'mousemove'),
   (event) => {
     console.log(event.clientX, event.clientY);
@@ -42,14 +43,19 @@ This example displays the mouse position, with an *activate / deactivate* mechan
 
 ---
 
-**For new incomers, [starting with Observables looks truly complicated](https://dev.to/mfcodeworks/comment/11agc), and it's easy to think them useless:**
+**For new incomers, [starting with Observables looks overcomplicated](https://dev.to/mfcodeworks/comment/11agc).**
+It's discouraging, and they feel pointless, just like the *Promises* in their time.
+However, they solve a very specific problem that we don't often think about it deeply:
+how to truly work with async elements ?
 
-It's a different manner to thing how to compose your code: you don't ***compute*** or ***get*** static things => you ***react*** to changes.
-It's kind of pure asynchronous code. You'll code with **PUSH** stuff instead of the traditional **PULL** approach.
+It's a different manner to compose your code: you don't ***compute*** or ***get*** static values => you ***react*** to changes.
+You trade the traditional **PULL** usage for the new **PUSH** paradigm.
 
 Mastering Observables allows you to code in a more concise way, with fewer variables, better resources' management,
 and with less inconsistent states in your application, as one change will cascade properly and update every other linked Observables.
 
+It's not for every usage, but if you work with a lot of async events, like in a standard web application,
+Observables should simplify many of your development.
 
 
 ## 📦 Installation
@@ -106,13 +112,13 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 
 - an iterable
   - sync
-    - array:
+    - array
       - without notifications: [fromArray](src/subscribe-function/from/iterable/sync/from-array/from-array.md)
       - with notifications: [fromArrayWithNotifications](src/subscribe-function/from/iterable/sync/from-array/with-notifications/from-array-with-notifications.md)
-    - iterable:
+    - iterable
       - without notifications: [fromIterable](src/subscribe-function/from/iterable/sync/from-iterable/from-iterable.md)
       - with notifications: [fromIterableWithNotifications](src/subscribe-function/from/iterable/sync/from-iterable/with-notifications/from-iterable-with-notifications.md)
-    - iterator ⚠️:
+    - iterator ⚠️
       - without notifications: [fromIterator](src/subscribe-function/from/iterable/sync/from-iterator/from-iterator.md)
       - with notifications: [fromIteratorWithNotifications](src/subscribe-function/from/iterable/sync/from-iterator/with-notifications/from-iterator-with-notifications.md)
 
@@ -120,13 +126,17 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
     - async iterable: [fromAsyncIterable](src/subscribe-function/from/iterable/async/from-async-iterable/from-async-iterable.md)
     - async iterator ⚠️: [fromAsyncIterator](src/subscribe-function/from/iterable/async/from-async-iterator/from-async-iterator.md)
 
-- (something related to the DOM)
+- something related to the DOM
   - an EventTarget: [fromEventTarget](src/subscribe-function/from/dom/from-event-target/from-event-target.md)
   - an IntersectionObserver: [fromIntersectionObserver](src/subscribe-function/from/dom/from-intersection-observer/from-intersection-observer.md)
   - an ResizeObserver: [fromResizeObserver](src/subscribe-function/from/dom/from-resize-observer/from-resize-observer.md)
   - a css @media query: [fromMatchMedia](src/subscribe-function/from/dom/from-match-media/from-match-media.md)
+    
+- one value
+  - already defined: [of](src/subscribe-function/from/others/of/of.md)
+  - defined later: [reference](/src/subscribe-function/from/others/reference/reference.md)
   
-- a list of values:
+- a list of values
   - without notifications: [of](src/subscribe-function/from/others/of/of.md)
   - with notifications: [ofWithNotifications](src/subscribe-function/from/others/of/with-notifications/of-with-notifications.ts)
 
@@ -146,7 +156,10 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
   
 - a blob (reads content): [readBlob](src/subscribe-function/from/dom/read-blob/read-blob.md)
   
-- many subscribe functions. When any value is received:
+- one SubscribeFunction
+  - defined later: [defer](/src/subscribe-function/from/others/defer/defer.md)
+  
+- many SubscribeFunctions. When any value is received
   - re-emit it concurrently: [merge](src/subscribe-function/from/many/merge/merge.ts)
   - combine the values in an array and emit it: [combineLatest](src/subscribe-function/from/many/combine-latest/combine-latest.md)
   - combine the values in an array, runs a function with these values, and emit distinct returned
@@ -176,7 +189,7 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 
 #### convert a SubscribeFunction to
 
-- a promise:
+- a promise
   - without notifications: [toPromise](src/subscribe-function/to/to-promise/to-promise.md)
   - with notifications:
     - with only the last value: [toPromiseLast](src/subscribe-function/to/to-promise/last/to-promise-last.md)
@@ -184,15 +197,26 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 
 #### create a SubscribePipeFunction which
 
-- emits only distinct received values: [distinctSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe.ts)
-- filters received values: [filterSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/filter-subscribe-pipe.ts)
-- transforms received values: [mapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe.ts)
-- reads received values, and re-emits them without transformations: [tapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/tap-subscribe-pipe.ts)
-- allows one SubscribeFunction to emit its values to many SubscribeFunction: [shareSubscribePipe](src/subscribe-function/subscribe-pipe/source-related/share-subscribe-pipe.ts)
-- reduce the order of a SubscribeFunction of SubscribeFunctions: [mergeAllSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-all-subscribe-pipe.md)
-- map a SubscribeFunction and reduce the order of a SubscribeFunction of SubscribeFunctions: [mergeMapSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-subscribe-pipe.ts)
+- EmitPipe related
+  - emits only distinct received values: [distinctSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe.ts)
+  - filters received values: [filterSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/filter-subscribe-pipe.ts)
+  - transforms received values: [mapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe.ts)
+  - reads received values, and re-emits them without transformations: [tapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/tap-subscribe-pipe.ts)
+  - converts an EmitPipeFunction to a SubscribePipeFunction: [emitPipeToSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/emit-pipe-to-subscribe-pipe.ts)
 
-[comment]: <> (TODO better tree for source-related folder)
+- Source related
+  - allows one SubscribeFunction to emit its values to many SubscribeFunction: [shareSubscribePipe](src/subscribe-function/subscribe-pipe/source-related/share-subscribe-pipe.ts)
+
+- reduces the order of a SubscribeFunction of SubscribeFunctions
+  - [mergeAllSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-all-subscribe-pipe.md)
+  - maps a SubscribeFunction and then reduces the order: [mergeMapSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-subscribe-pipe.ts)
+
+- time related
+  - [debounceTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-time-subscribe-pipe/debounce-time-subscribe-pipe.md)
+  - [periodTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/period-time-subscribe-pipe/period-time-subscribe-pipe.md)
+  - [debounceFrameSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-frame-subscribe-pipe/debounce-frame-subscribe-pipe.ts)
+
+- logs the state of the upper SubscribeFunction: [logStateSubscribePipe](src/subscribe-function/subscribe-pipe/log-state-subscribe-pipe.ts)
 
 
 #### emit a value myself => create a Source which emits values to

@@ -22,7 +22,7 @@ export function createReplayLastSource<GValue, GSource extends ISource<GValue>>(
     currentValue = options.initialValue as GValue;
   }
 
-  const emit: IEmitFunction<GValue> = (value: GValue) => {
+  const emit: IEmitFunction<GValue> = (value: GValue): void => {
     initialized = true;
     currentValue = value;
     source.emit(value);

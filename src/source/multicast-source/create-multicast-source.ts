@@ -10,13 +10,20 @@ export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
   let _dispatchingEmitFunctions: IEmitFunction<GValue>[]; // what is dispatched
   let _dispatchingCount: number = 0; // number of dispatch remaining
 
+  const cloneEmitFunctions = () => {
+    if (_emitFunctions === _dispatchingEmitFunctions) {
+      _emitFunctions = _emitFunctions.slice(); // clone _emitFunctions to avoid mutating _dispatchingEmitFunctions
+    }
+  };
+
   const emit: IEmitFunction<GValue> = (value: GValue): void => {
     if (_dispatchingCount === 0) {
       // fix dispatching variables
       _dispatchingEmitFunctions = _emitFunctions; // copied as reference for faster execution time
       _dispatchingCount = _dispatchingEmitFunctions.length;
       // iterates until we have nothing more to dispatch
-      for (let i = 0; _dispatchingCount > 0; i++, _dispatchingCount--) {
+      for (let i = 0; _dispatchingCount > 0; i++) {
+        _dispatchingCount--; // optimization
         _dispatchingEmitFunctions[i](value);
       }
     } else {
@@ -28,7 +35,7 @@ export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
     let running: boolean = true;
     // if we are dispatching, we must clone _emitFunctions, to avoid changing _dispatchingEmitFunctions
     if (_dispatchingCount > 0) { // if we are dispatching
-      _emitFunctions = _emitFunctions.slice(); // clone _emitFunctions to avoid mutating _dispatchingEmitFunctions
+      cloneEmitFunctions();
     }
     _emitFunctions.push(emit);
     return () => {
@@ -36,7 +43,7 @@ export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
         running = false;
         if (_dispatchingCount > 0) { // if we are dispatching
           _dispatchingEmitFunctions[_dispatchingEmitFunctions.indexOf(emit)] = noop; // remove from _dispatchingEmitFunctions the emit function
-          _emitFunctions = _emitFunctions.slice(); // clone _emitFunctions to avoid mutating _dispatchingEmitFunctions
+          cloneEmitFunctions();
         }
         _emitFunctions.splice(_emitFunctions.indexOf(emit), 1);
       }
