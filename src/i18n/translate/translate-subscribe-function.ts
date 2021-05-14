@@ -15,8 +15,8 @@ export function translateSubscribeFunction(
   options: ISubscribeFunction<IReactiveStringParameters> = of({}),
 ): ISubscribeFunction<string> {
   const translation: ISubscribeFunction<ISubscribeFunction<string>> = reactiveFunction(
-    reactiveTranslation,
     [translations, key, options],
+    reactiveTranslation,
   );
   return pipeSubscribeFunction(translation, [
     mergeAllSingleSubscribePipe(),

@@ -1,4 +1,3 @@
-
 // TODO awaiting for typing
 declare namespace Intl {
   type Locale = object;

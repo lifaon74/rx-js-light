@@ -1,8 +1,5 @@
-import { ISubscribeFunction } from '../../../types';
-import {
-  IDateTimeShortcutFormat
-} from './date-time-shortcut-format-to-date-time-format-options';
-import { ISubscribePipeFunction } from '../../../types';
+import { ISubscribeFunction, ISubscribePipeFunction } from '../../../types';
+import { IDateTimeShortcutFormat } from './date-time-shortcut-format-to-date-time-format-options';
 import { IDateTimeFormatValue } from '../date-time-format.type';
 import { pipeSubscribeFunction } from '../../../functions';
 import { dateTimeFormatSubscribePipe } from '../date-time-format-subscribe-pipe/date-time-format-subscribe-pipe';

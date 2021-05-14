@@ -22,7 +22,6 @@ Like `dateTimeFormatSubscribePipe` but accepts a `IDateTimeShortcutFormat` inste
 
 `format` is similar to the [angular date pipe](https://angular.io/api/common/DatePipe)
 
-
 ### Examples
 
 #### Display current date

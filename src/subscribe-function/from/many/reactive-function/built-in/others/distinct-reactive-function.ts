@@ -6,12 +6,12 @@ import {
 import { IGenericFunction } from '../../../../../../misc';
 
 export function distinctReactiveFunction<GFunction extends IGenericFunction>(
-  fnc: GFunction,
   subscribeFunctions: IReactiveFunctionSubscribeFunctions<GFunction>,
+  fnc: GFunction,
 ): IReactiveFunctionReturn<GFunction> {
   type GOut = ReturnType<GFunction>;
 
-  return pipeSubscribeFunction(reactiveFunction<GFunction>(fnc, subscribeFunctions), [
+  return pipeSubscribeFunction(reactiveFunction<GFunction>(subscribeFunctions, fnc), [
     distinctSubscribePipe<GOut>(),
   ]);
 }

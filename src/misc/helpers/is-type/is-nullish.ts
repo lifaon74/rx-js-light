@@ -1,4 +1,3 @@
-
 export type INullish = null | undefined;
 
 export function isNullish(

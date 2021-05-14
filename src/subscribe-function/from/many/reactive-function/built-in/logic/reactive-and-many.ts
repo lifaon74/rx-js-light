@@ -6,8 +6,8 @@ export function reactiveAndMany(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof andMany>
 ): ISubscribeFunction<ReturnType<typeof andMany>> {
   return distinctReactiveFunction(
-    andMany,
     subscribeFunctions,
+    andMany,
   );
 }
 

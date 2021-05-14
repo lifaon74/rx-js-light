@@ -1,7 +1,7 @@
 import { IMapFunction, mapEmitPipe } from '../../../../pipes/map/map-emit-pipe';
 import {
-  emitPipeToSubscribePipeWithNotifications, IInferEmitPipeToSubscribePipeEmitPipeInValue,
-  IEmitPipeToSubscribePipeWithNotificationsReturn
+  emitPipeToSubscribePipeWithNotifications, IEmitPipeToSubscribePipeWithNotificationsReturn,
+  IInferEmitPipeToSubscribePipeEmitPipeInValue
 } from './emit-pipe-to-subscribe-pipe-with-notification';
 
 

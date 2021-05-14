@@ -6,8 +6,8 @@ export function reactiveLowerThan(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof lowerThan>
 ): ISubscribeFunction<ReturnType<typeof lowerThan>> {
   return distinctReactiveFunction(
-    lowerThan,
     subscribeFunctions,
+    lowerThan,
   );
 }
 

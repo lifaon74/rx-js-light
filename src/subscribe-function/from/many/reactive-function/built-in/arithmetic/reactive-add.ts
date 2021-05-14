@@ -7,8 +7,8 @@ export function reactiveAdd(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof add>
 ): ISubscribeFunction<ReturnType<typeof add>> {
   return distinctReactiveFunction(
-    add,
     subscribeFunctions,
+    add,
   );
 }
 

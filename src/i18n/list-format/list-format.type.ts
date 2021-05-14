@@ -9,7 +9,8 @@ export type IListFormatType = 'conjunction' | 'disjunction' | 'unit';
 
 export type IListFormatStyle = 'long' | 'short' | 'narrow';
 
-export interface IListFormatOptions /*extends ListFormatOptions*/ {
+export interface IListFormatOptions /*extends ListFormatOptions*/
+{
   localeMatcher?: IListFormatLocaleMatcher;
   type?: IListFormatType;
   style?: IListFormatStyle;

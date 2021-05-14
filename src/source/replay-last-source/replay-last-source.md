@@ -25,13 +25,15 @@ interface ICreateReplayLastSourceOptions<GValue> {
 
 A *ReplayLastSource* is used to store a value and emit it each time we subscribe to it.
 
-When calling `createReplayLastSource` you must provide a `source` which is used to build the ReplayLastSource. You may choose for example, between an *UnicastSource*
+When calling `createReplayLastSource` you must provide a `source` which is used to build the ReplayLastSource. You may
+choose for example, between an *UnicastSource*
 or a *MulticastSource*.
 
-You may provide an initial value (`initialValue`). If you don't, the ReplayLastSource waits for the first value received.
+You may provide an initial value (`initialValue`). If you don't, the ReplayLastSource waits for the first value
+received.
 
-This is equivalent to the *[BehaviorSubject](https://rxjs-dev.firebaseapp.com/guide/subject)* if you provide a *MulticastSource*.
-
+This is equivalent to the *[BehaviorSubject](https://rxjs-dev.firebaseapp.com/guide/subject)* if you provide a *
+MulticastSource*.
 
 ### Extra - shortcut functions
 
@@ -46,8 +48,6 @@ function createUnicastReplayLastSource<GValue>(
   options?: ICreateUnicastReplayLastSourceOptions<GValue>,
 ): IReplayLastSource<GValue, IUnicastSource<GValue>>
 ```
-
-
 
 ### Examples
 

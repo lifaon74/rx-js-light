@@ -1,4 +1,4 @@
-import { IEmitFunction, IGenericEmitFunction } from '../emit-function/emit-function.type';
+import { IEmitFunction } from '../emit-function/emit-function.type';
 
 /**
  * Receives data, performs some operation on it, and may emits same or other data

@@ -6,8 +6,8 @@ export function reactiveDivide(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof divide>
 ): ISubscribeFunction<ReturnType<typeof divide>> {
   return distinctReactiveFunction(
-    divide,
     subscribeFunctions,
+    divide,
   );
 }
 

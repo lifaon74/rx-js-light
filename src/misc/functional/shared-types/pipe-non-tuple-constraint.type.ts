@@ -1,7 +1,6 @@
 import { IGenericUnaryFunction } from './unary-function.type';
 
-export type IPipeNonTupleConstraint<
-  // generics
+export type IPipeNonTupleConstraint<// generics
   GFunctions extends readonly IGenericUnaryFunction[], // list of unary functions
   //
   > =

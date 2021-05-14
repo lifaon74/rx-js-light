@@ -14,9 +14,9 @@ The SubscribeFunction emits values in the form of Notifications:
 - `complete`: when the promise is fulfilled
 - `error`: when the promise is rejected
 
-
-⚠️ `fromPromise` should be used only if you already have a Promise,
-else you should prefer to use [fromPromiseFactory](../from-promise-factory/from-promise-factory.md) which provides an AbortSignal to properly cancel any pending tasks.
+⚠️ `fromPromise` should be used only if you already have a Promise, else you should prefer to
+use [fromPromiseFactory](../from-promise-factory/from-promise-factory.md) which provides an AbortSignal to properly
+cancel any pending tasks.
 
 ### Examples
 

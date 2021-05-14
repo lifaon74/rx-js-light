@@ -2,7 +2,7 @@
 
 ### Computed variables
 
-I'll call a *computed variable* a variable which depends on other variables: 
+I'll call a *computed variable* a variable which depends on other variables:
 
 ```ts
 const STATE = {
@@ -16,12 +16,11 @@ STATE.message = `${ STATE.name } owns ${ STATE.count } cars`;
 
 Having such variables, may easily lead to **INCONSISTENCY**:
 
-If any of `name` or `count` changes, it's easy to forget to update `message`,
-creating a potential incoherent state in your application.
+If any of `name` or `count` changes, it's easy to forget to update `message`, creating a potential incoherent state in
+your application.
 
-I've seen and fixed hundreds of bugs related to these inaccurate implementations,
-especially when multiple developers works on the same codebase.
-On big applications, this grows in a nightmare:
+I've seen and fixed hundreds of bugs related to these inaccurate implementations, especially when multiple developers
+works on the same codebase. On big applications, this grows in a nightmare:
 it becomes very complicated to maintain a consistent state between all your variables.
 
 A common workaround is using a method or a getter:
@@ -41,8 +40,8 @@ changed when any of `name` or `count` changed.
 
 *I'm pretty sure you've experienced many times the same issue in your different projects.*
 
-`rx-js-light` perfectly handles this problem: if any of `name` or `count` changes, `message` will be updated too
-and immediately reflected or cascaded to other computed variables using it.
+`rx-js-light` perfectly handles this problem: if any of `name` or `count` changes, `message` will be updated too and
+immediately reflected or cascaded to other computed variables using it.
 
 ```ts
 const $name$ = let$$('Alice');
@@ -58,26 +57,26 @@ const STATE = {
 // $count$.emit(10) will instaltly update message$ 
 ```
 
-Each variables mutating over time, **SHOULD** be converted into *SubscribeFunctions*.
-And every computed values **SHOULD** be *SubscribeFunctions* built from piping these variables (mostly using map or filter for example).
-
+Each variables mutating over time, **SHOULD** be converted into *SubscribeFunctions*. And every computed values **
+SHOULD** be *SubscribeFunctions* built from piping these variables (mostly using map or filter for example).
 
 ### Async disposal
 
 It's extremely frequent to start async tasks like:
 
- - http request (fetch)
- - events listener (element.createEventListener)
- - or timers (setInterval)
+- http request (fetch)
+- events listener (element.createEventListener)
+- or timers (setInterval)
 
-However, most of the time (mostly due to laziness, let's admit it 🙄) developers don't handle cancellation (AbortSignal, removeEventListener, clearInterval),
-leading to memory leaks, unwanted concurrent / duplicate tasks, or incorrect resolve order.
+However, most of the time (mostly due to laziness, let's admit it 🙄) developers don't handle cancellation (AbortSignal,
+removeEventListener, clearInterval), leading to memory leaks, unwanted concurrent / duplicate tasks, or incorrect
+resolve order.
 
-For example, it's pretty common to start a http request when a user clicks on a button.
-If the user performs a double-click (or more), you may end up with concurrent http requests, and unexpected results
+For example, it's pretty common to start a http request when a user clicks on a button. If the user performs a
+double-click (or more), you may end up with concurrent http requests, and unexpected results
 (incorrect resolve order, server answering 'error' because the request was expected unique like a DELETE, etc...).
 
-`rx-js-light` covers very well this use case, because *SubscribeFunctions* are lazy sources which when unsubscribed, 
+`rx-js-light` covers very well this use case, because *SubscribeFunctions* are lazy sources which when unsubscribed,
 release their resources and cancel any pending tasks.
 
 So every async job, **SHOULD** begin with an *SubscribeFunctions*.
@@ -131,7 +130,6 @@ It may look complicated if you're not familiar with Observables, but as you may 
 
 At the end your code will be more compact, and with fewer bugs.
 
-
 ### Is it slower to code with 'rx-js-light'
 
 Short answer: **YES**
@@ -147,9 +145,8 @@ Instead of using:
 And having hard time to handle yourself every possibility, state, and update,
 `rx-js-light` provides a frameworks to support all these async events.
 
-If a value evolves through time, you'll create a *SubscribeFunction* (example with `let$$`),
-and use it through one or many *SubscribePipeFunctions* (example with `map$$`, `filter$$`, `function$$`, ...).
-
+If a value evolves through time, you'll create a *SubscribeFunction* (example with `let$$`), and use it through one or
+many *SubscribePipeFunctions* (example with `map$$`, `filter$$`, `function$$`, ...).
 
 So yes, writing:
 

@@ -7,7 +7,7 @@ export type INumberFormatCompactDisplay = 'short' | 'long';
 
 export type INumberFormatCurrency = string;
 
-export type INumberFormatCurrencyDisplay =  'symbol' | 'narrowSymbol' | 'code' | 'name';
+export type INumberFormatCurrencyDisplay = 'symbol' | 'narrowSymbol' | 'code' | 'name';
 
 export type INumberFormatCurrencySign = 'accounting' | 'standard';
 

@@ -1,6 +1,8 @@
-import { createNextNotification} from '../../../../../../misc/notifications/built-in/next/create-next-notification';
+import { createNextNotification } from '../../../../../../misc/notifications/built-in/next/create-next-notification';
 import { IEmitFunction } from '../../../../../../types/emit-function/emit-function.type';
-import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../../../types/subscribe-function/subscribe-function.type';
+import {
+  ISubscribeFunction, IUnsubscribeFunction
+} from '../../../../../../types/subscribe-function/subscribe-function.type';
 import { INextNotification } from '../../../../../../misc/notifications/built-in/next/next-notification.type';
 import {
   ICompleteNotification, STATIC_COMPLETE_NOTIFICATION

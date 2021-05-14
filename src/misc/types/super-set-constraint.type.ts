@@ -1,6 +1,3 @@
-import { IDefaultNotificationsUnion } from '../notifications/default-notifications-union.type';
-import { IAbortNotification } from '../notifications/built-in/abort-notification';
-
 // export type SuperSetConstraint<GSuperSet, GSubSet, GDefault = GSubSet> =
 //   [GSubSet] extends [GSuperSet]
 //     ? GDefault

@@ -1,0 +1,9 @@
+import { IListFormatOptions } from '../list-format';
+
+declare namespace IntlListFormat {
+  class ListFormat {
+    constructor(locales: string[], options?: IListFormatOptions);
+
+    public format: (items: ArrayLike<string>) => string;
+  }
+}

@@ -6,8 +6,8 @@ export function reactiveSubtract(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof subtract>
 ): ISubscribeFunction<ReturnType<typeof subtract>> {
   return distinctReactiveFunction(
-    subtract,
     subscribeFunctions,
+    subtract,
   );
 }
 

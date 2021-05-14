@@ -6,7 +6,8 @@ function debounceTimeSubscribePipe<GValue>(
 ): ISubscribePipeFunction<GValue, GValue>
 ```
 
-Emits a value from the source SubscribeFunction only after a particular time span has passed without another source emission.
+Emits a value from the source SubscribeFunction only after a particular time span has passed without another source
+emission.
 
 The RxJS equivalent is [debounceTime](https://rxjs-dev.firebaseapp.com/api/operators/debounceTime)
 

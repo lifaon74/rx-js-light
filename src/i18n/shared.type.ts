@@ -1,5 +1,3 @@
-
-
 export type ILocaleMatcher = 'lookup' | 'best fit';
 
 export type INumberingSystem = 'arab' | 'arabext' | 'bali' | 'beng' | 'deva' | 'fullwide' | 'gujr'

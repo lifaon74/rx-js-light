@@ -1,4 +1,4 @@
-import { IEmitFunction, IGenericEmitFunction } from '../types/emit-function/emit-function.type';
+import { IEmitFunction } from '../types/emit-function/emit-function.type';
 import { ISubscribeFunction } from '../types/subscribe-function/subscribe-function.type';
 
 /**

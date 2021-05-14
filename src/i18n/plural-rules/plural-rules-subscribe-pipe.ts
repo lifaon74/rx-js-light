@@ -11,12 +11,18 @@ export function pluralRulesSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
   options: ISubscribeFunction<IPluralRulesOptions> = of({}),
 ): ISubscribePipeFunction<IPluralRulesValue, IPluralRulesResult> {
-  const format: ISubscribeFunction<PluralRules> = reactiveFunction((locales: ILocales, options: IPluralRulesOptions): PluralRules => {
-    return new Intl.PluralRules(locales as string[], options);
-  }, [locales, options]);
+  const format: ISubscribeFunction<PluralRules> = reactiveFunction(
+    [locales, options],
+    (locales: ILocales, options: IPluralRulesOptions): PluralRules => {
+      return new Intl.PluralRules(locales as string[], options);
+    },
+  );
   return (subscribe: ISubscribeFunction<IPluralRulesValue>): ISubscribeFunction<IPluralRulesResult> => {
-    return reactiveFunction((value: IPluralRulesValue, format: PluralRules): IPluralRulesResult => {
-      return format.select(value);
-    }, [subscribe, format]);
+    return reactiveFunction(
+      [subscribe, format],
+      (value: IPluralRulesValue, format: PluralRules): IPluralRulesResult => {
+        return format.select(value);
+      },
+    );
   };
 }

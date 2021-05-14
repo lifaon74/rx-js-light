@@ -14,12 +14,12 @@ export function reactiveTemplateString(
   if (lengthMinusOne === 0) { // meaning subscribeFunctions === 0
     return of(parts[0]);
   } else {
-    return distinctReactiveFunction((...values: any[]) => {
+    return distinctReactiveFunction(subscribeFunctions, (...values: any[]) => {
       let str: string = '';
       for (let i = 0; i < lengthMinusOne; i++) {
         str += parts[i] + values[i];
       }
       return str + parts[lengthMinusOne];
-    }, subscribeFunctions);
+    });
   }
 }

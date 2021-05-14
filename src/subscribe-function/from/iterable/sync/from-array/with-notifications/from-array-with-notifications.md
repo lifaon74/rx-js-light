@@ -14,7 +14,6 @@ type ISubscribeFunctionFromArrayNotifications<GValue> =
 
 Creates a SubscribeFunction from an Array. It emits the array's values one by one in the form of Notifications.
 
-
 ### Examples
 
 #### Basic example

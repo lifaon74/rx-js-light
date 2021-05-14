@@ -6,7 +6,6 @@ function interval(
 ): ISubscribeFunction<void>
 ```
 
-
 Creates a SubscribeFunction that emits void every specified interval of time.
 
 ### Examples

@@ -6,8 +6,8 @@ export function reactiveAddMany(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof addMany>
 ): ISubscribeFunction<ReturnType<typeof addMany>> {
   return distinctReactiveFunction(
-    addMany,
     subscribeFunctions,
+    addMany,
   );
 }
 

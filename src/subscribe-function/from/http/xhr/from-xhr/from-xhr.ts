@@ -5,8 +5,7 @@ import { createEventListener, IRemoveEventListener } from '../../../../../misc/e
 import { toTypedEventTarget } from '../../../../../misc/event-listener/to-typed-event-target';
 import {
   areReadableStreamSupported, initAndSendXHRFromRequest, XHRResponse, XHRResponseToReadableStream,
-  XHRResponseToResponse,
-  XHRResponseToResponseInit, XHRResponseTypeExtended
+  XHRResponseToResponse, XHRResponseToResponseInit, XHRResponseTypeExtended
 } from '../xhr-helpers';
 import { IProgress } from '../../../../../misc/progress/progress.type';
 import { createProgressFromProgressEvent } from '../../../../../misc/progress/create-progress-from-progress-event';

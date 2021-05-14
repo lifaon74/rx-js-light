@@ -6,8 +6,8 @@ export function reactiveEqual(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof equal>
 ): ISubscribeFunction<ReturnType<typeof equal>> {
   return distinctReactiveFunction(
-    equal,
     subscribeFunctions,
+    equal,
   );
 }
 

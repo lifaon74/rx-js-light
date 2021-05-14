@@ -10,7 +10,6 @@ Creates a SubscribeFunction from a list of values Array. It emits the values one
 
 Spread equivalent of [fromArray](../../iterable/sync/from-array/from-array.md).
 
-
 ### Examples
 
 #### Basic example

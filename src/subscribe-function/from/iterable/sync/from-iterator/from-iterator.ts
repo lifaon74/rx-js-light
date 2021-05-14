@@ -1,6 +1,7 @@
-
 import { IEmitFunction } from '../../../../../types/emit-function/emit-function.type';
-import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../../types/subscribe-function/subscribe-function.type';
+import {
+  ISubscribeFunction, IUnsubscribeFunction
+} from '../../../../../types/subscribe-function/subscribe-function.type';
 
 /**
  * WARN use with caution: it's possible that you subscribe twice to the same Iterator, in this case the emitted values probably won't be what you expect

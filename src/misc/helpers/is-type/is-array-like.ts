@@ -1,4 +1,3 @@
-
 export function isArrayLike<GValue>(
   value: any
 ): value is ArrayLike<GValue> {

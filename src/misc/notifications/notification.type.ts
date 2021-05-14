@@ -1,4 +1,3 @@
-
 /** NOTIFICATION **/
 
 export interface INotification<GName extends string, GValue> {

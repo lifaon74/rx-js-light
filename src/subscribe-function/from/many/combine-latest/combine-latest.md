@@ -6,11 +6,11 @@ function combineLatest<GSubscribeFunctions extends readonly IGenericSubscribeFun
 ): ISubscribeFunction<ICombineLatestSubscribeFunctionsValues<GSubscribeFunctions>>
 ```
 
-`combineLatest` combines the values from all the SubscribeFunctions passed as arguments.
-This is done by subscribing to each SubscribeFunction in order and, whenever any SubscribeFunction emits,
-collecting an array of the most recent values from each SubscribeFunction.
-So if you pass *n* SubscribeFunctions, the returned SubscribeFunction will always emit an array of *n* values,
-in order corresponding to order of passed SubscribeFunctions (value from the first SubscribeFunction on the first place and so on).
+`combineLatest` combines the values from all the SubscribeFunctions passed as arguments. This is done by subscribing to
+each SubscribeFunction in order and, whenever any SubscribeFunction emits, collecting an array of the most recent values
+from each SubscribeFunction. So if you pass *n* SubscribeFunctions, the returned SubscribeFunction will always emit an
+array of *n* values, in order corresponding to order of passed SubscribeFunctions (value from the first
+SubscribeFunction on the first place and so on).
 
 ### Examples
 

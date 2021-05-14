@@ -6,8 +6,8 @@ export function reactiveOrMany(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof orMany>
 ): ISubscribeFunction<ReturnType<typeof orMany>> {
   return distinctReactiveFunction(
-    orMany,
     subscribeFunctions,
+    orMany,
   );
 }
 

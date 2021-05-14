@@ -16,7 +16,7 @@ interface ISubscribeFunctionFromXHROptions {
 
 Creates a SubscribeFunction performing an HTTP request using `XMLHttpRequest`.
 
-It's very similar to [fromFetch](../../from-fetch/from-fetch.md): 
+It's very similar to [fromFetch](../../from-fetch/from-fetch.md):
 it has the same arguments, however it emits 3 more Notifications:
 
 - `'upload-progress'`: inform about the progression of the upload

@@ -7,8 +7,8 @@ function fromIntersectionObserver(
 ): ISubscribeFunction<IntersectionObserverEntry>
 ```
 
-Creates a SubscribeFunction that creates an IntersectionObserver for a specific element,
-and emits an IntersectionObserverEntry when a change in the intersection is detected.
+Creates a SubscribeFunction that creates an IntersectionObserver for a specific element, and emits an
+IntersectionObserverEntry when a change in the intersection is detected.
 
 ### Examples
 

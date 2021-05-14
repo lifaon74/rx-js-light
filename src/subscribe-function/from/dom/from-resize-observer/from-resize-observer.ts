@@ -42,7 +42,7 @@ export function fromResizeObserver(
           break;
         }
       }
-    })
+    });
     observer.observe(element, options);
     return () => {
       if (running) {

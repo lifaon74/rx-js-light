@@ -24,7 +24,8 @@ interface ISubscriptionConstructor {
 }
 ```
 
-An *Subscription* is used to link a *SubscribeFunction* with an *EmitFunction* using an `activate`/`deactivate` mechanism.
+An *Subscription* is used to link a *SubscribeFunction* with an *EmitFunction* using an `activate`/`deactivate`
+mechanism.
 
 ### Examples
 

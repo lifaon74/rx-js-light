@@ -5,7 +5,6 @@ import { IAbortTimer } from '../../../../misc/timer/abort-timer.type';
 import { createTimeout } from '../../../../misc/timer/create-timeout';
 
 
-
 export function debounceTimeSubscribePipe<GValue>(
   duration: number,
 ): ISubscribePipeFunction<GValue, GValue> {

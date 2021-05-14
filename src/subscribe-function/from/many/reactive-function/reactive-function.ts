@@ -10,8 +10,8 @@ export type IReactiveFunctionSubscribeFunctions<GFunction extends IGenericFuncti
 export type IReactiveFunctionReturn<GFunction extends IGenericFunction> = ISubscribeFunction<ReturnType<GFunction>>;
 
 export function reactiveFunction<GFunction extends IGenericFunction>(
-  fnc: GFunction,
   subscribeFunctions: IReactiveFunctionSubscribeFunctions<GFunction>,
+  fnc: GFunction,
 ): IReactiveFunctionReturn<GFunction> {
   type GSubscribeFunctions = IReactiveFunctionSubscribeFunctions<GFunction>;
   type GCombineLastSubscribeFunctions = ICombineLatestSubscribeFunctionsValues<GSubscribeFunctions>;
@@ -22,5 +22,15 @@ export function reactiveFunction<GFunction extends IGenericFunction>(
   ]);
 }
 
-
-
+// export function reactiveFunction<GFunction extends IGenericFunction>(
+//   fnc: GFunction,
+//   subscribeFunctions: IReactiveFunctionSubscribeFunctions<GFunction>,
+// ): IReactiveFunctionReturn<GFunction> {
+//   type GSubscribeFunctions = IReactiveFunctionSubscribeFunctions<GFunction>;
+//   type GCombineLastSubscribeFunctions = ICombineLatestSubscribeFunctionsValues<GSubscribeFunctions>;
+//   type GOut = ReturnType<GFunction>;
+//
+//   return pipeSubscribeFunction(combineLatest<GSubscribeFunctions>(subscribeFunctions), [
+//     mapSubscribePipe<GCombineLastSubscribeFunctions, GOut>((args: GCombineLastSubscribeFunctions) => fnc(...(args as any))),
+//   ]);
+// }

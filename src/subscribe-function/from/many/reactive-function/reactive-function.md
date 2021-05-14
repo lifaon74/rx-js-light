@@ -2,14 +2,13 @@
 
 ```ts
 function reactiveFunction<GFunction extends IGenericFunction>(
-  fnc: GFunction,
   subscribeFunctions: IReactiveFunctionSubscribeFunctions<GFunction>,
+  fnc: GFunction,
 ): IReactiveFunctionReturn<GFunction>;
 ```
 
-Used to create a *"reactive function"* from a list of SubscribeFunctions: when a SubscribeFunction changes,
-the function is called, and the return is emitted.
-
+Used to create a *"reactive function"* from a list of SubscribeFunctions: when a SubscribeFunction changes, the function
+is called, and the return is emitted.
 
 It simply does:
 
@@ -21,19 +20,21 @@ pipeSubscribeFunction(combineLatest<GSubscribeFunctions>(subscribeFunctions), [
 
 Build-in ReactiveFunctions may be found in the [build-in](./built-in) folder.
 
-
 ### Examples
 
 #### Perform the "sum" of two SubscribeFunctions
 
 ```ts
 
-const obs1 =  createMulticastReplayLastSource<number>({ initialValue: 0 });
-const obs2 =  createMulticastReplayLastSource<number>({ initialValue: 0 });
+const obs1 = createMulticastReplayLastSource<number>({ initialValue: 0 });
+const obs2 = createMulticastReplayLastSource<number>({ initialValue: 0 });
 
-const subscribe = reactiveFunction((a: number, b: number) => {
-  return a + b;
-}, [obs1.subscribe, obs2.subscribe]);
+const subscribe = reactiveFunction(
+  [obs1.subscribe, obs2.subscribe],
+  (a: number, b: number) => {
+    return a + b;
+  },
+);
 
 subscribe((sum: number) => {
   console.log(sum);
@@ -65,8 +66,11 @@ Output:
 reactiveEqual(reactiveMultiply(reactiveAdd(obs1, obs2), obs3), obs4)
 
 // DO
-reactiveFunction((obs1, obs2, obs3, obs4) => {
-  return ((obs1 + ob2) * obs3) === obs4;
-}, [obs1, obs2, obs3, obs4]);
+reactiveFunction(
+  [obs1, obs2, obs3, obs4],
+  (obs1, obs2, obs3, obs4) => {
+    return ((obs1 + ob2) * obs3) === obs4;
+  },
+);
 
 ```

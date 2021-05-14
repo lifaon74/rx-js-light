@@ -1,6 +1,6 @@
 *Example: build size*
 
- From your project:
+From your project:
 
 ```ts
 import { fromEventTarget, mapSubscribePipe, pipeSubscribeFunction } from '@lifaon/rx-js-light';

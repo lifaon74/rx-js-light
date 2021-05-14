@@ -7,8 +7,8 @@ function fromResizeObserver(
 ): ISubscribeFunction<ResizeObserverEntry>
 ```
 
-Creates a SubscribeFunction that creates an ResizeObserver for a specific element,
-and emits a ResizeObserverEntry when the element's size changes.
+Creates a SubscribeFunction that creates an ResizeObserver for a specific element, and emits a ResizeObserverEntry when
+the element's size changes.
 
 ### Examples
 

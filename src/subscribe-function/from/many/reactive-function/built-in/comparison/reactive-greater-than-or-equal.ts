@@ -6,8 +6,8 @@ export function reactiveGreaterThanOrEqual(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof greaterThanOrEqual>
 ): ISubscribeFunction<ReturnType<typeof greaterThanOrEqual>> {
   return distinctReactiveFunction(
-    greaterThanOrEqual,
     subscribeFunctions,
+    greaterThanOrEqual,
   );
 }
 

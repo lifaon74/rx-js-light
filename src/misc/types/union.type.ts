@@ -47,7 +47,7 @@ export function fromUnion<// generics
   GUnion extends GenericUnion,
   GValue extends GetUnionValue<GUnion>,
   //
->(
+  >(
   union: GUnion,
 ): GValue {
   return union.value;

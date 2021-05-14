@@ -1,4 +1,3 @@
-
 /**
  * Receives data => PUSH destination
  */

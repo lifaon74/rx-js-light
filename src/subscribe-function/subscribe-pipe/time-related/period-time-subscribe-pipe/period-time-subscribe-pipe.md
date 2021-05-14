@@ -6,9 +6,9 @@ function periodTimeSubscribePipe<GValue>(
 ): ISubscribePipeFunction<GValue, GValue>
 ```
 
-Emits a value from the source SubscribeFunction, then, for a duration determined by `duration`,
-if a value is received, cache it and emits it at the end of the timer.
-As result, a value if emitted evey `duration` ms at the best, and the last emitted value if always transmitted.
+Emits a value from the source SubscribeFunction, then, for a duration determined by `duration`, if a value is received,
+cache it and emits it at the end of the timer. As result, a value if emitted evey `duration` ms at the best, and the
+last emitted value if always transmitted.
 
 The RxJS closest equivalent is [sampleTime](https://rxjs-dev.firebaseapp.com/api/operators/sampleTime)
 

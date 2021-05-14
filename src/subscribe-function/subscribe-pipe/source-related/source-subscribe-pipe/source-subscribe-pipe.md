@@ -12,10 +12,11 @@ interface ISourceSubscribePipeGetSource<GValue> {
 }
 ```
 
-This SubscribePipe does the bridge between a Source which is not lazy loaded, and a SubscibeFunction (which is lazy loaded).
+This SubscribePipe does the bridge between a Source which is not lazy loaded, and a SubscibeFunction (which is lazy
+loaded).
 
-- it counts the number of subscriptions and subscribes (only once) to the SubscribeFunction if the number of subscriptions is larger than 0.
-  the received value is emitted in the source
+- it counts the number of subscriptions and subscribes (only once) to the SubscribeFunction if the number of
+  subscriptions is larger than 0. the received value is emitted in the source
 - if the number of subscriptions is smaller than 1, it unsubscribes from the SubscribeFunction
 - when a subscription occurs, it is transmitted to the Source (same when unsubscribing)
 

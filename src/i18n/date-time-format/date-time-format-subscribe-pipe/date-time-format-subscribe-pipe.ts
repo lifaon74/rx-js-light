@@ -9,13 +9,19 @@ export function dateTimeFormatSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
   options: ISubscribeFunction<IDateTimeFormatOptions>,
 ): ISubscribePipeFunction<IDateTimeFormatValue, string> {
-  const format: ISubscribeFunction<DateTimeFormat> = reactiveFunction((locales: ILocales, options: IDateTimeFormatOptions): DateTimeFormat => {
-    return new Intl.DateTimeFormat(locales as any, options as DateTimeFormatOptions);
-  }, [locales, options]);
+  const format: ISubscribeFunction<DateTimeFormat> = reactiveFunction(
+    [locales, options],
+    (locales: ILocales, options: IDateTimeFormatOptions): DateTimeFormat => {
+      return new Intl.DateTimeFormat(locales as any, options as DateTimeFormatOptions);
+    },
+  );
   return (subscribe: ISubscribeFunction<IDateTimeFormatValue>): ISubscribeFunction<string> => {
-    return reactiveFunction((value: IDateTimeFormatValue, format: DateTimeFormat): string => {
-      return format.format(value);
-    }, [subscribe, format]);
+    return reactiveFunction(
+      [subscribe, format],
+      (value: IDateTimeFormatValue, format: DateTimeFormat): string => {
+        return format.format(value);
+      },
+    );
   };
 }
 

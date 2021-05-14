@@ -8,7 +8,6 @@ function fromArray<GValue>(
 
 Creates a SubscribeFunction from an Array. It emits the array's values one by one.
 
-
 ### Examples
 
 #### Basic example

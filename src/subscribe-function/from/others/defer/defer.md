@@ -12,8 +12,8 @@ interface IDefferFactoryFunction<GValue> {
 }
 ```
 
-Creates a SubscribeFunction, which on subscribe, will call `factory` and
-transmit the received *emit* function to the returned SubscribeFunction.
+Creates a SubscribeFunction, which on subscribe, will call `factory` and transmit the received *emit* function to the
+returned SubscribeFunction.
 
 ### Examples
 

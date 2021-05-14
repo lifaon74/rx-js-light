@@ -11,9 +11,11 @@ An *SubscribePipeFunction* receives a value, performs some operation on it, and 
 Similar to [EmitPipeFunction](../emit-pipe-function/emit-pipe-function.md) but works with
 [SubscribeFunction](../subscribe-function/subscribe-function.md) instead.
 
-Somehow, this is both a *lazy push destination* (returned SubscribeFunction), and a *lazy push source* (received SubscribeFunction)
+Somehow, this is both a *lazy push destination* (returned SubscribeFunction), and a *lazy push source* (received
+SubscribeFunction)
 
-This is equivalent to the *[Pipeable Operators](https://rxjs-dev.firebaseapp.com/guide/operators)* (only the pipeable ones).
+This is equivalent to the *[Pipeable Operators](https://rxjs-dev.firebaseapp.com/guide/operators)* (only the pipeable
+ones).
 
 ### Examples
 

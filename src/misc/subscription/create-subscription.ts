@@ -38,7 +38,7 @@ export function createSubscription<GValue>(
     }
   };
 
-  const subscription: ISubscription<GValue> =  freeze({
+  const subscription: ISubscription<GValue> = freeze({
     subscribe,
     emit,
     isActivated,

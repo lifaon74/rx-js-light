@@ -1,6 +1,3 @@
-
-
-
 /**
  * Creates a tuple of any with the same length as GTuple
  */

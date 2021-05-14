@@ -12,7 +12,6 @@ Somehow, this is both a *push destination* (returned EmitFunction), and a *push 
 
 ℹ️ there is no RxJS equivalent, because there is no *subscribe* mechanism with *EmitPipeFunction*.
 
-
 ### Examples
 
 #### EmitPipeFunction that re-emits only distinct received values

@@ -5,8 +5,7 @@ import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/s
 /**
  * @see distinctEmitPipe
  */
-export function distinctSubscribePipe<GValue>(
-): ISubscribePipeFunction<GValue, GValue> {
+export function distinctSubscribePipe<GValue>(): ISubscribePipeFunction<GValue, GValue> {
   return emitPipeToSubscribePipe<GValue, GValue>(distinctEmitPipe<GValue>());
 }
 

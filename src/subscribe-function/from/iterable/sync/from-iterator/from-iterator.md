@@ -8,11 +8,11 @@ function fromIterator<GValue>(
 
 Creates a SubscribeFunction from an Iterator. It emits values of the iterator one by one.
 
-⚠️ use with caution, if you subscribe twice to the same Iterator, the emitted values probably won't be
-what you expect, due to concurrent calls on the `.next`.
+⚠️ use with caution, if you subscribe twice to the same Iterator, the emitted values probably won't be what you expect,
+due to concurrent calls on the `.next`.
 
-You should prefer to use [fromIterable](../from-iterable/from-iterable.md) which generates an uniq
-Iterator, or `share` the SubscribeFunction.
+You should prefer to use [fromIterable](../from-iterable/from-iterable.md) which generates an uniq Iterator, or `share`
+the SubscribeFunction.
 
 ### Examples
 

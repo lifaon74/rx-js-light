@@ -1,4 +1,10 @@
 import { IDateTimeFormatOptions } from '../date-time-format.type';
+import {
+  DATE_TIME_FORMAT_FULL, DATE_TIME_FORMAT_FULL_DATE, DATE_TIME_FORMAT_LONG, DATE_TIME_FORMAT_LONG_DATE,
+  DATE_TIME_FORMAT_LONG_TIME, DATE_TIME_FORMAT_MEDIUM, DATE_TIME_FORMAT_MEDIUM_DATE, DATE_TIME_FORMAT_MEDIUM_TIME,
+  DATE_TIME_FORMAT_MINIMAL, DATE_TIME_FORMAT_MINIMAL_DATE, DATE_TIME_FORMAT_SHORT, DATE_TIME_FORMAT_SHORT_DATE,
+  DATE_TIME_FORMAT_SHORT_TIME
+} from './date-time-shortcut-format.constants';
 
 // https://angular.io/api/common/DatePipe
 
@@ -24,67 +30,33 @@ export function dateTimeShortcutFormatToDateTimeFormatOptions(
 ): IDateTimeFormatOptions {
   switch (format) {
     case 'minimal':
-      return {
-        year: '2-digit', month: 'numeric', day: 'numeric',
-        hour: 'numeric', minute: 'numeric'
-      };
+      return DATE_TIME_FORMAT_MINIMAL;
     case 'short':
-      return {
-        year: 'numeric', month: 'numeric', day: 'numeric',
-        hour: 'numeric', minute: 'numeric'
-      };
+      return DATE_TIME_FORMAT_SHORT;
     case 'medium':
-      return {
-        year: 'numeric', month: 'short', day: 'numeric',
-        hour: 'numeric', minute: 'numeric', second: 'numeric',
-      };
+      return DATE_TIME_FORMAT_MEDIUM;
     case 'long':
-      return {
-        year: 'numeric', month: 'long', day: 'numeric',
-        hour: 'numeric', minute: 'numeric', second: 'numeric',
-        timeZoneName: 'short'
-      };
+      return DATE_TIME_FORMAT_LONG;
     case 'full':
-      return {
-        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long',
-        hour: 'numeric', minute: 'numeric', second: 'numeric',
-        timeZoneName: 'short'
-      };
+      return DATE_TIME_FORMAT_FULL;
 
     case 'minimalDate':
-      return {
-        year: '2-digit', month: 'numeric', day: 'numeric',
-      };
+      return DATE_TIME_FORMAT_MINIMAL_DATE;
     case 'shortDate':
-      return {
-        year: 'numeric', month: 'numeric', day: 'numeric',
-      };
+      return DATE_TIME_FORMAT_SHORT_DATE;
     case 'mediumDate':
-      return {
-        year: 'numeric', month: 'short', day: 'numeric',
-      };
+      return DATE_TIME_FORMAT_MEDIUM_DATE;
     case 'longDate':
-      return {
-        year: 'numeric', month: 'long', day: 'numeric',
-      };
+      return DATE_TIME_FORMAT_LONG_DATE;
     case 'fullDate':
-      return {
-        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
-      };
+      return DATE_TIME_FORMAT_FULL_DATE;
 
     case 'shortTime':
-      return {
-        hour: 'numeric', minute: 'numeric'
-      };
+      return DATE_TIME_FORMAT_SHORT_TIME;
     case 'mediumTime':
-      return {
-        hour: 'numeric', minute: 'numeric', second: 'numeric',
-      };
+      return DATE_TIME_FORMAT_MEDIUM_TIME;
     case 'longTime':
-      return {
-        hour: 'numeric', minute: 'numeric', second: 'numeric',
-        timeZoneName: 'short'
-      };
+      return DATE_TIME_FORMAT_LONG_TIME;
     default:
       throw new TypeError(`Unknown date format: ${ format }`);
   }

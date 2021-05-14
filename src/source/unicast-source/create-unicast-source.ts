@@ -4,8 +4,7 @@ import { IUnicastSource } from './unicast-source.type';
 import { freeze } from '../../misc/helpers/freeze';
 
 
-export function createUnicastSource<GValue>(
-): IUnicastSource<GValue> {
+export function createUnicastSource<GValue>(): IUnicastSource<GValue> {
   let _emitFunction: IEmitFunction<GValue> | null = null;
 
   const emit: IEmitFunction<GValue> = (value: GValue): void => {

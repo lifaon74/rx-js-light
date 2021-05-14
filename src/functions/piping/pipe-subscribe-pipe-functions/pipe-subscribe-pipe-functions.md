@@ -9,7 +9,8 @@ function pipeSubscribePipeFunctions<// generics
 ): IPipeSubscribePipeFunctionsReturn<GFunctions>
 ```
 
-This function allows you to pipe (chain) many [SubscribePipeFunction](../../../types/subscribe-pipe-function/subscribe-pipe-function.md).
+This function allows you to pipe (chain)
+many [SubscribePipeFunction](../../../types/subscribe-pipe-function/subscribe-pipe-function.md).
 
 This is equivalent the RxJS [pipe](https://rxjs-dev.firebaseapp.com/api/index/function/pipe) function
 

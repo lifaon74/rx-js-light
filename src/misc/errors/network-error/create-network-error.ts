@@ -10,7 +10,6 @@ export function createNetworkError(
 }
 
 
-
 export function createNetworkErrorFromRequest(
   request: Request,
 ): INetworkError {

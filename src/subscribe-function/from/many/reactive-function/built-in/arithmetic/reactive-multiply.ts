@@ -6,8 +6,8 @@ export function reactiveMultiply(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof multiply>
 ): ISubscribeFunction<ReturnType<typeof multiply>> {
   return distinctReactiveFunction(
-    multiply,
     subscribeFunctions,
+    multiply,
   );
 }
 

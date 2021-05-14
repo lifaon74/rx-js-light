@@ -16,9 +16,9 @@ export function currencyFormatSubscribePipe(
   return numberFormatSubscribePipe(locales, pipeSubscribeFunction(options, [
     mapSubscribePipe<ICurrencyFormatOptions, INumberFormatOptions>((options: ICurrencyFormatOptions): INumberFormatOptions => {
       return {
+        currencyDisplay: 'narrowSymbol',
         ...options,
         style: 'currency',
-        currencyDisplay: 'narrowSymbol',
       };
     }),
   ]));
