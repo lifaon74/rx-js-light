@@ -12,9 +12,9 @@ export function fromReadableStreamReader<GValue>(
   reader: ReadableStreamReader<GValue>
 ): ISubscribeFunction<ISubscribeFunctionFromReadableStreamReaderNotifications<GValue>> {
   return fromAsyncIterator((async function * () {
-    let result: ReadableStreamReadResult<GValue>;
+    let result: ReadableStreamDefaultReadResult<GValue>;
     while (!(result = await reader.read()).done) {
-      yield (result as ReadableStreamReadValueResult<GValue>).value;
+      yield (result as ReadableStreamDefaultReadValueResult<GValue>).value;
     }
     reader.releaseLock();
   })());

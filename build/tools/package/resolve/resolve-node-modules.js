@@ -1,14 +1,15 @@
 const $util = require('util');
 const $path = require('path');
 const $fs = require('fs').promises;
-const $fsh = require('../misc/fs-helpers.js');
+const $fsh = require('../../misc/fs-helpers.js');
 const $acorn = require('acorn');
 const $acornWalk = require('acorn-walk');
 const $escodegen = require('escodegen');
 
-const ROOT_PATH = $path.join(__dirname, '../../../');
+const ROOT_PATH = $path.join(__dirname, '../../../../');
 const DIST_PATH = $path.join(ROOT_PATH, 'dist');
-const CACHE_PATH = $path.join(DIST_PATH, '.cache');
+const MJS_CACHE_PATH = $path.join(DIST_PATH, '.mjs-cache');
+const CJS_CACHE_PATH = $path.join(DIST_PATH, '.cjs-cache');
 
 function logObject(obj) {
   console.log($util.inspect(obj, false, null, true /* enable colors */));
@@ -64,6 +65,10 @@ async function resolveRequireAsFile(
   if (await isFileRelative(sourcePath, withMJSExt)) {
     return withMJSExt;
   }
+  const withCJSExt = `${ value }.cjs`;
+  if (await isFileRelative(sourcePath, withCJSExt)) {
+    return withCJSExt;
+  }
   const withJSONExt = `${ value }.json`;
   if (await isFileRelative(sourcePath, withJSONExt)) {
     return withJSONExt;
@@ -82,6 +87,10 @@ async function resolveRequireLoadIndex(
   const withMJSExt = `${ value }/index.mjs`;
   if (await isFileRelative(sourcePath, withMJSExt)) {
     return withMJSExt;
+  }
+  const withCJSExt = `${ value }/index.cjs`;
+  if (await isFileRelative(sourcePath, withCJSExt)) {
+    return withCJSExt;
   }
   const withJSONExt = `${ value }/index.json`;
   if (await isFileRelative(sourcePath, withJSONExt)) {
@@ -227,13 +236,82 @@ async function resolveMJSFile(jsFilePath) {
   cache.set(jsFilePath, Date.now());
 }
 
+
+async function resolveCJSFile(jsFilePath) {
+  const cache = await loadCJSCache();
+
+  if (cache.has(jsFilePath)) {
+    const stats = await $fs.stat(jsFilePath);
+    if (stats.mtimeMs < cache.get(jsFilePath)) { // already done
+      // console.log('cached', jsFilePath);
+      return;
+    }
+  }
+
+  let jsFileContent = await $fs.readFile(jsFilePath, { encoding: 'utf8' });
+
+  const tree = $acorn.parse(jsFileContent, {
+    ecmaVersion: 'latest',
+    sourceType: 'script',
+  });
+  // logObject(tree);
+
+  const promises = [];
+
+  $acornWalk.full(tree, node => {
+
+    const resolve = (node) => {
+      const requireValue = node.value;
+      promises.push(
+        resolveRequire(jsFilePath, requireValue)
+          .then((resolvedRequireValue) => {
+            // console.log(jsFilePath, ':', requireValue, '->', resolvedRequireValue);
+            node.value = resolvedRequireValue;
+          }),
+      );
+    };
+
+    switch (node.type) {
+      case 'CallExpression': {  // require('./hello-world-lazy')
+        if (
+          (
+            (node.callee.type === 'Identifier')
+            && (node.callee.name === 'require')
+          )
+          &&
+          (
+            (node.arguments.length === 1)
+            && (node.arguments[0].type === 'Literal')
+          )
+        ) { // only literal is currently supported
+          resolve(node.arguments[0]);
+        }
+        break;
+      }
+    }
+  });
+
+  await Promise.all(promises);
+
+  jsFileContent = $escodegen.generate(tree);
+
+  // console.log(jsFileContent);
+  await $fs.writeFile(jsFilePath, jsFileContent);
+
+  cache.set(jsFilePath, Date.now());
+}
+
 /* START - CACHE */
 
-let MJS_CACHE_PROMISE;
+const CACHED_PROMISE_MAP = new Map();
 
-function loadMJSCache() {
-  if (MJS_CACHE_PROMISE === void 0) {
-    MJS_CACHE_PROMISE = $fs.readFile(CACHE_PATH, 'utf8')
+function loadCache(
+  cachedPromiseName,
+  path,
+) {
+  let cachedPromise = CACHED_PROMISE_MAP.get(cachedPromiseName);
+  if (cachedPromise === void 0) {
+    cachedPromise = $fs.readFile(path, 'utf8')
       .then(
         (content) => {
           return new Map(JSON.parse(content));
@@ -242,39 +320,110 @@ function loadMJSCache() {
           return new Map();
         },
       );
+
+    CACHED_PROMISE_MAP.set(cachedPromiseName, cachedPromise);
   }
-  return MJS_CACHE_PROMISE;
+  return cachedPromise;
+}
+
+function saveCache(
+  cachedPromiseName,
+  path,
+) {
+  return (
+    CACHED_PROMISE_MAP.has(cachedPromiseName)
+      ? CACHED_PROMISE_MAP.get(cachedPromiseName)
+      : Promise.resolve(new Map())
+  )
+    .then((cache) => {
+      return $fs.writeFile(path, JSON.stringify(Array.from(cache.entries()), null, 2), 'utf8');
+    });
+}
+
+// MJS
+
+function loadMJSCache() {
+  return loadCache(
+    'mjs',
+    MJS_CACHE_PATH,
+  );
 }
 
 function saveMJSCache() {
-  return MJS_CACHE_PROMISE
-    .then((cache) => {
-      return $fs.writeFile(CACHE_PATH, JSON.stringify(Array.from(cache.entries()), null, 2), 'utf8');
-    });
+  return saveCache(
+    'mjs',
+    MJS_CACHE_PATH,
+  );
+}
+
+// CJS
+
+function loadCJSCache() {
+  return loadCache(
+    'cjs',
+    CJS_CACHE_PATH,
+  );
+}
+
+function saveCJSCache() {
+  return saveCache(
+    'cjs',
+    CJS_CACHE_PATH,
+  );
 }
 
 
 /* END - CACHE */
 
-function resolveNodeModules() {
+function resolveNodeModules(
+  modes,  // Set<'mjs' | 'cjs'>
+) {
   return $fsh.createDirectory(DIST_PATH)
     .then(() => {
       return $fsh.exploreDirectory(DIST_PATH, (entryPath, entry) => {
         if (entry.isFile()) {
-          if (!entryPath.includes('/cjs/')) {
+          if (entryPath.includes('/cjs/')) {
+            if (entryPath.endsWith('.cjs')) {
+              if (modes.has('cjs')) {
+                return resolveCJSFile(entryPath);
+              }
+            }
+          } else {
             if (entryPath.endsWith('.mjs')) {
-              return resolveMJSFile(entryPath);
+              if (modes.has('mjs')) {
+                return resolveMJSFile(entryPath);
+              }
             }
           }
         }
       });
     })
     .then(() => {
-      return saveMJSCache();
+      const cachePromises = [];
+      if (modes.has('cjs')) {
+        cachePromises.push(saveCJSCache());
+      }
+      if (modes.has('mjs')) {
+        cachePromises.push(saveMJSCache());
+      }
+      return Promise.all(cachePromises);
     });
 }
 
-resolveNodeModules()
+function getModes() {
+  const modes = new Set();
+  if (process.argv.includes('--cjs')) {
+    modes.add('cjs');
+  }
+  if (process.argv.includes('--mjs')) {
+    modes.add('mjs');
+  }
+  return modes;
+}
+
+
+// console.log(getModes());
+resolveNodeModules(getModes())
   .catch((error) => {
     console.error(error);
   });
