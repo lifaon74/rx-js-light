@@ -42,8 +42,8 @@ export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
       if (running) {
         running = false;
         if (_dispatchingCount > 0) { // if we are dispatching
-          _dispatchingEmitFunctions[_dispatchingEmitFunctions.indexOf(emit)] = noop; // remove from _dispatchingEmitFunctions the emit function
           cloneEmitFunctions();
+          _dispatchingEmitFunctions[_dispatchingEmitFunctions.indexOf(emit)] = noop; // remove from _dispatchingEmitFunctions the emit function
         }
         _emitFunctions.splice(_emitFunctions.indexOf(emit), 1);
       }
