@@ -1,6 +1,6 @@
 import { createNextNotification } from '../../../../misc/notifications/built-in/next/create-next-notification';
 import { createEventListener, IRemoveEventListener } from '../../../../misc/event-listener/create-event-listener';
-import { isAbortSignal } from '../../../../misc/abortable/is-abort-signal';
+import { isAbortSignal } from '../../../../misc/abortable/is/is-abort-signal';
 import { noop } from '../../../../misc/helpers/noop';
 import { toTypedEventTarget } from '../../../../misc/event-listener/to-typed-event-target';
 import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';

@@ -1,3 +1,4 @@
+export * from './buffer/index';
 export * from './catch-error/index';
 export * from './emit-pipe-related/index';
 export * from './experimental/index';

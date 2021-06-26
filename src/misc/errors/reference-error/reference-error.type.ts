@@ -1,9 +1,9 @@
-import { IErrorOptions } from '../error.type';
+import { ICustomErrorOptions } from '../custom-error';
 
 export interface IReferenceError extends ReferenceError {
 }
 
-export interface IReferenceErrorOptions extends IErrorOptions {
+export interface IReferenceErrorOptions extends ICustomErrorOptions {
 }
 
 

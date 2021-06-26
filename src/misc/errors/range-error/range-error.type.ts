@@ -1,4 +1,4 @@
-import { IErrorOptions } from '../error.type';
+import { ICustomErrorOptions } from '../custom-error';
 
 export interface IRangeError extends RangeError {
 }
@@ -16,7 +16,7 @@ export interface IRangeOptionsWithVariableName extends IRangeOptions {
 
 export type IRangeOptionsNormalized = Required<IRangeOptions>;
 
-export type IGenericRangeErrorOptions = IErrorOptions | IRangeOptionsWithVariableName;
+export type IGenericRangeErrorOptions = ICustomErrorOptions | IRangeOptionsWithVariableName;
 
 
 

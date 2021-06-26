@@ -3,3 +3,4 @@ export * from './async-unsubscribe';
 export * from './freeze';
 export * from './noop';
 export * from './passthrough';
+export * from './set-immediate';

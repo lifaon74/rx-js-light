@@ -7,7 +7,7 @@ function createSubscribeFunctionProxy<GData extends object>(
 ): ISubscribeFunctionProxy<GData>
 ```
 
-Creates a **"magic"** object, so read carefully:
+Creates a **"magic"** object, so **read carefully**:
 
 This proxy allows you to chain an infinite virtual amount of properties, until you *get* the property `$`.
 (ex: `proxy.a.b.c.d.e.f.$`)
@@ -31,9 +31,8 @@ pipeSubscribeFunction(data, [
 ]);
 ```
 
-### Examples
 
-#### Example 1
+### Example
 
 ```ts
 const data = {
@@ -68,5 +67,83 @@ c: { d: 'd' }
 ```
 
 
+
+---
+
+The proxy provides an experimental *get* `$array` property:
+
+It returns a `ISubscribeFunction<readonly ISubscribeFunctionProxy<any>[]>` for the provided properties' path,
+and expects an array or will throw.
+
+It is used to create a SubscribeFunctionProxy on the elements of an array,
+allowing us to iterate over the elements of this array and continuing to use these elements as proxy's too.
+
+`proxy.a.b.c.$array` is similar to:
+
+```ts 
+pipeSubscribeFunction(data, [
+  mapSubscribePipe<GData, any>((data: GData) => {
+    return data.a.b.c.map(item => createSubscribeFunctionProxy(single(item)));
+    // OR
+    // return data.a.b.c.map((iten, index) => createSubscribeFunctionProxy(data, ['a', 'b', 'c'].concat(index)));
+  }),
+]);
+```
+
+This usecase is realy limited and is discouraged.
+
+### Example
+
+```ts
+
+const data = {
+  array: [{ value: 1 }, { value: 2 }],
+};
+
+const dataSource = createMulticastReplayLastSource({ initialValue: data });
+
+const proxy = createSubscribeFunctionProxy(dataSource.subscribe);
+
+/* THE IMPORTANT PART */
+
+// list of unsubscriptions for the received array
+const unsubscriptions: IUnsubscribeFunction[] = [];
+
+proxy.array.$array((items: readonly ISubscribeFunctionProxy<any>[]) => {
+  
+  const itemsLength = items.length;
+  const unsubscriptionsLength = unsubscriptions.length;
+  
+  // if the received array's length is larger than the subscriptions we've already done
+  if (unsubscriptionsLength < items.length) {
+    unsubscriptions.length = itemsLength; // increase 'unsubscriptions' size
+    // and only subscribe to the new ones
+    for (let i = unsubscriptionsLength; i < itemsLength; i++) {
+      // note that 'items[i]' is a proxy
+      unsubscriptions[i] = items[i].value.$((value: any) => {
+        console.log('value', value);
+      });
+    }
+  } else {
+    for (let i = itemsLength; i < unsubscriptionsLength; i++) {
+      unsubscriptions[i]();
+    }
+    unsubscriptions.length = itemsLength;
+  }
+});
+// outputs:
+// value: 1
+// value: 2
+
+dataSource.emit({ array: [{ value: 5 }, { value: 8 }] });
+// outputs:
+// value: 5
+// value: 8
+
+dataSource.emit({ array: [{ value: 5 }, { value: 8 }] });
+// outputs:
+// value: 5
+// value: 8
+```
 
 

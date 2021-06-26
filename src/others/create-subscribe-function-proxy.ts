@@ -1,28 +1,83 @@
 import { ISubscribeFunction } from '../types/subscribe-function/subscribe-function.type';
 import { pipeSubscribeFunction } from '../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
 import { mapSubscribePipe } from '../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
-import { getOptionalObjectPropertyPathValue } from '../misc/helpers/property-path/get-object-property-path-value';
+import {
+  getObjectPropertyPathValue, getOptionalObjectPropertyPathValue
+} from '../misc/helpers/property-path/get-object-property-path-value';
+import { createMulticastReplayLastSource, IMulticastReplayLastSource } from '../source';
+import { IEmitFunction } from '../types';
 
 export type ISubscribeFunctionProxy<GData> = {
   [GKey in keyof GData]: ISubscribeFunctionProxy<GData[GKey]>;
 } & {
   '$': ISubscribeFunction<GData>;
+  '$array': ISubscribeFunction<readonly ISubscribeFunctionProxy<any>[]>;
 };
 
 export function createSubscribeFunctionProxy<GData extends object>(
   data: ISubscribeFunction<GData>,
   path: PropertyKey[] = [],
 ): ISubscribeFunctionProxy<GData> {
+
+  let cachedSubscribe: ISubscribeFunction<any>;
+
+  const cachedSourcesForArray: IEmitFunction<any>[] = [];
+  const cachedProxiesForArray: ISubscribeFunctionProxy<any>[] = [];
+
+  let cachedSubscribeArray: ISubscribeFunction<ISubscribeFunctionProxy<any>>;
+
+  const cachedProxies = new Map<PropertyKey, ISubscribeFunctionProxy<any>>();
+
   return new Proxy<any>(Object.create(null), {
     get: (target: any, propertyKey: PropertyKey): any => {
+      // console.log(propertyKey);
       if (propertyKey === '$') {
-        return pipeSubscribeFunction(data, [
-          mapSubscribePipe<GData, any>((data: GData) => {
-            return getOptionalObjectPropertyPathValue(data, path);
-          }),
-        ]);
+        if (cachedSubscribe === void 0) {
+          cachedSubscribe = pipeSubscribeFunction(data, [
+            mapSubscribePipe<GData, any>((data: GData): any => {
+              return getOptionalObjectPropertyPathValue<any>(data, path);
+            }),
+          ]);
+        }
+        return cachedSubscribe;
+      } else if (propertyKey === '$array') {
+        if (cachedSubscribeArray === void 0) {
+          cachedSubscribeArray = pipeSubscribeFunction(data, [
+            mapSubscribePipe<GData, any>((data: GData): any => {
+              const items: any = getObjectPropertyPathValue<any>(data, path);
+              if (Array.isArray(items)) {
+                const itemsLength: number = items.length;
+                const cachedProxiesForArrayLength: number = cachedProxiesForArray.length;
+
+                if (cachedProxiesForArrayLength < itemsLength) {
+                  cachedSourcesForArray.length = itemsLength;
+                  cachedProxiesForArray.length = itemsLength;
+                  for (let i = cachedProxiesForArrayLength; i < itemsLength; i++) {
+                    const source: IMulticastReplayLastSource<any> = createMulticastReplayLastSource<any>({ initialValue: items[i] });
+                    cachedSourcesForArray[i] = source.emit;
+                    cachedProxiesForArray[i] = createSubscribeFunctionProxy<any>(source.subscribe);
+                  }
+                }
+
+                for (let i = 0; i < itemsLength; i++) {
+                  cachedSourcesForArray[i](items[i]);
+                }
+
+                return cachedProxiesForArray;
+              } else {
+                throw new Error(`Not an array`);
+              }
+            }),
+          ]);
+        }
+        return cachedSubscribeArray;
       } else {
-        return createSubscribeFunctionProxy(data, path.concat(propertyKey));
+        let cachedProxy: ISubscribeFunctionProxy<any> | undefined = cachedProxies.get(propertyKey);
+        if (cachedProxy === void 0) {
+          cachedProxy = createSubscribeFunctionProxy(data, path.concat(propertyKey));
+          cachedProxies.set(propertyKey, cachedProxy);
+        }
+        return cachedProxy;
       }
     },
     set: (): never => {

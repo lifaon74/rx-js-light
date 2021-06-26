@@ -1,8 +1,8 @@
-import { createEventListener, IRemoveEventListener } from '../event-listener/create-event-listener';
-import { toTypedEventTarget } from '../event-listener/to-typed-event-target';
-import { createAbortError } from '../errors/abort-error/create-abort-error';
-import { IPromiseFactory } from './promise-factory.type';
-import { DEFAULT_ABORTED_PROMISE_FACTORY } from './default-aborted-promise-factory.constant';
+import { createEventListener, IRemoveEventListener } from '../../event-listener/create-event-listener';
+import { toTypedEventTarget } from '../../event-listener/to-typed-event-target';
+import { createAbortError } from '../../errors/abort-error/create-abort-error';
+import { IPromiseFactory } from '../promise-factory.type';
+import { DEFAULT_ABORTED_PROMISE_FACTORY } from '../default-aborted-promise-factory.constant';
 
 export interface IOnFulfilled<GValue> {
   (value: GValue): void;

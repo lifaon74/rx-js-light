@@ -1,8 +1,8 @@
 import {
   IGenericRangeErrorOptions, IRangeError, IRangeOptions, IRangeOptionsNormalized, IRangeOptionsWithVariableName
 } from './range-error.type';
-import { IErrorOptions } from '../error.type';
 import { normalizeRangeOptions } from './normalize-range-options';
+import { ICustomErrorOptions } from '../custom-error';
 
 export function createRangeError(
   variableName: string,
@@ -39,9 +39,9 @@ export function createGenericRangeErrorMessage(
   return (options === void 0)
     ? 'Out of range'
     : (
-      ((options as IErrorOptions).message === void 0)
+      ((options as ICustomErrorOptions).message === void 0)
         ? createRangeErrorMessage((options as IRangeOptionsWithVariableName).variableName, normalizeRangeOptions(options as IRangeOptionsWithVariableName))
-        : (options as IErrorOptions).message as string
+        : (options as ICustomErrorOptions).message as string
     );
 }
 

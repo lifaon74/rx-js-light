@@ -1,6 +1,6 @@
 {
   "name": "ts-lib-seed",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Seed to build a library",
   "main": "index.js",
   "scripts": {
@@ -24,9 +24,13 @@
     "_________________DEV_________________": "",
     "dev:package": "npm-run-all clean:dist dev:package:tcs",
     "dev:package:tcs": "npm-run-all -p dev:package:tcs:module dev:package:tcs:cjs",
-    "dev:package:tcs:module": "tsc-watch -p tsconfig/tsconfig.build.package.module.json --onSuccess \\\"npm run dev:package:tcs:module:onsuccess\\\"",
+    "dev:package:tcs:module": "npm run dev:package:tcs:module:linux",
+    "dev:package:tcs:module:linux": "tsc-watch -p tsconfig/tsconfig.build.package.module.json --onSuccess 'npm run dev:package:tcs:module:onsuccess'",
+    "dev:package:tcs:module:windows": "tsc-watch -p tsconfig/tsconfig.build.package.module.json --onSuccess \\\"npm run dev:package:tcs:module:onsuccess\\\"",
     "dev:package:tcs:module:onsuccess": "npm-run-all build:package:rename:mjs build:package:resolve:mjs assemble:package",
-    "dev:package:tcs:cjs": "tsc-watch -p tsconfig/tsconfig.build.package.cjs.json --onSuccess \\\"npm run dev:package:tcs:cjs:onsuccess\\\"",
+    "dev:package:tcs:cjs": "npm run dev:package:tcs:cjs:linux",
+    "dev:package:tcs:cjs:windows": "tsc-watch -p tsconfig/tsconfig.build.package.cjs.json --onSuccess \\\"npm run dev:package:tcs:cjs:onsuccess\\\"",
+    "dev:package:tcs:cjs:linux": "tsc-watch -p tsconfig/tsconfig.build.package.cjs.json --onSuccess 'npm run dev:package:tcs:cjs:onsuccess'",
     "dev:package:tcs:cjs:onsuccess": "npm-run-all build:package:rename:cjs",
     "_________________OTHERS_________________": "",
     "clean:dist": "shx rm -rf ./dist",

@@ -1,6 +1,6 @@
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../../types';
 import { createEventListener, IRemoveEventListener } from '../../../misc/event-listener/create-event-listener';
-import { isAbortSignal } from '../../../misc/abortable/is-abort-signal';
+import { isAbortSignal } from '../../../misc/abortable/is/is-abort-signal';
 import { createAbortError } from '../../../misc/errors/abort-error/create-abort-error';
 import { toTypedEventTarget } from '../../../misc/event-listener/to-typed-event-target';
 import { asyncUnsubscribe } from '../../../misc/helpers/async-unsubscribe';

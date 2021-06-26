@@ -1,7 +1,7 @@
-import { IOnAborted } from './wrap-promise-with-abort-signal';
-import { createAbortError } from '../errors/abort-error/create-abort-error';
-import { isNullish } from '../helpers/is-type/is-nullish';
-import { IGenericFunction } from '../types/generic-function.type';
+import { IOnAborted } from '../for-promise/wrap-promise-with-abort-signal';
+import { isNullish } from '../../helpers/is-type/is-nullish';
+import { IGenericFunction } from '../../types/generic-function.type';
+import { DEFAULT_ABORTED_THROW_FUNCTION } from '../default-aborted-throw-function.constant';
 
 
 export type IWrapFunctionWithAbortSignalReturnedFunctionReturn<GFunction extends IGenericFunction, GOnAborted extends IOnAborted> =
@@ -41,9 +41,7 @@ export function wrapFunctionWithAbortSignalAndThrow<GFunction extends IGenericFu
   callback: GFunction,
   signal: AbortSignal,
 ): GFunction {
-  return wrapFunctionWithAbortSignal<GFunction, () => never>(callback, signal, (): never => {
-    throw createAbortError({ signal });
-  }) as GFunction;
+  return wrapFunctionWithAbortSignal<GFunction, () => never>(callback, signal, DEFAULT_ABORTED_THROW_FUNCTION) as GFunction;
 }
 
 /*-------------*/
@@ -55,8 +53,6 @@ export function wrapFunctionWithOptionalAbortSignalAndThrow<GFunction extends IG
   if (isNullish(signal)) {
     return callback;
   } else {
-    return wrapFunctionWithAbortSignal<GFunction, () => never>(callback, signal, (): never => {
-      throw createAbortError({ signal });
-    }) as GFunction;
+    return wrapFunctionWithAbortSignal<GFunction, () => never>(callback, signal, DEFAULT_ABORTED_THROW_FUNCTION) as GFunction;
   }
 }

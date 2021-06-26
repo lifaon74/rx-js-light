@@ -8,16 +8,24 @@ import { createAnimationFrame } from '../../../../misc/timer/create-animation-fr
 export function debounceFrameSubscribePipe<GValue>(): ISubscribePipeFunction<GValue, GValue> {
   return (subscribe: ISubscribeFunction<GValue>): ISubscribeFunction<GValue> => {
     return (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {
-      let abort: IAbortTimer | null = null;
-      return subscribe((value: GValue): void => {
-        if (abort !== null) {
-          abort();
+      let abortAnimationFrame: IAbortTimer | null = null;
+
+      const unsubscribe: IUnsubscribeFunction = subscribe((value: GValue): void => {
+        if (abortAnimationFrame !== null) {
+          abortAnimationFrame();
         }
-        abort = createAnimationFrame(() => {
-          abort = null;
+        abortAnimationFrame = createAnimationFrame(() => {
+          abortAnimationFrame = null;
           emit(value);
         });
       });
+
+      return (): void => {
+        unsubscribe();
+        if (abortAnimationFrame !== null) {
+          abortAnimationFrame();
+        }
+      };
     };
   };
 }

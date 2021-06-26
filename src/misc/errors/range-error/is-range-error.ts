@@ -1,5 +1,7 @@
 import { IRangeError } from './range-error.type';
 
-export function isRangeError(value: any): value is IRangeError {
-  return value.name === 'RangeError';
+export function isRangeError(
+  value: unknown,
+): value is IRangeError {
+  return (value instanceof RangeError);
 }

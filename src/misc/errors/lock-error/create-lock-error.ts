@@ -1,10 +1,10 @@
 import { ILockError, ILockErrorOptions } from './lock-error.type';
+import { createCustomError } from '../custom-error';
+import { LOCK_ERROR_NAME } from './lock-error-name.constant';
 
 export function createLockError(
   options?: ILockErrorOptions
 ): ILockError {
-  const error: ILockError = new Error(options?.message ?? 'Locked');
-  error.name = 'LockError';
-  return error;
+  return createCustomError(LOCK_ERROR_NAME, { message: 'Locked', ...options });
 }
 

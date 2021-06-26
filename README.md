@@ -12,7 +12,7 @@ Because it's extremely light and performant, you may include it even in your sma
 
 [<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](./src/documentation/tutorial.md)
 [<img src="https://img.shields.io/badge/-purpose of rx js light-blue?style=for-the-badge" />](./src/documentation/goal.md)
-[performances](./src/documentation/performances.md)
+[<img src="https://img.shields.io/badge/-performances-orange?style=for-the-badge" />](./src/documentation/performances.md)
 
 If you're not familiar with the concept of Observables you may
 check [the rxjs documentation](https://rxjs-dev.firebaseapp.com/guide/observable), or
@@ -133,7 +133,7 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
   - a css @media query: [fromMatchMedia](src/subscribe-function/from/dom/from-match-media/from-match-media.md)
     
 - one value
-  - already defined: [of](src/subscribe-function/from/others/of/of.md)
+  - already defined: [single](src/subscribe-function/from/others/single/single.md)
   - defined later: [reference](/src/subscribe-function/from/others/reference/reference.md)
   
 - a list of values
@@ -211,10 +211,14 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
   - [mergeAllSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-all-subscribe-pipe.md)
   - maps a SubscribeFunction and then reduces the order: [mergeMapSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-subscribe-pipe.ts)
 
+- accumulates values:
+  - until another SubscribeFunction emits: [bufferSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-subscribe-pipe.ts)
+  - with a fixed period of time: [bufferTimeSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-time/buffer-time-subscribe-pipe.ts)
+
 - time related
-  - [debounceTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-time-subscribe-pipe/debounce-time-subscribe-pipe.md)
-  - [periodTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/period-time-subscribe-pipe/period-time-subscribe-pipe.md)
-  - [debounceFrameSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-frame-subscribe-pipe/debounce-frame-subscribe-pipe.ts)
+  - [debounceTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-time/debounce-time-subscribe-pipe.md)
+  - [periodTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/period-time/period-time-subscribe-pipe.md)
+  - [debounceFrameSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-frame/debounce-frame-subscribe-pipe.ts)
 
 - logs the state of the upper SubscribeFunction: [logStateSubscribePipe](src/subscribe-function/subscribe-pipe/log-state-subscribe-pipe.ts)
 

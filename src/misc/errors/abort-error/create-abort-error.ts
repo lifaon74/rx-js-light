@@ -1,12 +1,11 @@
 import { IAbortError, IAbortErrorOptions } from './abort-error.type';
+import { createCustomError } from '../custom-error/create-custom-error';
+import { ABORT_ERROR_NAME } from './abort-error-name.constant';
 
 export function createAbortError(
-  options?: IAbortErrorOptions
+  options?: IAbortErrorOptions,
 ): IAbortError {
-  const error: IAbortError = new Error(options?.message ?? 'Aborted');
-  error.name = 'AbortError';
-  error.signal = options?.signal;
-  return error;
+  return Object.assign(createCustomError(ABORT_ERROR_NAME, { message: 'Aborted', ...options }), options);
 }
 
 

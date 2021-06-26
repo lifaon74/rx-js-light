@@ -1,20 +1,18 @@
 ## Performances
 
-`rx-js-light` is extremely performant because it relies only on pure functions:
+`rx-js-light` is **extremely performant** because it relies only on pure functions:
 
 - unbeatable speed: 3 times faster in the following performance test (simple test using 3 different operators).
 - minimal size: up to 10 times smaller.
 
 All of this due to the usage of functions instead of classes and methods:
 
-- functions are parts of the javascript language, and are perfectly well optimized by the vendor engines.
-- functions are extremely well minified and even reduced / simplified in many cases.
+- functions are parts of the javascript language, and they are perfectly well optimized by the vendor engines.
+- functions minification is very efficient and in many cases they can even be reduced  or simplified.
 
 For large projects or browser applications requiring critical performances and reactive programming,
 `rx-js-light` is an excellent solution !
 
-<details>
-  <summary>Show performance test code</summary>
 
 ```ts
 import { from as fromRXJS } from 'rxjs';
@@ -93,5 +91,3 @@ function rxJSLightPerformancesExample() {
   //  => 12.1x / 6.53x smaller
 }
 ```
-
-</details>

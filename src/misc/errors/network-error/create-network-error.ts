@@ -1,12 +1,12 @@
 import { INetworkError, INetworkErrorOptions } from './network-error.type';
+import { createCustomError } from '../custom-error';
+import { NETWORK_ERROR_NAME } from './network-error-name.constant';
 
 
 export function createNetworkError(
   options?: INetworkErrorOptions
 ): INetworkError {
-  const error: INetworkError = new Error(options?.message);
-  error.name = 'NetworkError';
-  return error;
+  return createCustomError(NETWORK_ERROR_NAME, { message: 'Network Error', ...options });
 }
 
 

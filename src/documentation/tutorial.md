@@ -34,14 +34,30 @@ const subscribe: ISubscribeFunction<void> = (emit: IEmitFunction<void>): IUnsubs
 };
 ```
 
+<details>
+  <summary>javascript</summary>
+
+  ```js
+  const subscribe = (emit) => {
+    const timer = setInterval(() => emit(), 500);
+    return () => {
+      clearInterval(timer);
+    };
+  };
+  ```
+
+</details>
+
 So a *SubscribeFunction* is a function which receives an *EmitFunction* and returns an *UnsubscribeFunction*.
 
 The *[EmitFunction](../types/emit-function/emit-function.md)* is used to send data to the *subscriber* (the caller)
 of the *SubscribeFunction*, and the *UnsubscribeFunction* to release any resources, like async tasks or listeners.
 
-In our example, the *SubscribeFunction* creates an interval timer (`setInterval`), and emits void/no value (`emit()`)
-when the timer ticks. Then it returns an unsubscribe function, which, when invoked, clears the
-timer (`clearInterval(timer)`).
+In our example:
+
+- the *SubscribeFunction* creates an interval timer (`setInterval`)
+- emits void/no value (`emit()`) when the timer ticks
+- and returns an unsubscribe function, which, when invoked, clears the timer (`clearInterval(timer)`)
 
 The next step is to *subscribe* on this *SubscribeFunction* to receive the values:
 
@@ -53,7 +69,7 @@ const unsubscribe = subscribe(() => {
 
 Calling `subscribe` starts the interval timer, and the provided callback (`emit`) will log `tick` every 500ms.
 
-The last step is to release resources, when we don't want to receive more values, by calling `unsubscribe`:
+The last step is to release resources, when we're done with this Observable, by calling `unsubscribe`:
 
 ```ts
 // we unsubscribe in 2100ms, this give us the time to see the timer tick 4 times
@@ -143,8 +159,27 @@ const distinct = <GValue>(subscribe: ISubscribeFunction<GValue>): ISubscribeFunc
 };
 ```
 
-Creating your own *SubscribePipeFunction* requires that you manage yourself the provided *SubscribeFunction*, and its *
-UnsubscribeFunction*. Meaning, you'll need to properly allocate and free the resources.
+<details>
+  <summary>javascript</summary>
+
+  ```js
+  const distinct = (subscribe) => {
+    return (emit) => {
+      let previousValue;
+      return subscribe((value) => {
+        if (value !== previousValue) {
+          previousValue = value;
+          emit(value);
+        }
+      });
+    };
+  };
+  ```
+
+</details>
+
+Creating your own *SubscribePipeFunction* requires that you manage yourself the provided *SubscribeFunction*, and its
+*UnsubscribeFunction*. Meaning, you'll need to properly allocate and free the resources.
 
 The *SubscribePipeFunctions* could be used like any ordinary functions (`distinct(of(1, 1, 2))`), but in practice, there
 tend to be many of them convolved together, and quickly become unreadable (`op4(op3(op2(op1(obs))))`). For that reason,

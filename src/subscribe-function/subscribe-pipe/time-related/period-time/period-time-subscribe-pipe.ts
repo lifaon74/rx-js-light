@@ -7,16 +7,16 @@ export function periodTimeSubscribePipe<GValue>(
 ): ISubscribePipeFunction<GValue, GValue> {
   return (subscribe: ISubscribeFunction<GValue>): ISubscribeFunction<GValue> => {
     return (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {
-      let abort: IAbortTimer | null = null;
+      let abortTimeout: IAbortTimer | null = null;
       let previousValue: GValue;
       let hasValue: boolean = false;
 
       const _emit = (value: GValue): void => {
-        if (abort === null) {
+        if (abortTimeout === null) {
           emit(value);
           hasValue = false;
-          abort = createTimeout(() => {
-            abort = null;
+          abortTimeout = createTimeout(() => {
+            abortTimeout = null;
             if (hasValue) {
               _emit(previousValue);
             }
@@ -27,7 +27,14 @@ export function periodTimeSubscribePipe<GValue>(
         }
       };
 
-      return subscribe(_emit);
+      const unsubscribe: IUnsubscribeFunction = subscribe(_emit);
+
+      return (): void => {
+        unsubscribe();
+        if (abortTimeout !== null) {
+          abortTimeout();
+        }
+      };
     };
   };
 }

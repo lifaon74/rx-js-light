@@ -5,7 +5,7 @@ import {
 } from '../../../../misc';
 import { ISubscribeFunctionToPromiseOptions } from '../to-promise';
 import { notificationsToValuesSubscribePipe } from '../../../subscribe-pipe/notifications-related/notifications-to-values-subscribe-pipe';
-import { isAbortSignal } from '../../../../misc/abortable/is-abort-signal';
+import { isAbortSignal } from '../../../../misc/abortable/is/is-abort-signal';
 import { pipeSubscribeFunction } from '../../../../functions';
 
 

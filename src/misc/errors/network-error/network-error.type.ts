@@ -1,9 +1,7 @@
-import { IErrorOptions } from '../error.type';
+import { ICustomError, ICustomErrorOptions } from '../custom-error';
 
-export interface INetworkError extends Error {
-
+export interface INetworkError extends ICustomError<'NetworkError'> {
 }
 
-export interface INetworkErrorOptions extends IErrorOptions {
-
+export interface INetworkErrorOptions extends ICustomErrorOptions {
 }
