@@ -1,12 +1,12 @@
 import { ILocales } from '../locales';
 import { ISubscribeFunction, ISubscribePipeFunction } from '../../types';
-import { of, reactiveFunction } from '../../subscribe-function';
+import { reactiveFunction, single } from '../../subscribe-function';
 import { IRelativeTimeFormatOptions, IRelativeTimeFormatValueAndUnit } from './relative-time-format.type';
 import RelativeTimeFormat = Intl.RelativeTimeFormat;
 
 export function relativeTimeFormatSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
-  options: ISubscribeFunction<IRelativeTimeFormatOptions> = of({}),
+  options: ISubscribeFunction<IRelativeTimeFormatOptions> = single({}),
 ): ISubscribePipeFunction<IRelativeTimeFormatValueAndUnit, string> {
   const format: ISubscribeFunction<RelativeTimeFormat> = reactiveFunction(
     [locales, options],

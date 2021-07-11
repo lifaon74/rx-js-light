@@ -55,17 +55,17 @@ Output:
 
 ---
 
-⚠️ Avoid using a log of ReactiveFunctions when you could juste create one:
+⚠️ You should avoid using a lot of ReactiveFunctions when you could juste create one:
 
 ```text
 ((obs1 + obs2) * obs3) === obs4
 ```
 
 ```ts
-// DONT
+// AVOID
 reactiveEqual(reactiveMultiply(reactiveAdd(obs1, obs2), obs3), obs4)
 
-// DO
+// PREFER
 reactiveFunction(
   [obs1, obs2, obs3, obs4],
   (obs1, obs2, obs3, obs4) => {

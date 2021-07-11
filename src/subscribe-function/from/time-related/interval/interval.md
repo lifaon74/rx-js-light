@@ -19,7 +19,7 @@ const unsubscribe = subscribe((notification) => {
   console.log('ping');
 })
 
-setTiimeout(4500, unsubscribe);
+setTimeout(4500, unsubscribe);
 ```
 
 Output:

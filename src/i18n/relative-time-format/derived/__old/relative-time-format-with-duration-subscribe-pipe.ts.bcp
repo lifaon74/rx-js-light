@@ -47,7 +47,7 @@ interface IAdvancedRelativeTimeFormatSubscribePipeFormatters {
 
 export function advancedRelativeTimeFormatSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
-  options: ISubscribeFunction<IAdvancedRelativeTimeFormatOptions> = of({}),
+  options: ISubscribeFunction<IAdvancedRelativeTimeFormatOptions> = single({}),
 ): ISubscribePipeFunction<IAdvancedRelativeTimeFormatDuration, string> {
 
   const formatters: ISubscribeFunction<IAdvancedRelativeTimeFormatSubscribePipeFormatters> = reactiveFunction(

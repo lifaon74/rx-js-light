@@ -3,7 +3,7 @@
 ```ts
 function numberFormatSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
-  options: ISubscribeFunction<INumberFormatOptions> = of({}),
+  options?: ISubscribeFunction<INumberFormatOptions>,
 ): ISubscribePipeFunction<INumberFormatValue, string>
 ```
 

@@ -7,12 +7,13 @@ import {
 } from '../../subscribe-function/from/many/reactive-function/built-in/string/reactive-string';
 import { pipeSubscribeFunction } from '../../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
 import { mergeAllSingleSubscribePipe } from '../../subscribe-function/subscribe-pipe/merge-all/merge-all-single-subscribe-pipe';
+import { single } from '../../subscribe-function';
 
 
 export function translateSubscribeFunction(
   translations: ISubscribeFunction<ITranslations>,
   key: ISubscribeFunction<string>,
-  options: ISubscribeFunction<IReactiveStringParameters> = of({}),
+  options: ISubscribeFunction<IReactiveStringParameters> = single({}),
 ): ISubscribeFunction<string> {
   const translation: ISubscribeFunction<ISubscribeFunction<string>> = reactiveFunction(
     [translations, key, options],
@@ -49,7 +50,7 @@ export function reactiveTranslation(
 // export function translateSubscribeFunction(
 //   translations: ISubscribeFunction<ITranslations>,
 //   key: ISubscribeFunction<string>,
-//   options: ISubscribeFunction<ITranslateOptions> = of({}),
+//   options: ISubscribeFunction<ITranslateOptions> = single({}),
 // ): ISubscribeFunction<string> {
 //   return reactiveFunction(
 //     translate,

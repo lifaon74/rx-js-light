@@ -3,13 +3,13 @@ import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/s
 import { reactiveFunction } from '../../../subscribe-function/from/many/reactive-function/reactive-function';
 import { INumberFormatOptions, INumberFormatValue } from '../number-format.type';
 import { ILocales } from '../../locales/locales.type';
-import { of } from '../../../subscribe-function/from/others/of/of';
+import { single } from '../../../subscribe-function';
 import NumberFormat = Intl.NumberFormat;
 
 
 export function numberFormatSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
-  options: ISubscribeFunction<INumberFormatOptions> = of({}),
+  options: ISubscribeFunction<INumberFormatOptions> = single({}),
 ): ISubscribePipeFunction<INumberFormatValue, string> {
   const format: ISubscribeFunction<NumberFormat> = reactiveFunction(
     [locales, options],

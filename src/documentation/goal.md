@@ -130,11 +130,9 @@ It may look complicated if you're not familiar with Observables, but as you may 
 
 At the end your code will be more compact, and with fewer bugs.
 
-### Is it slower to code with 'rx-js-light'
+### Is it slower to code with 'rx-js-light' ?
 
-Short answer: **YES**
-
-Long answer: **YES**, but you are more consistent, and generate fewer bugs.
+**YES**, but you are more consistent, generate fewer bugs, and wins a lot of performances.
 
 Instead of using:
 

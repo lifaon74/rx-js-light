@@ -7,7 +7,7 @@ import { IEmitFunction } from '../../../../types/emit-function/emit-function.typ
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
 import { IDefaultNotificationsUnion } from '../../../../misc/notifications/default-notifications-union.type';
 import { createErrorNotification, STATIC_COMPLETE_NOTIFICATION } from '../../../../misc';
-import { createAbortErrorNotification } from '../../../../misc/notifications/built-in/error/create-abort-error-notification';
+import { createAbortErrorNotification } from '../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
 
 
 export interface ISubscribeFunctionFromPromiseFactoryOptions {

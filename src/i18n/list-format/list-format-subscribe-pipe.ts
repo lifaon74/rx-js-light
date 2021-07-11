@@ -2,14 +2,15 @@ import { ISubscribeFunction } from '../../types/subscribe-function/subscribe-fun
 import { ISubscribePipeFunction } from '../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 import { ILocales } from '../locales/locales.type';
 import { reactiveFunction } from '../../subscribe-function/from/many/reactive-function/reactive-function';
-import { of } from '../../subscribe-function/from/others/of/of';
 import { IListFormatOptions, IListFormatResult, IListFormatValue } from './list-format.type';
+import { single } from '../../subscribe-function';
+
 type ListFormat = any; // TODO
 
 
 export function listFormatSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
-  options: ISubscribeFunction<IListFormatOptions> = of({}),
+  options: ISubscribeFunction<IListFormatOptions> = single({}),
 ): ISubscribePipeFunction<IListFormatValue, IListFormatResult> {
   const format: ISubscribeFunction<ListFormat> = reactiveFunction(
     [locales, options], (locales: ILocales, options: IListFormatOptions): ListFormat => {

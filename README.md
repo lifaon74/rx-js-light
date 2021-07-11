@@ -7,7 +7,8 @@
 
 This library provides tools to generate and consume blazing fast Observables and Observers.
 
-However, it is not RxJS: **it's faster (~3x), smaller (~10x), and tries to be simpler.** Give it a try, and you'll love it !  
+However, it is not RxJS: **it's [faster (~3x), smaller (~10x)](./src/documentation/performances.md), and tries to be simpler.**
+Give it a try, and you'll love it !  
 Because it's extremely light and performant, you may include it even in your smallest projects.
 
 [<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](./src/documentation/tutorial.md)
@@ -110,6 +111,14 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 
 #### create a SubscribeFunction from
 
+- one value
+  - already defined: [single](src/subscribe-function/from/others/single/single.md)
+  - defined later: [reference](/src/subscribe-function/from/others/reference/reference.md)
+
+- a list of values
+  - without notifications: [of](src/subscribe-function/from/others/of/of.md)
+  - with notifications: [ofWithNotifications](src/subscribe-function/from/others/of/with-notifications/of-with-notifications.ts)
+
 - an iterable
   - sync
     - array
@@ -125,21 +134,13 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
   - async
     - async iterable: [fromAsyncIterable](src/subscribe-function/from/iterable/async/from-async-iterable/from-async-iterable.md)
     - async iterator ⚠️: [fromAsyncIterator](src/subscribe-function/from/iterable/async/from-async-iterator/from-async-iterator.md)
-
+  
 - something related to the DOM
   - an EventTarget: [fromEventTarget](src/subscribe-function/from/dom/from-event-target/from-event-target.md)
   - an IntersectionObserver: [fromIntersectionObserver](src/subscribe-function/from/dom/from-intersection-observer/from-intersection-observer.md)
-  - an ResizeObserver: [fromResizeObserver](src/subscribe-function/from/dom/from-resize-observer/from-resize-observer.md)
+  - a ResizeObserver: [fromResizeObserver](src/subscribe-function/from/dom/from-resize-observer/from-resize-observer.md)
   - a css @media query: [fromMatchMedia](src/subscribe-function/from/dom/from-match-media/from-match-media.md)
-    
-- one value
-  - already defined: [single](src/subscribe-function/from/others/single/single.md)
-  - defined later: [reference](/src/subscribe-function/from/others/reference/reference.md)
   
-- a list of values
-  - without notifications: [of](src/subscribe-function/from/others/of/of.md)
-  - with notifications: [ofWithNotifications](src/subscribe-function/from/others/of/with-notifications/of-with-notifications.ts)
-
 - a promise
   - with a factory: [fromPromiseFactory](src/subscribe-function/from/promise/from-promise-factory/from-promise-factory.md)
   - without a factory ⚠️: [fromPromise](src/subscribe-function/from/promise/from-promise/from-promise.md)
@@ -187,6 +188,12 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
   - emits every 'ms': [interval](src/subscribe-function/from/time-related/interval/interval.md)
   - emits when idle time is available: [idle](src/subscribe-function/from/time-related/idle/idle.md)
 
+[comment]: <> (TODO)
+
+[comment]: <> (timeout & timeoutWithErrorNotification)
+[comment]: <> (fromGeolocationPosition)
+
+
 #### convert a SubscribeFunction to
 
 - a promise
@@ -209,11 +216,13 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 
 - reduces the order of a SubscribeFunction of SubscribeFunctions
   - [mergeAllSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-all-subscribe-pipe.md)
-  - maps a SubscribeFunction and then reduces the order: [mergeMapSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-subscribe-pipe.ts)
+  - maps a SubscribeFunction and then reduces the order:
+    - once: [mergeMapSingleSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-single-subscribe-pipe.ts)
+    - many: [mergeMapSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-subscribe-pipe.ts)
 
 - accumulates values:
-  - until another SubscribeFunction emits: [bufferSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-subscribe-pipe.ts)
-  - with a fixed period of time: [bufferTimeSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-time/buffer-time-subscribe-pipe.ts)
+  - until another SubscribeFunction emits: [bufferSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-subscribe-pipe.md)
+  - within a fixed period of time: [bufferTimeSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-time/buffer-time-subscribe-pipe.md)
 
 - time related
   - [debounceTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-time/debounce-time-subscribe-pipe.md)

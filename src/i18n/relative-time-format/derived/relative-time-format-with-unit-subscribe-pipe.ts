@@ -2,7 +2,7 @@ import { ILocales } from '../../locales';
 import { ISubscribeFunction, ISubscribePipeFunction } from '../../../types';
 import { reactiveFunction } from '../../../subscribe-function';
 import {
-  IRelativeTimeFormatValueAndUnit, IRelativeTimeFormatOptions, IRelativeTimeFormatUnit, IRelativeTimeFormatValue
+  IRelativeTimeFormatOptions, IRelativeTimeFormatUnit, IRelativeTimeFormatValue, IRelativeTimeFormatValueAndUnit
 } from '../relative-time-format.type';
 import { relativeTimeFormatSubscribePipe } from '../relative-time-format-subscribe-pipe';
 

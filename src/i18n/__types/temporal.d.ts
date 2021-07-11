@@ -35,17 +35,25 @@ interface Duration {
   readonly milliseconds: number;
   readonly microseconds: number;
   readonly nanoseconds: number;
+
   with(durationLike: DurationLike, options: DisambiguationOptions): Duration;
+
   plus(other: Duration, options: ArithmeticOptions): Duration;
+
   minus(other: Duration, options: ArithmeticOptions): Duration;
+
   getFields(): Required<DurationLike>;
+
   toLocaleString(locales?: string | string[], options?: Intl.DateTimeFormatOptions): string;
+
   toJSON(): string;
+
   toString(): string;
 }
 
 interface DurationConstructor {
   from(item: Duration | string | object, options?: DisambiguationOptions): Duration;
+
   new(
     years?: number,
     months?: number,

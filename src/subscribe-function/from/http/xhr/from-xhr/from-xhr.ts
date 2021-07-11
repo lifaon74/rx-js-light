@@ -20,7 +20,7 @@ import { IDefaultNotificationsUnion } from '../../../../../misc/notifications/de
 import {
   createErrorNotification, createUploadProgressNotification, IUploadProgressNotification, STATIC_COMPLETE_NOTIFICATION
 } from '../../../../../misc';
-import { createAbortErrorNotification } from '../../../../../misc/notifications/built-in/error/create-abort-error-notification';
+import { createAbortErrorNotification } from '../../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
 import {
   createDownloadProgressNotification, IDownloadProgressNotification
 } from '../../../../../misc/notifications/built-in/download-progress';

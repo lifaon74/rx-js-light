@@ -3,13 +3,13 @@ import { ISubscribePipeFunction } from '../../types/subscribe-pipe-function/subs
 import { IPluralRulesOptions, IPluralRulesResult, IPluralRulesValue } from './plural-rules.type';
 import { ILocales } from '../locales/locales.type';
 import { reactiveFunction } from '../../subscribe-function/from/many/reactive-function/reactive-function';
-import { of } from '../../subscribe-function/from/others/of/of';
+import { single } from '../../subscribe-function';
 import PluralRules = Intl.PluralRules;
 
 
 export function pluralRulesSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
-  options: ISubscribeFunction<IPluralRulesOptions> = of({}),
+  options: ISubscribeFunction<IPluralRulesOptions> = single({}),
 ): ISubscribePipeFunction<IPluralRulesValue, IPluralRulesResult> {
   const format: ISubscribeFunction<PluralRules> = reactiveFunction(
     [locales, options],
