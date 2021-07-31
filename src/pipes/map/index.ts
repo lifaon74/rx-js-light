@@ -1,3 +1,3 @@
+export * from './common-map-functions';
 export * from './map-emit-pipe';
-export * from './map-to-number-emit-pipe';
-export * from './map-to-string-emit-pipe';
+export * from './map-filter-emit-pipe';

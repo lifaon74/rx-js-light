@@ -22,10 +22,10 @@ export type TMapValueTupleToSubscribeFunctionTuple<GValueTuple extends readonly 
 
 
 export type TMapSubscribeFunctionTupleToValueTuple<GSubscribeFunctionTuple extends readonly IGenericSubscribeFunction[]> =
-  GSubscribeFunctionTuple extends []
+  GSubscribeFunctionTuple extends readonly []
     ? []
     : (
-      GSubscribeFunctionTuple extends [infer GFirst, ...infer GRest]
+      GSubscribeFunctionTuple extends readonly [infer GFirst, ...infer GRest]
         ? [
           (
             GFirst extends ISubscribeFunction<infer GValue>
@@ -39,7 +39,7 @@ export type TMapSubscribeFunctionTupleToValueTuple<GSubscribeFunctionTuple exten
             )
         ]
         : (
-          GSubscribeFunctionTuple extends (infer GSubscribeFunction)[]
+          GSubscribeFunctionTuple extends readonly (infer GSubscribeFunction)[]
             ? (
               GSubscribeFunction extends ISubscribeFunction<infer GValue>
                 ? GValue[]
@@ -52,3 +52,5 @@ export type TMapSubscribeFunctionTupleToValueTuple<GSubscribeFunctionTuple exten
 
 // type A = [a: ISubscribeFunction<string>, b: ISubscribeFunction<number>, ...rest: ISubscribeFunction<any>[]];
 // const a: TMapSubscribeFunctionTupleToValueTuple<A>;
+// const a: TMapSubscribeFunctionTupleToValueTuple<readonly ISubscribeFunction<string>[]>;
+// const a: Readonly<TMapSubscribeFunctionTupleToValueTuple<ISubscribeFunction<string>[]>>;

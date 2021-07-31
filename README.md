@@ -3,6 +3,8 @@
 ![NPM](https://img.shields.io/npm/l/@lifaon/rx-js-light.svg)
 ![npm type definitions](https://img.shields.io/npm/types/@lifaon/rx-js-light.svg)
 
+[comment]: <> (![downloads]&#40;https://img.shields.io/npm/dt/@lifaon/rx-js-light.svg&#41;)
+
 # ⚡ rx-js-light
 
 This library provides tools to generate and consume blazing fast Observables and Observers.
@@ -11,9 +13,11 @@ However, it is not RxJS: **it's [faster (~3x), smaller (~10x)](./src/documentati
 Give it a try, and you'll love it !  
 Because it's extremely light and performant, you may include it even in your smallest projects.
 
+[<img src="https://img.shields.io/badge/-getting started-yellow?style=for-the-badge" />](./src/documentation/tutorial-for-beginners/tutorial-for-beginners.md)
 [<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](./src/documentation/tutorial.md)
 [<img src="https://img.shields.io/badge/-purpose of rx js light-blue?style=for-the-badge" />](./src/documentation/goal.md)
 [<img src="https://img.shields.io/badge/-performances-orange?style=for-the-badge" />](./src/documentation/performances.md)
+[<img src="https://img.shields.io/badge/-playground-blueviolet?style=for-the-badge" />](https://stackblitz.com/edit/typescript-5ksaqe?file=index.ts)
 
 If you're not familiar with the concept of Observables you may
 check [the rxjs documentation](https://rxjs-dev.firebaseapp.com/guide/observable), or
@@ -192,6 +196,9 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 
 [comment]: <> (timeout & timeoutWithErrorNotification)
 [comment]: <> (fromGeolocationPosition)
+[comment]: <> (deboundeImmediate)
+[comment]: <> (empty)
+[comment]: <> (fromAnimationFrame)
 
 
 #### convert a SubscribeFunction to

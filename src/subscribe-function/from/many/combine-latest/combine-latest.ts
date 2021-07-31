@@ -6,7 +6,8 @@ import {
 import { createEmptyError } from '../../../../misc/errors/empty-error/create-empty-error';
 
 
-export type ICombineLatestSubscribeFunctionsValues<GSubscribeFunctions extends readonly IGenericSubscribeFunction[]> = Readonly<TMapSubscribeFunctionTupleToValueTuple<GSubscribeFunctions>>;
+export type ICombineLatestSubscribeFunctionsValues<GSubscribeFunctions extends readonly IGenericSubscribeFunction[]> =
+  Readonly<TMapSubscribeFunctionTupleToValueTuple<GSubscribeFunctions>>;
 
 /**
  * Combines multiple SubscribeFunctions to create an SubscribeFunction whose values are calculated from the latest values of each of its input SubscribeFunctions.
@@ -46,4 +47,3 @@ export function combineLatest<GSubscribeFunctions extends readonly IGenericSubsc
     };
   }
 }
-
