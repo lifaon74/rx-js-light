@@ -1,10 +1,12 @@
-import { TMapSubscribeFunctionTupleToValueTuple } from '../types';
+import { createEmptyError } from '../../../../misc';
 import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
 import {
-  IGenericSubscribeFunction, ISubscribeFunction, IUnsubscribeFunction
+  IGenericSubscribeFunction,
+  ISubscribeFunction,
+  IUnsubscribeFunction,
 } from '../../../../types/subscribe-function/subscribe-function.type';
-import { createEmptyError } from '../../../../misc/errors/empty-error/create-empty-error';
-
+import { single } from '../../others';
+import { TMapSubscribeFunctionTupleToValueTuple } from '../types';
 
 export type ICombineLatestSubscribeFunctionsValues<GSubscribeFunctions extends readonly IGenericSubscribeFunction[]> =
   Readonly<TMapSubscribeFunctionTupleToValueTuple<GSubscribeFunctions>>;
@@ -20,7 +22,7 @@ export function combineLatest<GSubscribeFunctions extends readonly IGenericSubsc
   type GValue = ICombineLatestSubscribeFunctionsValues<GSubscribeFunctions>;
   const length: number = subscribeFunctions.length;
   if (length === 0) {
-    throw createEmptyError();
+    return single<GValue>([] as unknown as GValue);
   } else {
     return (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {
       const values: unknown[] = Array.from({ length });
@@ -45,5 +47,15 @@ export function combineLatest<GSubscribeFunctions extends readonly IGenericSubsc
         }
       };
     };
+  }
+}
+
+export function combineLatestThrowIfEmpty<GSubscribeFunctions extends readonly IGenericSubscribeFunction[]>(
+  subscribeFunctions: GSubscribeFunctions,
+): ISubscribeFunction<ICombineLatestSubscribeFunctionsValues<GSubscribeFunctions>> {
+  if (subscribeFunctions.length === 0) {
+    throw createEmptyError();
+  } else {
+    return combineLatest<GSubscribeFunctions>(subscribeFunctions);
   }
 }

@@ -1,9 +1,11 @@
+import { createEmptyError } from '../../../../misc';
+import { TupleTypes } from '../../../../misc/types/tuple-types';
 import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
 import {
-  IGenericSubscribeFunction, ISubscribeFunction, IUnsubscribeFunction
+  IGenericSubscribeFunction,
+  ISubscribeFunction,
+  IUnsubscribeFunction,
 } from '../../../../types/subscribe-function/subscribe-function.type';
-import { TupleTypes } from '../../../../misc/types/tuple-types';
-import { createEmptyError } from '../../../../misc/errors/empty-error/create-empty-error';
 
 export type IMergeSubscribeFunctionsValues<GSubscribeFunctions extends readonly IGenericSubscribeFunction[]> = TupleTypes<{
   [GKey in keyof GSubscribeFunctions]: GSubscribeFunctions[GKey] extends ISubscribeFunction<infer GValue>
@@ -18,20 +20,26 @@ export function merge<GSubscribeFunctions extends readonly IGenericSubscribeFunc
   subscribeFunctions: GSubscribeFunctions,
 ): ISubscribeFunction<IMergeSubscribeFunctionsValues<GSubscribeFunctions>> {
   type GValue = IMergeSubscribeFunctionsValues<GSubscribeFunctions>;
+  return (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {
+    const unsubscribe: IUnsubscribeFunction[] = subscribeFunctions
+      .map((subscribe: IGenericSubscribeFunction) => {
+        return subscribe(emit);
+      });
+    return (): void => {
+      for (let i = 0, l = unsubscribe.length; i < l; i++) {
+        unsubscribe[i]();
+      }
+    };
+  };
+}
+
+export function mergeThrowIfEmpty<GSubscribeFunctions extends readonly IGenericSubscribeFunction[]>(
+  subscribeFunctions: GSubscribeFunctions,
+): ISubscribeFunction<IMergeSubscribeFunctionsValues<GSubscribeFunctions>> {
   if (subscribeFunctions.length === 0) {
     throw createEmptyError();
   } else {
-    return (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {
-      const unsubscribe: IUnsubscribeFunction[] = subscribeFunctions
-        .map((subscribe: IGenericSubscribeFunction) => {
-          return subscribe(emit);
-        });
-      return (): void => {
-        for (let i = 0, l = unsubscribe.length; i < l; i++) {
-          unsubscribe[i]();
-        }
-      };
-    };
+    return merge<GSubscribeFunctions>(subscribeFunctions);
   }
 }
 

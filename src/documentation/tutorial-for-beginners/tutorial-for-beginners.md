@@ -262,6 +262,16 @@ So it's an Observable that emits the locale selected by the user.
 ![alt text](./example-01-1-1.png "schema")
 
 
+However, because `selectElementChange$` only triggers when a *change* occurs,
+we will use the previous code in conjunction with `merge`, to dispatch the current `<select>` value.
+
+```ts
+const locale$ = merge([
+  single(selectElement.value),
+  map$$(selectElementChangeImmediately$, () => selectElement.value)
+]);
+```
+
 ---
 
 ```ts
@@ -315,14 +325,17 @@ Calling the `clean` function will stop the timer and remove the event listener a
 
 ---
 
+When regrouped it gives us:
+
 ```ts
 function observables() {
   /* SELECT */
 
   const selectElementChange$ = fromEventTarget(selectElement, 'change'); // #1
-  // trick: allows to immediately emit an event for 'selectElement'
-  const selectElementChangeImmediately$ = merge([selectElementChange$, single(void 0)]); // #1
-  const locale$ = map$$(selectElementChangeImmediately$, () => selectElement.value); // #1.1
+  const locale$ = merge([
+    single(selectElement.value),
+    map$$(selectElementChangeImmediately$, () => selectElement.value)
+  ]); // #1.1
 
   /* DATE */
 
@@ -339,6 +352,23 @@ function observables() {
     outputElement.value = value;
   });
 }
+
+const clean = observables();
+
+setTimeout(clean, 5000); // let's say we want to stop our complete workflow in 5s
 ```
+
+---
+
+So, as you may see, the power of Observables comes from 3 factors:
+
+- they are easy to chain or combine, giving us the possibility to handle long and complex workflow easily,
+  and with potentially fewer errors.
+- they are PUSH sources, meaning they are extremely useful when a state or a value depends on others:
+  if some of them evolves, sub computed values will evolve too.
+- subscribing and unsubscribing (releasing all their resources) is especially simple.
+
+So, for any front-end work, they are a good solution to handle the state of your application,
+update the DOM nodes, and listen on some events. They work exceptionally well with the DOM.
 
 
