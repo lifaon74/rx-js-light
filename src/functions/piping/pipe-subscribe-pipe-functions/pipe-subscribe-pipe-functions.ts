@@ -15,7 +15,6 @@ export type IPipeSubscribePipeFunctionsReturn<// generics
   >
   = IInferPipeReturn<GFunctions, IGenericSubscribePipeFunction>;
 
-
 export function pipeSubscribePipeFunctions<// generics
   GFunctions extends ISubscribePipeFunctionPipeConstraint<GFunctions>
   //

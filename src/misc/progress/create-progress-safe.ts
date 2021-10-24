@@ -23,7 +23,7 @@ export function createProgressSafe(
     || (loaded < 0)
     || (loaded > total)
   ) {
-    throw new TypeError(`Expected number in the range [0, ${ total } (total)] as 'loaded'`);
+    throw new TypeError(`Expected number in the range [0, ${total} (total)] as 'loaded'`);
   }
 
   return createProgress(loaded, total);

@@ -1,7 +1,6 @@
 import { ISubscription } from '../subscription.type';
 import { ISubscriptionManager, ISubscriptionManagerSetMode } from './subscription-manager.type';
 
-
 export class SubscriptionManager implements ISubscriptionManager {
   protected _subscriptionsMap: Map<string, ISubscription<any>>;
 
@@ -29,11 +28,11 @@ export class SubscriptionManager implements ISubscriptionManager {
         if (this._subscriptionsMap.has(key)) {
           return this._subscriptionsMap.get(key) as GSubscription;
         } else {
-          throw new Error(`Missing key: '${ key }'`);
+          throw new Error(`Missing key: '${key}'`);
         }
       }
       default:
-        throw new TypeError(`Unknown mode: '${ mode }'`);
+        throw new TypeError(`Unknown mode: '${mode}'`);
     }
   }
 
@@ -51,9 +50,9 @@ export class SubscriptionManager implements ISubscriptionManager {
           this._subscriptionsMap.set(key, subscription);
           break;
         case 'throw':
-          throw new Error(`Already subscribed to: '${ key }'`);
+          throw new Error(`Already subscribed to: '${key}'`);
         default:
-          throw new TypeError(`Unknown mode: '${ mode }'`);
+          throw new TypeError(`Unknown mode: '${mode}'`);
       }
     } else {
       this._subscriptionsMap.set(key, subscription);

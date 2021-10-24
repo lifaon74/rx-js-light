@@ -2,7 +2,6 @@ import { IEmitFunction, ISubscribeFunction, ISubscribePipeFunction, IUnsubscribe
 import { IErrorNotification, IGenericErrorNotification, isErrorNotification } from '../../../misc';
 import { asyncUnsubscribe } from '../../../misc/helpers/async-unsubscribe';
 
-
 export interface ICatchErrorSubscribePipeOnError<GError, GOnErrorOut> {
   (error: GError): ISubscribeFunction<GOnErrorOut>;
 }
@@ -18,9 +17,8 @@ export type ICatchErrorSubscribePipeOutValue<GIn, GOnErrorOut> =
 export type ICatchErrorSubscribePipeWithNotificationsReturn<GIn, GEmitPipeOut> =
   ISubscribePipeFunction<GIn, ICatchErrorSubscribePipeOutValue<GIn, GEmitPipeOut>>;
 
-
 export function catchErrorSubscribePipe<GIn, GOnErrorOut>(
-  onError: ICatchErrorSubscribePipeOnError<IInferCatchErrorSubscribePipeInError<GIn>, GOnErrorOut>
+  onError: ICatchErrorSubscribePipeOnError<IInferCatchErrorSubscribePipeInError<GIn>, GOnErrorOut>,
 ): ICatchErrorSubscribePipeWithNotificationsReturn<GIn, GOnErrorOut> {
   type GError = IInferCatchErrorSubscribePipeInError<GIn>;
   type GOut = ICatchErrorSubscribePipeOutValue<GIn, GOnErrorOut>;
@@ -41,7 +39,6 @@ export function catchErrorSubscribePipe<GIn, GOnErrorOut>(
           emit(value as GOut);
         }
       });
-
 
       return () => {
         if (running) {

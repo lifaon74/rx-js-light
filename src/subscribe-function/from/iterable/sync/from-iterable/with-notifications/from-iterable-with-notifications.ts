@@ -1,5 +1,5 @@
 import {
-  fromIteratorWithNotifications, ISubscribeFunctionFromIteratorNotifications
+  fromIteratorWithNotifications, ISubscribeFunctionFromIteratorNotifications,
 } from '../../from-iterator/with-notifications/from-iterator-with-notifications';
 import { ISubscribeFunction } from '../../../../../../types/subscribe-function/subscribe-function.type';
 

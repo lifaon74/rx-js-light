@@ -1,6 +1,5 @@
 import { IGenericSource, ISource } from '../source.type';
 
-
 export interface IReplayLastSourceMethods<GValue> {
   getValue(): GValue;
 }

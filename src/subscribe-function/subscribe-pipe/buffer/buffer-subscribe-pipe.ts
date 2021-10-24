@@ -1,6 +1,5 @@
 import { IEmitFunction, ISubscribeFunction, ISubscribePipeFunction, IUnsubscribeFunction } from '../../../types';
 
-
 export function bufferSubscribePipe<GValue>(
   closingSubscribeFunction: ISubscribeFunction<any>,
 ): ISubscribePipeFunction<GValue, GValue[]> {

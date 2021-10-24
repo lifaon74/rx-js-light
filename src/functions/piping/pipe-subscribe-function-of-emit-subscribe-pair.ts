@@ -4,9 +4,8 @@ import { IInferPipeNowReturn } from '../../misc/functional/pipe/types/infer-pipe
 import { IGenericSubscribePipeFunction } from '../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 import {
   IEmitSubscribePair, IGenericEmitSubscribePair, IInferEmitSubscribePairEmitFunction,
-  IInferEmitSubscribePairSubscribeFunction
+  IInferEmitSubscribePairSubscribeFunction,
 } from '../../source/emit-subscribe-pair.type';
-
 
 export type IEmitSubscribePairPipeConstraint<// generics
   GEmitSubscribePair extends IGenericEmitSubscribePair,
@@ -26,18 +25,17 @@ export type IEmitSubscribePairPipeReturn<// generics
   //
   >;
 
-
 export function pipeSubscribeFunctionOfEmitSubscribePair<// generics
   GEmitSubscribePair extends IGenericEmitSubscribePair,
   GFunctions extends IEmitSubscribePairPipeConstraint<GEmitSubscribePair, GFunctions>
   //
   >(
   emitSubscribePair: GEmitSubscribePair,
-  fns: GFunctions
+  fns: GFunctions,
 ): IEmitSubscribePairPipeReturn<GEmitSubscribePair, GFunctions> {
   return {
     emit: emitSubscribePair.emit,
-    subscribe: pipeNow<IInferEmitSubscribePairSubscribeFunction<GEmitSubscribePair>, GFunctions, IGenericSubscribePipeFunction>(emitSubscribePair.subscribe, fns)
+    subscribe: pipeNow<IInferEmitSubscribePairSubscribeFunction<GEmitSubscribePair>, GFunctions, IGenericSubscribePipeFunction>(emitSubscribePair.subscribe, fns),
   };
 }
 

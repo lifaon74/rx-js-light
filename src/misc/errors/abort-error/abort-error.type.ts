@@ -4,7 +4,7 @@ export interface IAbortErrorProperties {
   readonly signal?: AbortSignal;
 }
 
-export interface IAbortError extends ICustomError<'AbortError'>, IAbortErrorProperties{
+export interface IAbortError extends ICustomError<'AbortError'>, IAbortErrorProperties {
 }
 
 export interface IAbortErrorOptions extends ICustomErrorOptions, Readonly<IAbortErrorProperties> {

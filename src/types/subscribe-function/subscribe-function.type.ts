@@ -12,7 +12,6 @@ export interface IUnsubscribeFunction {
   (): void;
 }
 
-
 /* derived */
 
 export type IGenericSubscribeFunction = ISubscribeFunction<any>;

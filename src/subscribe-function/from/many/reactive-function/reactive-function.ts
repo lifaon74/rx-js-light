@@ -5,7 +5,6 @@ import { ISubscribeFunction } from '../../../../types/subscribe-function/subscri
 import { mapSubscribePipe } from '../../../subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import { IGenericFunction } from '../../../../misc/types/generic-function.type';
 
-
 export type IReactiveFunctionSubscribeFunctions<GFunction extends IGenericFunction> = TMapValueTupleToSubscribeFunctionTuple<Parameters<GFunction>>;
 export type IReactiveFunctionReturn<GFunction extends IGenericFunction> = ISubscribeFunction<ReturnType<GFunction>>;
 

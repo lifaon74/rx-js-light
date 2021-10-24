@@ -2,7 +2,6 @@ import { IEmitFunction } from '../../types/emit-function/emit-function.type';
 import { IEmitPipeFunction } from '../../types/emit-pipe-function/emit-pipe-function.type';
 import { IMapFunction } from './map-emit-pipe';
 
-
 export const MAP_FILTER_DISCARD = Symbol('map-filter-discard');
 export type IMapFilterDiscard = typeof MAP_FILTER_DISCARD;
 

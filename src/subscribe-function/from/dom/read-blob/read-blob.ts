@@ -1,6 +1,6 @@
 import { createNextNotification } from '../../../../misc/notifications/built-in/next/create-next-notification';
 import {
-  createProgressNotification, IProgressNotification
+  createProgressNotification, IProgressNotification,
 } from '../../../../misc/notifications/built-in/progress-notification';
 import { IProgress } from '../../../../misc/progress/progress.type';
 import { createEventListener, IRemoveEventListener } from '../../../../misc/event-listener/create-event-listener';
@@ -37,7 +37,7 @@ export type ISubscribeFunctionReadBlobNotifications<GReadType extends IFileReade
 
 export function readBlob<GReadType extends IFileReaderReadType>(
   blob: Blob,
-  readType: GReadType
+  readType: GReadType,
 ): ISubscribeFunction<ISubscribeFunctionReadBlobNotifications<GReadType>> {
   type GReturnType = TInferFileReaderReturnTypeFromReadType<GReadType>;
   type GNotificationsUnion = ISubscribeFunctionReadBlobNotifications<GReadType>;
@@ -86,14 +86,13 @@ export function readBlob<GReadType extends IFileReaderReadType>(
       }
     };
 
-
     const removeLoadEventListener: IRemoveEventListener = createEventListener<'load', ProgressEvent<FileReader>>(
       toTypedEventTarget(fileReader),
       'load',
       () => {
         next(fileReader.result as GReturnType);
         complete();
-      }
+      },
     );
 
     const removeErrorEventListener: IRemoveEventListener = createEventListener<'error', ProgressEvent<FileReader>>(
@@ -101,13 +100,13 @@ export function readBlob<GReadType extends IFileReaderReadType>(
       'error',
       () => {
         error(fileReader.error);
-      }
+      },
     );
 
     const removeAbortEventListener: IRemoveEventListener = createEventListener<'abort', ProgressEvent<FileReader>>(
       toTypedEventTarget(fileReader),
       'abort',
-      abort
+      abort,
     );
 
     const removeProgressEventListener: IRemoveEventListener = createEventListener<'progress', ProgressEvent<FileReader>>(
@@ -115,7 +114,7 @@ export function readBlob<GReadType extends IFileReaderReadType>(
       'progress',
       (event: ProgressEvent<FileReader>) => {
         progress(createProgressFromProgressEvent(event));
-      }
+      },
     );
 
     switch (readType) {

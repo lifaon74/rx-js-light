@@ -1,7 +1,6 @@
 import { ISource } from '../source.type';
 import { IEmitFunction } from '../../types/emit-function/emit-function.type';
 
-
 /**
  * A MulticastSource is used to emit one value to multiple observers
  * - emit: sends a value to all the observers

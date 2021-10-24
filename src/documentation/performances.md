@@ -8,11 +8,10 @@
 All of this due to the usage of functions instead of classes and methods:
 
 - functions are parts of the javascript language, and they are perfectly well optimized by the vendor engines.
-- functions minification is very efficient and in many cases they can even be reduced  or simplified.
+- functions minification is very efficient and in many cases they can even be reduced or simplified.
 
 For large projects or browser applications requiring critical performances and reactive programming,
 `rx-js-light` is an excellent solution !
-
 
 ```ts
 import { from as fromRXJS } from 'rxjs';

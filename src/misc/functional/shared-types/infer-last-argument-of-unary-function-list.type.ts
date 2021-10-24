@@ -15,7 +15,6 @@ export type IInferLastArgumentOfUnaryFunctionList<// generics
       )
     : never;
 
-
 // export type IInferLastArgumentOfUnaryFunctionListOrValue<// generics
 //   GFunctions extends readonly IGenericUnaryFunction[],
 //   GValue,

@@ -31,7 +31,6 @@ export type IPipeConstraint<// generics
 //   GArgument extends GReturn
 //   ? any : never)
 
-
 // type F0 = () => string;
 // type F1 = (a: number) => string;
 // type F2 = (a: string) => boolean;

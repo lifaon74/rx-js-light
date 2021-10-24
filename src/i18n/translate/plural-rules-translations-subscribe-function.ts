@@ -3,7 +3,6 @@ import { ILocales } from '../locales/locales.type';
 import { IPluralRulesValue } from '../plural-rules/plural-rules.type';
 import { ITranslations } from './translations.type';
 
-
 export function pluralRulesTranslationsSubscribeFunction(
   locales: ISubscribeFunction<ILocales>,
   translations: ISubscribeFunction<ITranslations>,

@@ -1,13 +1,11 @@
 import { IEmitFunction, ISubscribeFunction, ISubscribePipeFunction, IUnsubscribeFunction } from '../../../../types';
 import { createTimeout, IAbortTimer } from '../../../../misc';
 
-
 // export function bufferTimeSubscribePipe<GValue>(
 //   duration: number,
 // ): ISubscribePipeFunction<GValue, GValue[]> {
 //   return bufferSubscribePipe<GValue>(interval(duration));
 // }
-
 
 export function bufferTimeSubscribePipe<GValue>(
   duration: number,

@@ -3,11 +3,10 @@ import {
   DATE_TIME_FORMAT_FULL, DATE_TIME_FORMAT_FULL_DATE, DATE_TIME_FORMAT_LONG, DATE_TIME_FORMAT_LONG_DATE,
   DATE_TIME_FORMAT_LONG_TIME, DATE_TIME_FORMAT_MEDIUM, DATE_TIME_FORMAT_MEDIUM_DATE, DATE_TIME_FORMAT_MEDIUM_TIME,
   DATE_TIME_FORMAT_MINIMAL, DATE_TIME_FORMAT_MINIMAL_DATE, DATE_TIME_FORMAT_SHORT, DATE_TIME_FORMAT_SHORT_DATE,
-  DATE_TIME_FORMAT_SHORT_TIME
+  DATE_TIME_FORMAT_SHORT_TIME,
 } from './date-time-shortcut-format.constants';
 
 // https://angular.io/api/common/DatePipe
-
 
 export type IDateTimeShortcutFormat =
   'minimal'
@@ -58,7 +57,7 @@ export function dateTimeShortcutFormatToDateTimeFormatOptions(
     case 'longTime':
       return DATE_TIME_FORMAT_LONG_TIME;
     default:
-      throw new TypeError(`Unknown date format: ${ format }`);
+      throw new TypeError(`Unknown date format: ${format}`);
   }
 }
 

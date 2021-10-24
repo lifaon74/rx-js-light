@@ -7,7 +7,6 @@ import { single } from '../../subscribe-function';
 
 type ListFormat = any; // TODO
 
-
 export function listFormatSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
   options: ISubscribeFunction<IListFormatOptions> = single({}),

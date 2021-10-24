@@ -14,7 +14,6 @@ export type ITInferKeyValueTupleGValue<GKeyValueTuple extends IGenericKeyValueTu
     ? GValue
     : never;
 
-
 /** UNION **/
 
 export type IGenericKeyValueTupleUnion = IGenericKeyValueTuple;
@@ -33,7 +32,6 @@ export type IInferKeyValueTupleUnionGValueFromKey<GKeyValueTupleUnion extends IG
 export type IKeyValueMapToKeyValueTupleUnion<GObject extends object> = {
   [GKey in Extract<keyof GObject, string>]: IKeyValueTuple<GKey, GObject[GKey]>;
 }[Extract<keyof GObject, string>];
-
 
 export type IKeyValueTupleUnionToKeyValueMap<GKeyValueTupleUnion extends IGenericKeyValueTuple> = {
   [GKey in IInferKeyValueTupleUnionGKey<GKeyValueTupleUnion>]: GKeyValueTupleUnion extends IKeyValueTuple<GKey, infer GValue>

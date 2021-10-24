@@ -5,7 +5,7 @@ import { createEventListener, IRemoveEventListener } from '../../../../../misc/e
 import { toTypedEventTarget } from '../../../../../misc/event-listener/to-typed-event-target';
 import {
   areReadableStreamSupported, initAndSendXHRFromRequest, XHRResponse, XHRResponseToReadableStream,
-  XHRResponseToResponse, XHRResponseToResponseInit, XHRResponseTypeExtended
+  XHRResponseToResponse, XHRResponseToResponseInit, XHRResponseTypeExtended,
 } from '../xhr-helpers';
 import { IProgress } from '../../../../../misc/progress/progress.type';
 import { createProgressFromProgressEvent } from '../../../../../misc/progress/create-progress-from-progress-event';
@@ -14,15 +14,15 @@ import { createNetworkErrorFromRequest } from '../../../../../misc/errors/networ
 import { isAbortError } from '../../../../../misc/errors/abort-error/is-abort-error';
 import { IEmitFunction } from '../../../../../types/emit-function/emit-function.type';
 import {
-  ISubscribeFunction, IUnsubscribeFunction
+  ISubscribeFunction, IUnsubscribeFunction,
 } from '../../../../../types/subscribe-function/subscribe-function.type';
 import { IDefaultNotificationsUnion } from '../../../../../misc/notifications/default-notifications-union.type';
 import {
-  createErrorNotification, createUploadProgressNotification, IUploadProgressNotification, STATIC_COMPLETE_NOTIFICATION
+  createErrorNotification, createUploadProgressNotification, IUploadProgressNotification, STATIC_COMPLETE_NOTIFICATION,
 } from '../../../../../misc';
 import { createAbortErrorNotification } from '../../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
 import {
-  createDownloadProgressNotification, IDownloadProgressNotification
+  createDownloadProgressNotification, IDownloadProgressNotification,
 } from '../../../../../misc/notifications/built-in/download-progress';
 
 export type IUploadCompleteNotification = INotification<'upload-complete', void>;
@@ -143,7 +143,6 @@ export function fromXHR(
         }
       };
 
-
       const removeReadyStateChangeEventListener: IRemoveEventListener = createEventListener<'readystatechange', Event>(
         toTypedEventTarget(xhr),
         'readystatechange',
@@ -159,7 +158,7 @@ export function fromXHR(
               }
             }
           }
-        }
+        },
       );
 
       const removeLoadEventListener: IRemoveEventListener = createEventListener<'load', Event>(
@@ -179,7 +178,7 @@ export function fromXHR(
       const removeAbortEventListener = createEventListener<'abort', Event>(
         toTypedEventTarget(xhr),
         'abort',
-        abort
+        abort,
       );
 
       const removeDownloadProgressEventListener: IRemoveEventListener = createEventListener<'progress', ProgressEvent<XMLHttpRequestEventTarget>>(
@@ -190,7 +189,6 @@ export function fromXHR(
         },
       );
 
-
       const removeUploadProgressEventListener: IRemoveEventListener = createEventListener<'progress', ProgressEvent<XMLHttpRequestEventTarget>>(
         toTypedEventTarget(xhr.upload),
         'progress',
@@ -198,7 +196,6 @@ export function fromXHR(
           uploadProgress(createProgressFromProgressEvent(event));
         },
       );
-
 
       const removeUploadCompleteEventListener: IRemoveEventListener = createEventListener<'load', ProgressEvent<XMLHttpRequestEventTarget>>(
         toTypedEventTarget(xhr.upload),

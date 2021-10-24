@@ -1,9 +1,9 @@
 import {
-  IEventTargetToEventMapUnion, IGenericEventTargetToEventMap, TInferEventTargetEventMap
+  IEventTargetToEventMapUnion, IGenericEventTargetToEventMap, TInferEventTargetEventMap,
 } from './event-target-to-event-map.type';
 import { IPureEventTarget } from './pure-event-target.type';
 import {
-  IInferKeyValueTupleUnionGKey, IInferKeyValueTupleUnionGValueFromKey, IKeyValueTuple
+  IInferKeyValueTupleUnionGKey, IInferKeyValueTupleUnionGValueFromKey, IKeyValueTuple,
 } from '../types/key-value.type';
 
 export type IGenericEventKeyValueTuple = IKeyValueTuple<string, Event>;
@@ -16,16 +16,13 @@ export type IEventKeyValueMapToKeyValueTupleUnion<GEventMap extends object> = {
     : never;
 }[Extract<keyof GEventMap, string>];
 
-
 export type IPureEventTargetToTypedPureEventTarget<GEventTarget extends IPureEventTarget, GEventMap extends IGenericEventTargetToEventMap = IEventTargetToEventMapUnion>
   = ITypedPureEventTarget<IEventKeyValueMapToKeyValueTupleUnion<TInferEventTargetEventMap<GEventTarget, GEventMap>>>
 
 export type IEventTargetToTypedEventTarget<GEventTarget extends EventTarget, GEventMap extends IGenericEventTargetToEventMap = IEventTargetToEventMapUnion>
   = ITypedEventTarget<IEventKeyValueMapToKeyValueTupleUnion<TInferEventTargetEventMap<GEventTarget, GEventMap>>>
 
-
 /*--*/
-
 
 export interface ITypedEventListener<GValue extends Event> {
   (value: GValue): void;
@@ -45,13 +42,13 @@ export interface ITypedPureEventTarget<GKeyValueTupleUnion extends IGenericEvent
   addEventListener<GKey extends IInferKeyValueTupleUnionGKey<GKeyValueTupleUnion>>(
     type: GKey,
     listener: ITypedEventListenerOrEventListenerObject<IInferKeyValueTupleUnionGValueFromKey<GKeyValueTupleUnion, GKey>> | null,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
 
   removeEventListener<GKey extends IInferKeyValueTupleUnionGKey<GKeyValueTupleUnion>>(
     type: GKey,
     listener: ITypedEventListenerOrEventListenerObject<IInferKeyValueTupleUnionGValueFromKey<GKeyValueTupleUnion, GKey>> | null,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
 }
 
@@ -77,7 +74,6 @@ export interface ITypedPureEventTarget<GKeyValueTupleUnion extends IGenericEvent
 export interface ITypedEventTarget<GKeyValueTupleUnion extends IGenericEventKeyValueTupleUnion> extends ITypedPureEventTarget<GKeyValueTupleUnion> {
   dispatchEvent(event: Event): boolean;
 }
-
 
 export type IGenericTypedPureEventTarget = ITypedPureEventTarget<IGenericEventKeyValueTupleUnion>;
 

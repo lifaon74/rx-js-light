@@ -1,5 +1,5 @@
 export function isArrayLike<GValue>(
-  value: any
+  value: any,
 ): value is ArrayLike<GValue> {
   return Array.isArray(value)
     || (

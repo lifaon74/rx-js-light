@@ -1,8 +1,8 @@
+import { compose } from './compose';
 import { IComposeConstraint } from './types/compose-constraint.type';
 import { IGenericUnaryFunction } from '../shared-types/unary-function.type';
-import { IInferComposeNowReturn } from '../compose/types/infer-compose-now-return.type';
-import { compose } from '../compose/compose';
 import { IComposeNowValueConstraint } from './types/compose-now-value-constraint.type';
+import { IInferComposeNowReturn } from './types/infer-compose-now-return.type';
 
 export function composeNow<// generics
   GFunctions extends IComposeConstraint<GFunctions, any, GUnaryFunction>,
@@ -15,7 +15,6 @@ export function composeNow<// generics
 ): IInferComposeNowReturn<GFunctions, GValue> {
   return compose<GFunctions, GUnaryFunction>(fns)(value as never) as IInferComposeNowReturn<GFunctions, GValue>;
 }
-
 
 // export function compose<// generics
 //   GFunctions extends IComposeConstraint<GFunctions, any, GUnaryFunction>,

@@ -1,7 +1,6 @@
 import { ISubscription } from './subscription.type';
 import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../types';
 
-
 /**
  * TODO very close of a IEmitSubscribePair
  */

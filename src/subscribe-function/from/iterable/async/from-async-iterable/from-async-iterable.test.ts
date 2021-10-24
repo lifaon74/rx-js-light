@@ -7,17 +7,17 @@ import { STATIC_COMPLETE_NOTIFICATION } from '../../../../../misc';
 async function testFromAsyncIterableWithComplete() {
   await assertSubscribeFunctionEmits(
     fromAsyncIterable(
-      (async function * () {
+      (async function* () {
         for (let i = 0; i < 2; i++) {
           yield i;
         }
-      })()
+      })(),
     ),
     [
       _ => notificationEquals(_, createNextNotification(0)),
       _ => notificationEquals(_, createNextNotification(1)),
       _ => notificationEquals(_, STATIC_COMPLETE_NOTIFICATION),
-    ]
+    ],
   );
 }
 

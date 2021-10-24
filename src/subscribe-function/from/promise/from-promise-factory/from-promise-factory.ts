@@ -9,13 +9,11 @@ import { IDefaultNotificationsUnion } from '../../../../misc/notifications/defau
 import { createErrorNotification, STATIC_COMPLETE_NOTIFICATION } from '../../../../misc';
 import { createAbortErrorNotification } from '../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
 
-
 export interface ISubscribeFunctionFromPromiseFactoryOptions {
   signal?: AbortSignal | null;
 }
 
 export type ISubscribeFunctionFromPromiseFactoryNotifications<GValue> = IDefaultNotificationsUnion<GValue>;
-
 
 export interface IFromPromiseFactoryCreatePromiseFunction<GValue> {
   (signal: AbortSignal): Promise<GValue>;
@@ -89,7 +87,7 @@ export function fromPromiseFactory<GValue>(
           () => {
             abort();
             abortController.abort();
-          }
+          },
         );
       }
 
@@ -99,7 +97,7 @@ export function fromPromiseFactory<GValue>(
             next(value);
             complete();
           },
-          error
+          error,
         );
 
       return (): void => {

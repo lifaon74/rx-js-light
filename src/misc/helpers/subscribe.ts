@@ -3,7 +3,7 @@ import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-
 
 export function subscribe<GValue>(
   subscribeFunction: ISubscribeFunction<GValue>,
-  emitFunction: IEmitFunction<GValue>
+  emitFunction: IEmitFunction<GValue>,
 ): IUnsubscribeFunction {
   return subscribeFunction(emitFunction);
 }

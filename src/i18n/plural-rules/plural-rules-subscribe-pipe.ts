@@ -6,7 +6,6 @@ import { reactiveFunction } from '../../subscribe-function/from/many/reactive-fu
 import { single } from '../../subscribe-function';
 import PluralRules = Intl.PluralRules;
 
-
 export function pluralRulesSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
   options: ISubscribeFunction<IPluralRulesOptions> = single({}),

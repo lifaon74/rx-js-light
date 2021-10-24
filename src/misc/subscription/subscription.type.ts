@@ -1,7 +1,6 @@
 import { IEmitFunction } from '../../types/emit-function/emit-function.type';
 import { ISubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
 
-
 export interface ISubscription<GValue> {
   readonly subscribe: ISubscribeFunction<GValue>;
   readonly emit: IEmitFunction<GValue>;
@@ -14,7 +13,6 @@ export interface ISubscription<GValue> {
 
   toggle(activate?: boolean): this;
 }
-
 
 export interface ISubscriptionConstructor {
   new<GValue>(

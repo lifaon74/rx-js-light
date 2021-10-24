@@ -58,7 +58,6 @@ export type CurryReturn<GFunction extends IGenericFunction> =
       )
     : never;
 
-
 export type CurryRightReturn<GFunction extends IGenericFunction> =
   GFunction extends ((...args: infer GArs) => infer GReturn)
     ? (
@@ -106,7 +105,6 @@ export function curryRight<GFunction extends IGenericFunction>(fnc: GFunction): 
 export function curryRightOneByOne<GFunction extends IGenericFunction>(fnc: GFunction): CurryRightOneByOneReturn<GFunction> {
   return curryRight(fnc) as any;
 }
-
 
 // // https://stackoverflow.com/questions/63903982/how-to-write-curry-and-compose-in-typescript-4
 // type Curried<A extends any[], R> =

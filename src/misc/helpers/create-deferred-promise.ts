@@ -6,7 +6,6 @@ export interface IDeferredPromise<GValue> {
   readonly reject: (reason?: any) => void;
 }
 
-
 export function createDeferredPromise<GValue>(): IDeferredPromise<GValue> {
   let resolve!: (value: GValue | PromiseLike<GValue>) => void;
   let reject!: (reason?: any) => void;

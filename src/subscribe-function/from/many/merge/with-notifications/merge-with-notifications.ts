@@ -1,7 +1,7 @@
 import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../../../../types';
 import {
   createErrorNotification, IDefaultNotificationsUnion, IErrorNotification, IGenericDefaultInNotificationsUnion,
-  INextNotification, STATIC_COMPLETE_NOTIFICATION
+  INextNotification, STATIC_COMPLETE_NOTIFICATION,
 } from '../../../../../misc';
 import { TupleTypes } from '../../../../../misc/types/tuple-types';
 
@@ -18,7 +18,6 @@ export type IMergeWithNotificationsSubscribeFunctionsValues<GSubscribeFunctions 
 export type IGenericMergeWithNotificationsSubscribeFunction = ISubscribeFunction<IGenericDefaultInNotificationsUnion>;
 
 export type IGenericMergeWithNotificationsSubscribeFunctions = readonly IGenericMergeWithNotificationsSubscribeFunction[];
-
 
 export interface IMergeWithNotificationsOptions {
   completeOnFirstComplete?: boolean; // (default: false)
@@ -70,11 +69,10 @@ export function mergeWithNotifications<GSubscribeFunctions extends IGenericMerge
         emit(
           errorOnFirstError
             ? notification
-            : createErrorNotification(new Error(`All children emitted an error`))
+            : createErrorNotification(new Error(`All children emitted an error`)),
         );
       }
     };
-
 
     const unsubscribe: IUnsubscribeFunction[] = subscribeFunctions
       .map((subscribe: IGenericMergeWithNotificationsSubscribeFunction) => {

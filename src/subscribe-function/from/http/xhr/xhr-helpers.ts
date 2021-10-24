@@ -3,14 +3,21 @@ import { toTypedEventTarget } from '../../../../misc/event-listener/to-typed-eve
 import { createAbortError } from '../../../../misc/errors/abort-error/create-abort-error';
 import { createNetworkError } from '../../../../misc/errors/network-error/create-network-error';
 
-
 /** TYPES **/
 
 export interface XHRResponseInit extends ResponseInit {
   url?: string;
 }
 
-export class XHRResponse extends Response {
+function getResponseClass(): typeof Response {
+  return (typeof Response === 'undefined')
+    ? function() {
+      throw new Error(`Unsupported Response`);
+    } as unknown as typeof Response
+    : Response;
+}
+
+export class XHRResponse extends getResponseClass() {
   protected _url: string;
 
   constructor(
@@ -38,7 +45,6 @@ export function areReadableStreamSupported(): boolean {
 export function isReadableStream(value: any): value is ReadableStream {
   return value instanceof ReadableStream;
 }
-
 
 /** INIT AND SEND XHR FROM REQUEST **/
 
@@ -109,13 +115,13 @@ export function initXHRFromRequest(
     const removeLoadEventListener: IRemoveEventListener = createEventListener<'load', ProgressEvent<XMLHttpRequestEventTarget>>(
       toTypedEventTarget(xhr),
       'load',
-      end
+      end,
     );
 
     const removeErrorEventListener: IRemoveEventListener = createEventListener<'error', ProgressEvent<XMLHttpRequestEventTarget>>(
       toTypedEventTarget(xhr),
       'error',
-      end
+      end,
     );
 
     const removeAbortEventListener: IRemoveEventListener = createEventListener<'abort', Event>(
@@ -124,7 +130,7 @@ export function initXHRFromRequest(
       () => {
         end();
         xhr.abort();
-      }
+      },
     );
   }
 
@@ -140,7 +146,7 @@ export function initAndSendXHRFromRequestAndBody(
   body: BodyInit | null,
 ): void {
   initXHRFromRequest(request, xhr, responseType);
-  xhr.send(body);
+  xhr.send(body as XMLHttpRequestBodyInit); // TODO ensure that xhr accepts a stream
 }
 
 /**
@@ -161,7 +167,7 @@ export function initAndSendXHRFromRequestUsingBlob(
   xhr: XMLHttpRequest,
   responseType: XHRResponseTypeExtended,
   request: Request,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<void> {
   if (signal?.aborted) {
     return Promise.reject(createAbortError());
@@ -177,7 +183,6 @@ export function initAndSendXHRFromRequestUsingBlob(
   }
 }
 
-
 /**
  * Inits and sends an XMLHttpRequest from a Request. Chooses best sending method.
  */
@@ -185,16 +190,14 @@ export function initAndSendXHRFromRequest(
   xhr: XMLHttpRequest,
   responseType: XHRResponseTypeExtended,
   request: Request,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<void> {
   return (areReadableStreamSupported() && isReadableStream(request.body))
     ? new Promise<void>(resolve => resolve(initAndSendXHRFromRequestUsingReadableStream(xhr, responseType, request)))
     : initAndSendXHRFromRequestUsingBlob(xhr, responseType, request, signal);
 }
 
-
 /** CONVERTS FINISHED XHR INTO RESPONSE **/
-
 
 /**
  * Converts a binary string to an Uint8Array
@@ -209,7 +212,6 @@ export function binaryStringToUint8Array(
   }
   return array;
 }
-
 
 /**
  * Converts an XHR.response (having different formats) into an Uint8Array
@@ -235,10 +237,9 @@ export function XHRResponseToUint8Array(
     case 'json':
       return new TextEncoder().encode(JSON.stringify(xhr.response as any));
     default:
-      throw new TypeError(`Unsupported response type '${ responseType }'`);
+      throw new TypeError(`Unsupported response type '${responseType}'`);
   }
 }
-
 
 /**
  * Converts an XHR.response (having different formats) into a Blob
@@ -264,7 +265,7 @@ export function XHRResponseToBlob(
     case 'json':
       return new Blob([JSON.stringify(xhr.response as any)], { type: contentType || 'application/json' });
     default:
-      throw new TypeError(`Unsupported response type '${ responseType }'`);
+      throw new TypeError(`Unsupported response type '${responseType}'`);
   }
 }
 
@@ -446,7 +447,6 @@ export function XHRResponseToReadableStream(
 //   });
 // }
 
-
 export type IHeaderTuple = [key: string, value: string];
 
 /**
@@ -465,7 +465,6 @@ export function parseRawHeaders(
     })
     .filter(([key]) => (key !== ''));
 }
-
 
 /**
  * Creates a ResponseInit from an XHR.response
@@ -504,7 +503,7 @@ export function XHRResponseToResponse(
     case 'binary-string':
       return new XHRResponse(XHRResponseToBlob(xhr, responseType), init);
     default:
-      throw new TypeError(`Unsupported response type '${ responseType }'`);
+      throw new TypeError(`Unsupported response type '${responseType}'`);
   }
 }
 
@@ -514,7 +513,7 @@ export function XHRResponseToResponse(
  */
 export function XHRResponseToResponseUsingReadableStream(
   xhr: XMLHttpRequest,
-  responseType?: XHRResponseTypeExtended
+  responseType?: XHRResponseTypeExtended,
 ): Response {
   return new XHRResponse(
     XHRResponseToReadableStream(xhr, responseType),

@@ -22,7 +22,6 @@ export function reactiveAndMany(
 //   );
 // }
 
-
 function andMany(...values: boolean[]): boolean {
   for (let i = 0, l = values.length; i < l; i++) {
     if (!values[i]) {

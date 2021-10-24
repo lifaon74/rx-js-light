@@ -1,7 +1,6 @@
 import { IEmitFunction } from '../types/emit-function/emit-function.type';
 import { IEmitPipeFunction } from '../types/emit-pipe-function/emit-pipe-function.type';
 
-
 /** STRICT **/
 
 export interface IFilterFunctionStrict<GIn, GOut extends GIn> {
@@ -31,7 +30,6 @@ export function filterEmitPipeBasic<GValue>(
 ): IEmitPipeFunction<GValue, GValue> {
   return filterEmitPipeStrict<GValue, GValue>(filterFunction as IFilterFunctionStrict<GValue, GValue>);
 }
-
 
 /** BOTH **/
 

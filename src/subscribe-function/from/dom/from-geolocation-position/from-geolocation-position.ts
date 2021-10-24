@@ -1,16 +1,17 @@
-import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../../../types';
-import {
-  createErrorNotification, createNextNotification, IErrorNotification, INextNotification
-} from '../../../../misc';
+import { createErrorNotification } from '../../../../misc/notifications/built-in/error/create-error-notification';
+import { IErrorNotification } from '../../../../misc/notifications/built-in/error/error-notification.type';
+import { createNextNotification } from '../../../../misc/notifications/built-in/next/create-next-notification';
+import { INextNotification } from '../../../../misc/notifications/built-in/next/next-notification.type';
+import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
 
 export type ISubscribeFunctionFromGeolocationPositionNotifications =
   INextNotification<GeolocationPosition>
   | IErrorNotification<GeolocationPositionError>
   ;
 
-
 export function fromGeolocationPosition(
-  options?: PositionOptions
+  options?: PositionOptions,
 ): ISubscribeFunction<ISubscribeFunctionFromGeolocationPositionNotifications> {
   return (emit: IEmitFunction<ISubscribeFunctionFromGeolocationPositionNotifications>): IUnsubscribeFunction => {
     let running: boolean = true;

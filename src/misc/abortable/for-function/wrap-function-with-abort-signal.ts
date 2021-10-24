@@ -3,7 +3,6 @@ import { isNullish } from '../../helpers/is-type/is-nullish';
 import { IGenericFunction } from '../../types/generic-function.type';
 import { DEFAULT_ABORTED_THROW_FUNCTION } from '../default-aborted-throw-function.constant';
 
-
 export type IWrapFunctionWithAbortSignalReturnedFunctionReturn<GFunction extends IGenericFunction, GOnAborted extends IOnAborted> =
   ReturnType<GFunction>
   | ReturnType<GOnAborted>;

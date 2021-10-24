@@ -4,7 +4,7 @@ import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subs
 import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
 import { createNextNotification } from '../../../../misc/notifications/built-in/next/create-next-notification';
 import {
-  IGenericNextNotification, INextNotification
+  IGenericNextNotification, INextNotification,
 } from '../../../../misc/notifications/built-in/next/next-notification.type';
 import { isNextNotification } from '../../../../misc/notifications/built-in/next/is-next-notification';
 

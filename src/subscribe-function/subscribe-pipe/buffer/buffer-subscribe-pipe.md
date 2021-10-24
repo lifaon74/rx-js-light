@@ -7,7 +7,7 @@ function bufferSubscribePipe<GValue>(
 ```
 
 This pipe appends into an array the received values until `closingSubscribeFunction` emits a value.
-When `closingSubscribeFunction` emits a value, this array is emitted, and a new one is created for the next values. 
+When `closingSubscribeFunction` emits a value, this array is emitted, and a new one is created for the next values.
 
 The RxJS equivalent is [buffer](https://rxjs.dev/api/operators/buffer)
 

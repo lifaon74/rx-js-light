@@ -18,7 +18,6 @@ interface Window {
   IntlListFormat: IntlListFormat;
 }
 
-
 // declare namespace IntlListFormat {
 //   export class ListFormat {
 //     constructor(locales: string[], options?: IListFormatOptions);

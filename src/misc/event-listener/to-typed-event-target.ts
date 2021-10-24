@@ -1,6 +1,6 @@
 import {
   IEventKeyValueMapToKeyValueTupleUnion, IEventTargetToTypedEventTarget, IGenericEventKeyValueTupleUnion,
-  IPureEventTargetToTypedPureEventTarget, ITypedEventTarget
+  IPureEventTargetToTypedPureEventTarget, ITypedEventTarget,
 } from './typed-event-target.type';
 import { IPureEventTarget } from './pure-event-target.type';
 

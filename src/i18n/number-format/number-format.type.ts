@@ -25,7 +25,6 @@ export type INumberFormatUnit = string;
 
 export type INumberFormatUnitDisplay = 'long' | 'short' | 'narrow';
 
-
 export interface INumberFormatOptions extends NumberFormatOptions {
   compactDisplay?: INumberFormatCompactDisplay;
 
@@ -50,6 +49,5 @@ export interface INumberFormatOptions extends NumberFormatOptions {
   minimumSignificantDigits?: number;
   maximumSignificantDigits?: number;
 }
-
 
 export type INumberFormatValue = number | bigint;

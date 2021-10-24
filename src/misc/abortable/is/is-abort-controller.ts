@@ -1,4 +1,3 @@
-
 export function isAbortController(
   value: unknown,
 ): value is AbortController {

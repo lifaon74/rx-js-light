@@ -5,7 +5,6 @@ export interface IMapFunction<GIn, GOut> {
   (value: GIn): GOut;
 }
 
-
 export function mapEmitPipe<GIn, GOut>(
   mapFunction: IMapFunction<GIn, GOut>,
 ): IEmitPipeFunction<GIn, GOut> {

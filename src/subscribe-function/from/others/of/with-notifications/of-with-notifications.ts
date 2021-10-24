@@ -1,5 +1,5 @@
 import {
-  fromArrayWithNotifications, ISubscribeFunctionFromArrayNotifications
+  fromArrayWithNotifications, ISubscribeFunctionFromArrayNotifications,
 } from '../../../iterable/sync/from-array/with-notifications/from-array-with-notifications';
 import { ISubscribeFunction } from '../../../../../types/subscribe-function/subscribe-function.type';
 

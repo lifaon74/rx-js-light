@@ -4,7 +4,6 @@ import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-
 import { IMulticastSource } from './multicast-source.type';
 import { freeze } from '../../misc/helpers/freeze';
 
-
 export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
   let _emitFunctions: IEmitFunction<GValue>[] = [];
   let _dispatchingEmitFunctions: IEmitFunction<GValue>[]; // what is dispatched
@@ -58,7 +57,6 @@ export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
     subscribe,
   });
 }
-
 
 // export function createMulticastSource<GValue>(
 //   disableDuplicateSubscribeVerification: boolean = false,
@@ -118,7 +116,6 @@ export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
 //     ),
 //   });
 // }
-
 
 /**
  * Problem: cloning _emitFunctions induce that unsubscribing while dispatching is not accounted.
@@ -189,7 +186,6 @@ export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
 // }
 //
 
-
 // export function createMulticastSource<GValue>(
 //   disableDuplicateSubscribeVerification: boolean = false,
 // ): IMulticastSource<GValue> {
@@ -253,7 +249,6 @@ export function createMulticastSource<GValue>(): IMulticastSource<GValue> {
 // export interface ICreateSourceOptions {
 //   disableDuplicateSubscribeVerification?: boolean;
 // }
-
 
 // export function createSourceUsingFastArrayIterator<GValue>(
 //   disableDuplicateSubscribeVerification: boolean = false,

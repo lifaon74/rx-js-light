@@ -6,7 +6,6 @@ function single<GValue>(
 ): ISubscribeFunction<GValue>
 ```
 
-
 Creates a SubscribeFunction, which on subscribe, will emit `value`.
 
 ### Example

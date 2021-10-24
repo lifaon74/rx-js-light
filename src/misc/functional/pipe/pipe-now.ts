@@ -3,7 +3,6 @@ import { IPipeConstraint } from './types/pipe-constraint.type';
 import { IInferPipeNowReturn } from './types/infer-pipe-now-return.type';
 import { IGenericUnaryFunction } from '../shared-types/unary-function.type';
 
-
 export function pipeNow<// generics
   GValue,
   GFunctions extends IPipeConstraint<GFunctions, GValue, GUnaryFunction>,

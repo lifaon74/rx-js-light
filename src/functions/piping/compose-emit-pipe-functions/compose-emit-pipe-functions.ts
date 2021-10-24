@@ -20,7 +20,7 @@ export function composeEmitPipeFunctions<// generics
   GFunctions extends IComposeEmitPipeFunctionsConstraint<any, GFunctions>
   //
   >(
-  fns: GFunctions
+  fns: GFunctions,
 ): IComposeEmitPipeFunctionsReturn<GFunctions> {
   return compose<GFunctions, IGenericEmitPipeFunction>(fns);
 }

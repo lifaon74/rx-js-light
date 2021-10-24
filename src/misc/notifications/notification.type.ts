@@ -19,10 +19,8 @@ export type TInferNotificationGValue<GNotification extends IGenericNotification>
     ? GValue
     : never;
 
-
 export type TInferGValueFromNotificationsUnionAndName<GNotificationsUnion extends IGenericNotification, GName extends TInferNotificationGName<GNotificationsUnion>>
   = TInferNotificationGValue<Extract<GNotificationsUnion, INotification<GName, any>>>;
-
 
 /** DEFAULT **/
 

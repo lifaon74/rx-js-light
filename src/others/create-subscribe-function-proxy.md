@@ -31,7 +31,6 @@ pipeSubscribeFunction(data, [
 ]);
 ```
 
-
 ### Example
 
 ```ts
@@ -66,17 +65,15 @@ c: undefined
 c: { d: 'd' }
 ```
 
-
-
 ---
 
 The proxy provides an experimental *get* `$array` property:
 
-It returns a `ISubscribeFunction<readonly ISubscribeFunctionProxy<any>[]>` for the provided properties' path,
-and expects an array or will throw.
+It returns a `ISubscribeFunction<readonly ISubscribeFunctionProxy<any>[]>` for the provided properties' path, and
+expects an array or will throw.
 
-It is used to create a SubscribeFunctionProxy on the elements of an array,
-allowing us to iterate over the elements of this array and continuing to use these elements as proxy's too.
+It is used to create a SubscribeFunctionProxy on the elements of an array, allowing us to iterate over the elements of
+this array and continuing to use these elements as proxy's too.
 
 `proxy.a.b.c.$array` is similar to:
 

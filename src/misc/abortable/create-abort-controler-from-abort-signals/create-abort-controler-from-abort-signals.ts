@@ -17,7 +17,7 @@ export function createAbortControllerFromAbortSignals(
         return abortController;
       }
     } else {
-      throw new TypeError(`Expected AbortSignal at index #${ i }`);
+      throw new TypeError(`Expected AbortSignal at index #${i}`);
     }
   }
 

@@ -6,7 +6,6 @@ import { ILocales } from '../../locales/locales.type';
 import { single } from '../../../subscribe-function';
 import NumberFormat = Intl.NumberFormat;
 
-
 export function numberFormatSubscribePipe(
   locales: ISubscribeFunction<ILocales>,
   options: ISubscribeFunction<INumberFormatOptions> = single({}),

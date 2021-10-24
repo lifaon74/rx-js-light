@@ -42,7 +42,7 @@ export function awaitPromiseFactoryWithAbortSignal<GValue>(
       () => {
         end();
         onAborted();
-      }
+      },
     );
 
     promiseFactory(signal)
@@ -63,7 +63,6 @@ export function awaitPromiseFactoryWithAbortSignal<GValue>(
   }
 }
 
-
 /**
  * Awaits that the promise is resolved or aborted and calls the proper callback
  */
@@ -82,7 +81,6 @@ export function awaitPromiseWithAbortSignal<GValue>(
     onAborted,
   );
 }
-
 
 export function abortSignalPromiseBranching<GValue>(
   signal: AbortSignal,
@@ -105,14 +103,14 @@ export function wrapPromiseFactoryWithAbortSignal<GValue>(
 ): Promise<GValue> {
   return new Promise<GValue>((
     resolve: (value: GValue) => void,
-    reject: (error: any) => void
+    reject: (error: any) => void,
   ) => {
     awaitPromiseFactoryWithAbortSignal(
       promiseFactory,
       signal,
       resolve,
       reject,
-      () => reject(createAbortError({ signal }))
+      () => reject(createAbortError({ signal })),
     );
   });
 }
@@ -128,7 +126,6 @@ export function wrapPromiseWithAbortSignal<GValue>(
 }
 
 /*----*/
-
 
 //
 // export function promiseResolveWithAbortSignal<GValue>(

@@ -29,7 +29,6 @@ export type IEmitFunctionComposeReturn<// generics
   >
   = IInferComposeNowReturn<GFunctions, GEmitFunction>;
 
-
 export function composeEmitFunction<// generics
   GFunctions extends IEmitFunctionComposeConstraint<GFunctions>,
   GEmitFunction extends IEmitFunctionComposeValueConstraint<GFunctions>,

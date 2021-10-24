@@ -4,18 +4,16 @@ import { distinctSubscribePipe } from '../../subscribe-function/subscribe-pipe/e
 import { pipeSubscribePipeFunctions } from '../../functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions';
 import { IPluralRulesResult } from '../plural-rules/plural-rules.type';
 
-
 export function pluralRulesResultToTranslationKeySubscribePipe(
   key: string,
 ): ISubscribePipeFunction<IPluralRulesResult, string> {
   return pipeSubscribePipeFunctions([
     mapSubscribePipe<IPluralRulesResult, string>((rule: IPluralRulesResult) => {
-      return `${ key }[${ rule }]`;
+      return `${key}[${rule}]`;
     }),
     distinctSubscribePipe<string>(),
   ]);
 }
-
 
 // export function pluralRulesForTranslationsSubscribePipe(
 //   key: string,

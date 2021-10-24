@@ -2,7 +2,6 @@ import { ISameLength } from '../../shared-types/shared.type';
 import { IGenericUnaryFunction } from '../../shared-types/unary-function.type';
 import { IPipeNonTupleConstraint } from '../../shared-types/pipe-non-tuple-constraint.type';
 
-
 export type IComposeConstraint<// generics
   GFunctions extends readonly GUnaryFunction[], // list of unary functions
   GFirstReturn, // type of the first expected returned value
@@ -48,7 +47,6 @@ export type IComposeConstraint<// generics
 //         : IPipeNonTupleConstraint<GFunctions>
 //       );
 
-
 // export type IComposeConstraint<
 //   // generics
 //   GFunctions extends readonly GUnaryFunction[], // list of unary functions
@@ -73,7 +71,6 @@ export type IComposeConstraint<// generics
 //       // : GFunctions // cant because of circular constraint
 //       // : never[]
 //       );
-
 
 // type F0 = () => string;
 // type F1 = (a: number) => string;

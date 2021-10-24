@@ -1,6 +1,6 @@
 {
   "name": "ts-lib-seed",
-  "version": "1.1.1",
+  "version": "1.1.6",
   "description": "Seed to build a library",
   "main": "index.js",
   "scripts": {
@@ -32,11 +32,14 @@
     "dev:package:tcs:cjs:windows": "tsc-watch -p tsconfig/tsconfig.build.package.cjs.json --onSuccess \\\"npm run dev:package:tcs:cjs:onsuccess\\\"",
     "dev:package:tcs:cjs:linux": "tsc-watch -p tsconfig/tsconfig.build.package.cjs.json --onSuccess 'npm run dev:package:tcs:cjs:onsuccess'",
     "dev:package:tcs:cjs:onsuccess": "npm-run-all build:package:rename:cjs",
+    "_________________INDEX_FILES_________________": "",
+    "comment:index-files": "node tools/index/comment-index-files.js",
+    "uncomment:index-files": "node tools/index/comment-index-files.js --uncomment",
+    "generate:index-files": "node tools/index/generate-index-files.js --uncomment",
     "_________________OTHERS_________________": "",
     "clean:dist": "shx rm -rf ./dist",
     "publish:package": "yarn publish ../dist --access public",
     "link:package": "cd ../dist && yarn link",
-    "release:package": "standard-version --dry-run",
     "generate:toc": "markdown-toc ../README.md"
   },
   "repository": {
@@ -48,19 +51,16 @@
   "license": "MIT",
   "access": "public",
   "devDependencies": {
-    "@types/node": "^15.0.2",
-    "@types/requestidlecallback": "^0.3.1",
-    "@types/resize-observer-browser": "^0.1.4",
-    "acorn": "^8.2.4",
-    "acorn-walk": "^8.1.0",
-    "escodegen": "^2.0.0",
+    "@types/node": "^16.10.1",
+    "acorn": "^8.5.0",
+    "acorn-walk": "^8.2.0",
+    "astring": "^1.7.5",
     "markdown-toc": "^1.2.0",
     "npm-run-all": "^4.1.5",
     "shx": "^0.3.3",
-    "standard-version": "^9.2.0",
-    "tsc-watch": "^4.2.9",
-    "tslib": "^2.2.0",
-    "typescript": "4.2.4"
+    "tsc-watch": "^4.5.0",
+    "tslib": "^2.3.1",
+    "typescript": "4.4.3"
   },
   "dependencies": {}
 }

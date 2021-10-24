@@ -3,7 +3,7 @@ import { createCustomError } from '../custom-error';
 import { LOCK_ERROR_NAME } from './lock-error-name.constant';
 
 export function createLockError(
-  options?: ILockErrorOptions
+  options?: ILockErrorOptions,
 ): ILockError {
   return createCustomError(LOCK_ERROR_NAME, { message: 'Locked', ...options });
 }

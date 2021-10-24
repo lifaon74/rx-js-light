@@ -3,7 +3,6 @@ import { reactiveTemplateString } from './reactive-template-string';
 import { IKeyValueIterable } from '../../../../../../misc/helpers/to-key-value-iterable/key-value-iterable';
 import { keyValueIterableLikeToKeyValueIterable } from '../../../../../../misc/helpers/to-key-value-iterable/key-value-iterable-like-to-key-value-iterable';
 
-
 const VARIABLE_PATTERN: string = '{{(.*?)}}';
 const TRANSLATE_VARIABLE_REGEXP: RegExp = new RegExp(VARIABLE_PATTERN, 'g');
 
@@ -31,9 +30,7 @@ export function extractReactiveStringParts(
   };
 }
 
-
 /*----------------------------*/
-
 
 export interface IReactiveStringObjectParameters {
   [key: string]: ISubscribeFunction<any>;
@@ -42,7 +39,6 @@ export interface IReactiveStringObjectParameters {
 export type IReactiveStringKeyValueParameters = IKeyValueIterable<string, ISubscribeFunction<any>>;
 
 export type IReactiveStringParameters = IReactiveStringKeyValueParameters | IReactiveStringObjectParameters;
-
 
 /**
  * Creates a SubscribeFunction from a string template.
@@ -58,7 +54,7 @@ export function reactiveString(
     if (_options.has(variable)) {
       return _options.get(variable) as ISubscribeFunction<any>;
     } else {
-      throw new Error(`Missing parameter: '${ variable }'`);
+      throw new Error(`Missing parameter: '${variable}'`);
     }
   });
 

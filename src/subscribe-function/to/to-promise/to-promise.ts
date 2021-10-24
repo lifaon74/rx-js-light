@@ -9,10 +9,9 @@ export interface ISubscribeFunctionToPromiseOptions {
   signal?: AbortSignal;
 }
 
-
 export function toPromise<GValue>(
   subscribe: ISubscribeFunction<GValue>,
-  options?: ISubscribeFunctionToPromiseOptions
+  options?: ISubscribeFunctionToPromiseOptions,
 ): Promise<GValue> {
   return new Promise<GValue>((
     resolve: (value: GValue) => void,

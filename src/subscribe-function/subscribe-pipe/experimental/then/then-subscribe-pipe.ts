@@ -5,7 +5,6 @@ import { IEmitFunction } from '../../../../types/emit-function/emit-function.typ
 import { IDefaultNotificationsUnion } from '../../../../misc/notifications/default-notifications-union.type';
 import { toPromiseLast } from '../../../to/to-promise/last/to-promise-last';
 
-
 export interface IThenSubscribePipeOnFulfilled<GInNextValue, GOut> {
   (value: GInNextValue): ISubscribeFunction<GOut>;
 }
@@ -18,7 +17,6 @@ export type IThenInNotifications<GInNextValue> =
   IDefaultNotificationsUnion<GInNextValue>
   | IGenericNotification
   ;
-
 
 export function thenSubscribePipe<GInNextValue, GOut>(
   onFulfilled: IThenSubscribePipeOnFulfilled<GInNextValue, GOut>,

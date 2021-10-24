@@ -3,7 +3,6 @@ import { getRegisterImmediateImplementation } from './get-register-immediate-imp
 import { IRegisterImmediate } from './register-immediate.type';
 import { TASKS } from './tasks.constant';
 
-
 let registerImmediate: IRegisterImmediate;
 let nextHandle: number = 1;
 

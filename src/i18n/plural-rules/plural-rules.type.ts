@@ -7,7 +7,6 @@ export type IPluralRulesLocaleMatcher = ILocaleMatcher;
 
 export type IPluralRulesType = 'cardinal' | 'ordinal';
 
-
 export interface IPluralRulesOptions extends PluralRulesOptions {
   localeMatcher?: IPluralRulesLocaleMatcher;
   type?: IPluralRulesType;
@@ -18,7 +17,6 @@ export interface IPluralRulesOptions extends PluralRulesOptions {
   minimumSignificantDigits?: number;
   maximumSignificantDigits?: number;
 }
-
 
 export type IPluralRulesValue = number;
 export type IPluralRulesResult = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other'; // LDMLPluralRule;

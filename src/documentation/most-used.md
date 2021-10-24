@@ -12,7 +12,6 @@ To create some sort of reactive variable.
 
 ### SubscribeFunction
 
-
 ### SubscribePipeFunction
 
 #### [mapSubscribePipe](../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe.ts), or map$$$

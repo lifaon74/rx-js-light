@@ -16,6 +16,5 @@ export interface IListFormatOptions /*extends ListFormatOptions*/
   style?: IListFormatStyle;
 }
 
-
 export type IListFormatValue = ArrayLike<string>;
 export type IListFormatResult = string;

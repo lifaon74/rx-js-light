@@ -12,7 +12,6 @@ export type ISubscribeFunctionFromPromiseNotifications<GValue> = IDefaultNotific
 //   | IErrorNotification
 //   ;
 
-
 /**
  * Creates an SubscribeFunction from a Promise
  * INFO: prefer to use fromPromiseWithAbortSignal to cancel any pending async job
@@ -37,7 +36,7 @@ export function fromPromise<GValue>(
           if (running) {
             emit(createErrorNotification<any>(error));
           }
-        }
+        },
       );
     return (): void => {
       running = false;

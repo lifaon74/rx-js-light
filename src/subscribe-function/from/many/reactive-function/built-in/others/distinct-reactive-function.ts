@@ -1,7 +1,7 @@
 import { pipeSubscribeFunction } from '../../../../../../functions';
 import { distinctSubscribePipe } from '../../../../../subscribe-pipe';
 import {
-  IReactiveFunctionReturn, IReactiveFunctionSubscribeFunctions, reactiveFunction
+  IReactiveFunctionReturn, IReactiveFunctionSubscribeFunctions, reactiveFunction,
 } from '../../reactive-function';
 import { IGenericFunction } from '../../../../../../misc';
 

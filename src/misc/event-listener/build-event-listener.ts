@@ -11,7 +11,6 @@ export function createListenerMap<GTarget extends object, GValue>(): TListenersM
   return new WeakMap<GTarget, ISource<GValue>>();
 }
 
-
 export interface IListenerFunction<GTarget extends object, GValue> {
   (target: GTarget): ISubscribeFunction<GValue>;
 }
@@ -33,7 +32,6 @@ export function createListenerFunction<GTarget extends object, GValue>(
   };
 }
 
-
 /* DISPATCH FUNCTION **/
 
 export interface IListenerDispatchFunction<GTarget extends object, GValue> {
@@ -51,9 +49,7 @@ export function createListenerDispatchFunction<GTarget extends object, GValue>(
   };
 }
 
-
 /* LISTENER & DISPATCH FUNCTIONS **/
-
 
 export interface IListenerDBuilderFunctions<GTarget extends object, GValue> {
   readonly listener: IListenerFunction<GTarget, GValue>;

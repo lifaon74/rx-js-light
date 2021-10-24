@@ -3,7 +3,6 @@ import { createMulticastSource } from '../../../../source/multicast-source/creat
 import { IMulticastSource } from '../../../../source/multicast-source/multicast-source.type';
 import { freeze } from '../../../../misc/helpers/freeze';
 
-
 interface IResizeObserverAndSubscription {
   readonly subscribe: ISubscribeFunction<ReadonlyArray<ResizeObserverEntry>>;
   readonly observer: ResizeObserver;

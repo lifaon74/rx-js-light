@@ -1,10 +1,11 @@
-# Getting started
+# Why Observables are awesome
 
-Let me convince you that Observables are **AWESOME**. Not for **EVERY** projet, but for **SOME** use cases they are really handful.
+Let me convince you that Observables are **AWESOME**. Not for **EVERY** projet, but for **SOME** use cases they are
+really handful.
 
 First, if you are in a hurry, here are the situations where the Observables shine:
 
-- everytime you're using an async task: 
+- everytime you're using an async task:
   - observing events (ex: mousedown, keypress, etc...)
   - using promises
   - using timers (setInterval, setTimeout, requestAnimationFrame, etc...)
@@ -16,15 +17,14 @@ However, you don't need Observables in these situations:
 - computing only: rendering a 2D/3D scene, wasm, intensive task, hash, etc...
 - having an application that almost doesn't rely on async calls
 
-
 ## Introduction example
 
-I'll start on a very simple example to illustrate the usage of Observables and the simplification they provide.
-Don't focus too much on the details of the code. Just take a look of the global imbrications and usage of the Observables.
-We will learn deeper about Observables later.
+I'll start on a very simple example to illustrate the usage of Observables and the simplification they provide. Don't
+focus too much on the details of the code. Just take a look of the global imbrications and usage of the Observables. We
+will learn deeper about Observables later.
 
-Let's imagine a simple application where we have a `<select>` that contains a list of languages,
-and an `<output>` that display the current date and time formatted according to the selected locale.
+Let's imagine a simple application where we have a `<select>` that contains a list of languages, and an `<output>` that
+display the current date and time formatted according to the selected locale.
 
 Here is the workflow we'll implement:
 
@@ -74,7 +74,8 @@ const outputElement = document.createElement('output');
 document.body.appendChild(outputElement);
 ```
 
-And finally, we create a function that accepts a *locale* and a *date*, and returns the formatted date and time as a string:
+And finally, we create a function that accepts a *locale* and a *date*, and returns the formatted date and time as a
+string:
 
 ```ts
 function formatDate(
@@ -89,7 +90,6 @@ function formatDate(
 ```
 
 Until there, no surprise, it's simple javascript.
-
 
 #### Classic code
 
@@ -192,11 +192,10 @@ function classic() {
 
 As you may see it's pretty simple. However, we may quickly anticipate some limits:
 
-- in the real world, we have more than 2 variables, usually in the range of thousands or millions for the largest applications,
-  so keeping a coherent state (refreshing + updating the variables) is tricky, and bugs will appear soon.
-- releasing resources (removeEventListener, clearInterval), can easily be forgotten, creating memory leaks.
-  For long-running application this is not optimal.
-
+- in the real world, we have more than 2 variables, usually in the range of thousands or millions for the largest
+  applications, so keeping a coherent state (refreshing + updating the variables) is tricky, and bugs will appear soon.
+- releasing resources (removeEventListener, clearInterval), can easily be forgotten, creating memory leaks. For
+  long-running application this is not optimal.
 
 #### Using observables
 
@@ -218,18 +217,17 @@ function observables() {
 
 [Click here to see the live demo](https://stackblitz.com/edit/typescript-fdrebf?file=index.ts)
 
-Yes, for new incomers, this code is probably incomprehensible.
-However, you may notice how compact it is, in comparison to the *classic* example.
-Do not focus strongly on the code: learning Observables is all about remembering a bunch of functions, what they do, and how to nest / chain them.
-At first, it's a nightmare, but when you start to know the main functions, this will become a breeze.
+Yes, for new incomers, this code is probably incomprehensible. However, you may notice how compact it is, in comparison
+to the *classic* example. Do not focus strongly on the code: learning Observables is all about remembering a bunch of
+functions, what they do, and how to nest / chain them. At first, it's a nightmare, but when you start to know the main
+functions, this will become a breeze.
 
 ---
 
 **First: what's an Observable ?**
 
-An Observable is **simply a function**.
-It takes as first and only argument a callback, that will receive the values emitted by this observable,
-and returns a function used to free the resources when we want to dispose of it.
+An Observable is **simply a function**. It takes as first and only argument a callback, that will receive the values
+emitted by this observable, and returns a function used to free the resources when we want to dispose of it.
 
 Here's a quick look how to consume an Observable:
 
@@ -256,14 +254,13 @@ This creates an Observable that listen for the `change` Event on the `<select>` 
 const locale$ = map$$(selectElementChange$, () => selectElement.value);
 ```
 
-This transforms the Event sent by the previous Observable, into the value of the `<select>`.
-So it's an Observable that emits the locale selected by the user.
+This transforms the Event sent by the previous Observable, into the value of the `<select>`. So it's an Observable that
+emits the locale selected by the user.
 
 ![alt text](./example-01-1-1.png "schema")
 
-
-However, because `selectElementChange$` only triggers when a *change* occurs,
-we will use the previous code in conjunction with `merge`, to dispatch the current `<select>` value.
+However, because `selectElementChange$` only triggers when a *change* occurs, we will use the previous code in
+conjunction with `merge`, to dispatch the current `<select>` value.
 
 ```ts
 const locale$ = merge([
@@ -289,8 +286,8 @@ Creates an Observable that emits every second.
 const date$ = map$$(timer$, () => Date.now());
 ```
 
-Transforms the "ticks" sent by the previous Observable, into the current date expressed as a timestamp.
-It's an Observable that emits the current date every second.
+Transforms the "ticks" sent by the previous Observable, into the current date expressed as a timestamp. It's an
+Observable that emits the current date every second.
 
 ![alt text](./example-01-2-1.png "schema")
 
@@ -304,8 +301,8 @@ const output$ = function$$(
 );
 ```
 
-Transforms the locale and the date sent by the previous Observables (`locale$` and `date$`), through `formatDate`.
-It's an Observable that emits the current date formatted according to the selected language.
+Transforms the locale and the date sent by the previous Observables (`locale$` and `date$`), through `formatDate`. It's
+an Observable that emits the current date formatted according to the selected language.
 
 ![alt text](./example-01-3.png "schema")
 
@@ -318,8 +315,8 @@ const clean = output$((value: string) => {
 });
 ```
 
-The last step is to subscribe to our Observable and display the result. 
-Calling the `clean` function will stop the timer and remove the event listener automatically
+The last step is to subscribe to our Observable and display the result. Calling the `clean` function will stop the timer
+and remove the event listener automatically
 
 ![alt text](./example-01-4.png "schema")
 
@@ -362,13 +359,13 @@ setTimeout(clean, 5000); // let's say we want to stop our complete workflow in 5
 
 So, as you may see, the power of Observables comes from 3 factors:
 
-- they are easy to chain or combine, giving us the possibility to handle long and complex workflow easily,
-  and with potentially fewer errors.
+- they are easy to chain or combine, giving us the possibility to handle long and complex workflow easily, and with
+  potentially fewer errors.
 - they are PUSH sources, meaning they are extremely useful when a state or a value depends on others:
   if some of them evolves, sub computed values will evolve too.
 - subscribing and unsubscribing (releasing all their resources) is especially simple.
 
-So, for any front-end work, they are a good solution to handle the state of your application,
-update the DOM nodes, and listen on some events. They work exceptionally well with the DOM.
+So, for any front-end work, they are a good solution to handle the state of your application, update the DOM nodes, and
+listen on some events. They work exceptionally well with the DOM.
 
 

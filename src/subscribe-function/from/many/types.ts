@@ -1,7 +1,6 @@
 import {
-  IGenericSubscribeFunction, ISubscribeFunction
+  IGenericSubscribeFunction, ISubscribeFunction,
 } from '../../../types/subscribe-function/subscribe-function.type';
-
 
 export type TMapValueTupleToSubscribeFunctionTuple<GValueTuple extends readonly any[]> =
   GValueTuple extends []
@@ -19,7 +18,6 @@ export type TMapValueTupleToSubscribeFunctionTuple<GValueTuple extends readonly 
 // type A = [a: number, b: number, ...rest: any[]];
 // type A = string[];
 // const a: TMapValueTupleToSubscribeFunctionTuple<A>;
-
 
 export type TMapSubscribeFunctionTupleToValueTuple<GSubscribeFunctionTuple extends readonly IGenericSubscribeFunction[]> =
   GSubscribeFunctionTuple extends readonly []
@@ -48,7 +46,6 @@ export type TMapSubscribeFunctionTupleToValueTuple<GSubscribeFunctionTuple exten
             : never[]
           )
       );
-
 
 // type A = [a: ISubscribeFunction<string>, b: ISubscribeFunction<number>, ...rest: ISubscribeFunction<any>[]];
 // const a: TMapSubscribeFunctionTupleToValueTuple<A>;

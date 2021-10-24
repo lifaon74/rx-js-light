@@ -4,7 +4,7 @@ import { createErrorNotification } from '../create-error-notification';
 import { createAbortError } from '../../../../errors/abort-error/create-abort-error';
 
 export function createAbortErrorNotification(
-  options?: IAbortErrorOptions
+  options?: IAbortErrorOptions,
 ): IErrorNotification<IAbortError> {
   return createErrorNotification<IAbortError>(createAbortError(options));
 }

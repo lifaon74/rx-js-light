@@ -63,7 +63,7 @@ interface DurationConstructor {
     seconds?: number,
     milliseconds?: number,
     microseconds?: number,
-    nanoseconds?: number
+    nanoseconds?: number,
   ): Duration;
 }
 

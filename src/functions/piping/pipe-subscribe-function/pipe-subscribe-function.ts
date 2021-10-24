@@ -4,7 +4,6 @@ import { IInferPipeNowReturn } from '../../../misc/functional/pipe/types/infer-p
 import { IGenericSubscribeFunction } from '../../../types/subscribe-function/subscribe-function.type';
 import { IGenericSubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 
-
 export type ISubscribeFunctionPipeConstraint<// generics
   GSubscribeFunction extends IGenericSubscribeFunction,
   GFunctions extends readonly IGenericSubscribePipeFunction[]
@@ -18,7 +17,6 @@ export type ISubscribeFunctionPipeReturn<// generics
   //
   >
   = IInferPipeNowReturn<GSubscribeFunction, GFunctions>;
-
 
 export function pipeSubscribeFunction<// generics
   GSubscribeFunction extends IGenericSubscribeFunction,

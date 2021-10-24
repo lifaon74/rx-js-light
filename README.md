@@ -13,7 +13,7 @@ However, it is not RxJS: **it's [faster (~3x), smaller (~10x)](./src/documentati
 Give it a try, and you'll love it !  
 Because it's extremely light and performant, you may include it even in your smallest projects.
 
-[<img src="https://img.shields.io/badge/-getting started-yellow?style=for-the-badge" />](./src/documentation/tutorial-for-beginners/tutorial-for-beginners.md)
+[<img src="https://img.shields.io/badge/-getting started-yellow?style=for-the-badge" />](src/documentation/tutorial-for-beginners-01/tutorial-for-beginners.md)
 [<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](./src/documentation/tutorial.md)
 [<img src="https://img.shields.io/badge/-purpose of rx js light-blue?style=for-the-badge" />](./src/documentation/goal.md)
 [<img src="https://img.shields.io/badge/-performances-orange?style=for-the-badge" />](./src/documentation/performances.md)

@@ -77,7 +77,6 @@
 // // const a: (any[] extends [1, 2] ? true : false) = null as any;
 // // const a: ([1, 2] extends any[] ? true : false) = null as any;
 
-
 // const fnc = (v: number): number => (v * 2);
 // const a = pipe(fnc);
 // const b = a(5);
@@ -120,7 +119,6 @@
 // const a: PipeFirstArg<[]> = null as any; // never
 
 /*----*/
-
 
 // import { IGenericUnaryFunction } from '../shared-types';
 //

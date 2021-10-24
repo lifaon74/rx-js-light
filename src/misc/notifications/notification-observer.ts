@@ -1,7 +1,6 @@
 import { IGenericNotification, INotification, TInferNotificationGName } from './notification.type';
 import { IEmitFunction } from '../../types';
 
-
 export type TInferNotificationsObserverMapFromNotificationsUnion<GNotificationsUnion extends IGenericNotification> = {
   [GName in TInferNotificationGName<GNotificationsUnion>]?: GNotificationsUnion extends INotification<GName, infer GValue>
     ? IEmitFunction<GValue>

@@ -7,37 +7,37 @@ import { createErrorNotification, STATIC_COMPLETE_NOTIFICATION } from '../../../
 async function testFromAsyncIteratorWithComplete() {
   await assertSubscribeFunctionEmits(
     fromAsyncIterator(
-      (async function * () {
+      (async function* () {
         for (let i = 0; i < 2; i++) {
           yield i;
         }
-      })()
+      })(),
     ),
     [
       _ => notificationEquals(_, createNextNotification(0)),
       _ => notificationEquals(_, createNextNotification(1)),
       _ => notificationEquals(_, STATIC_COMPLETE_NOTIFICATION),
-    ]
+    ],
   );
 }
 
 async function testFromAsyncIteratorWithError() {
   await assertSubscribeFunctionEmits(
     fromAsyncIterator(
-      (async function * () {
+      (async function* () {
         for (let i = 0; i < 3; i++) {
           yield i;
           if (i > 0) {
             throw new Error();
           }
         }
-      })()
+      })(),
     ),
     [
       _ => notificationEquals(_, createNextNotification(0)),
       _ => notificationEquals(_, createNextNotification(1)),
       _ => notificationEquals(_, createErrorNotification(void 0), _ => (_ instanceof Error)),
-    ]
+    ],
   );
 }
 

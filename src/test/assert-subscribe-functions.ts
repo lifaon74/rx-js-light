@@ -5,20 +5,18 @@ import { asyncUnsubscribe } from '../misc/helpers/async-unsubscribe';
 import { ISubscribeFunction } from '../types/subscribe-function/subscribe-function.type';
 
 export interface IIsExpectedValue<GValue> {
-  (value: GValue): boolean
+  (value: GValue): boolean;
 }
-
 
 export interface ITestSubscribeFunctionEmitsOptions {
   timeout?: number;
   equalsFunction?: IEqualsFunction;
 }
 
-
 export function testSubscribeFunctionEmits<GValue>(
   subscribe: ISubscribeFunction<GValue>,
   isExpectedValue: readonly IIsExpectedValue<GValue>[],
-  { timeout = 1000, equalsFunction: strictEquals }: ITestSubscribeFunctionEmitsOptions = {}
+  { timeout = 1000, equalsFunction: strictEquals }: ITestSubscribeFunctionEmitsOptions = {},
 ): Promise<boolean> {
   return new Promise<boolean>((
     resolve: (value: boolean) => void,
@@ -49,7 +47,7 @@ export function testSubscribeFunctionEmits<GValue>(
       } else if (!isExpectedValue[index](value)) {
         console.log(value);
         console.log(isExpectedValue[index].toString());
-        _reject(new Error(`Invalid value received #${ index }`));
+        _reject(new Error(`Invalid value received #${index}`));
       }
     });
 
@@ -67,11 +65,10 @@ export function testSubscribeFunctionEmits<GValue>(
 export function assertSubscribeFunctionEmits<GValue>(
   subscribe: ISubscribeFunction<GValue>,
   isExpectedValue: readonly IIsExpectedValue<GValue>[],
-  options?: ITestSubscribeFunctionEmitsOptions
+  options?: ITestSubscribeFunctionEmitsOptions,
 ): Promise<void> {
   return assert(() => testSubscribeFunctionEmits(subscribe, isExpectedValue, options), `assertSubscribeFunctionEmits`);
 }
-
 
 export function notificationEquals(
   a: IGenericNotification,

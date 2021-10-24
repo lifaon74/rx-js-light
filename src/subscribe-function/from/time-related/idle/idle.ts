@@ -3,7 +3,6 @@ import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subs
 import { createIdle } from '../../../../misc/timer/create-idle';
 import { IAbortTimer } from '../../../../misc/timer/abort-timer.type';
 
-
 /**
  * Creates a SubscribeFunction that emits when idle time is available.
  */

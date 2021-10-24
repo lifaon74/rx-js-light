@@ -15,7 +15,6 @@ export type IInferFirstArgumentOfUnaryFunctionList<// generics
       )
     : never;
 
-
 // export type IInferFirstArgumentOfUnaryFunctionListOrValue<// generics
 //   GFunctions extends readonly IGenericUnaryFunction[],
 //   GValue,
@@ -29,7 +28,6 @@ export type IInferFirstArgumentOfUnaryFunctionList<// generics
 //   GFunctions extends []
 //     ? unknown
 //     : IPipeFirstArgRaw<GFunctions, GUnaryFunction>;
-
 
 // type F0 = () => string;
 // type F1 = (a: number) => string;

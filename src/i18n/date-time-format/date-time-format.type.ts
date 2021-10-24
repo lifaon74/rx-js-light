@@ -1,7 +1,6 @@
 import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 import { ILocaleMatcher, INumberingSystem } from '../shared.type';
 
-
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
 
 export type IDateTimeFormatDateStyle = 'full' | 'long' | 'medium' | 'short';
@@ -45,7 +44,6 @@ export type IDateTimeFormatFractionalSecondDigits = 0 | 1 | 2 | 3;
 
 export type IDateTimeFormatTimeZoneName = 'long' | 'short';
 
-
 export interface IDateTimeFormatOptions extends Omit<DateTimeFormatOptions, 'calendar'> {
   dateStyle?: IDateTimeFormatDateStyle;
   timeStyle?: IDateTimeFormatTimeStyle;
@@ -70,7 +68,6 @@ export interface IDateTimeFormatOptions extends Omit<DateTimeFormatOptions, 'cal
   fractionalSecondDigits?: IDateTimeFormatFractionalSecondDigits;
   timeZoneName?: IDateTimeFormatTimeZoneName;
 }
-
 
 export type IDateTimeFormatValue = Date | number;
 

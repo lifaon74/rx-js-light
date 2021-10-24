@@ -20,7 +20,6 @@ export function toPromiseLast<GValue>(
     });
 }
 
-
 // import { createEventListener, IRemoveEventListener } from '../../../misc/event-listener/create-event-listener';
 // import { isAbortSignal } from '../../../misc/abortable/is-abort-signal';
 // import { toTypedEventTarget } from '../../../misc/event-listener/to-typed-event-target';

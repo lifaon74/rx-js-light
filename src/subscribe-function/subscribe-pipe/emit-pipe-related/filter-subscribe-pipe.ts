@@ -1,6 +1,6 @@
 import { emitPipeToSubscribePipe } from './emit-pipe-to-subscribe-pipe';
 import {
-  filterEmitPipe, filterEmitPipeStrict, IFilterFunctionBasic, IFilterFunctionStrict
+  filterEmitPipe, filterEmitPipeStrict, IFilterFunctionBasic, IFilterFunctionStrict,
 } from '../../../pipes/filter-emit-pipe';
 import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 

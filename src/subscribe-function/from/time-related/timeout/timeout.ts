@@ -2,7 +2,6 @@ import { IEmitFunction } from '../../../../types/emit-function/emit-function.typ
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
 import { createTimeout } from '../../../../misc';
 
-
 export function timeout(
   duration: number,
 ): ISubscribeFunction<void>;

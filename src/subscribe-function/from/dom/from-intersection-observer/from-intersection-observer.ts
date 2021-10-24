@@ -15,7 +15,6 @@ export function fromIntersectionObserver(
   };
 }
 
-
 // export type IIntersectionObserverSubscribePipeInValue = readonly Element[];
 // export type IIntersectionObserverSubscribePipeOutValue = IntersectionObserverEntry[];
 //

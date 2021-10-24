@@ -1,7 +1,7 @@
 import { IMapFunction } from '../../../../../pipes/map/map-emit-pipe';
 import { mapSubscribePipeWithNotifications } from '../../../emit-pipe-related/with-notifications/map-subscribe-pipe-with-notifications';
 import {
-  IDefaultNotificationsUnion, IGenericDefaultNotificationsUnion
+  IDefaultNotificationsUnion, IGenericDefaultNotificationsUnion,
 } from '../../../../../misc/notifications/default-notifications-union.type';
 import { ISubscribeFunction } from '../../../../../types/subscribe-function/subscribe-function.type';
 import { IInferEmitPipeToSubscribePipeEmitPipeInValue } from '../../../emit-pipe-related/with-notifications/emit-pipe-to-subscribe-pipe-with-notification';

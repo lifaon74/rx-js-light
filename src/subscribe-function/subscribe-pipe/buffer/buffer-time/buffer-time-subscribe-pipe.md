@@ -6,8 +6,8 @@ function bufferTimeSubscribePipe<GValue>(
 ): ISubscribePipeFunction<GValue, GValue[]>
 ```
 
-This pipe appends into an array the received values until a period defined by `duration` is elapsed.
-Then, this array is emitted, and a new one is created for the next values.
+This pipe appends into an array the received values until a period defined by `duration` is elapsed. Then, this array is
+emitted, and a new one is created for the next values.
 
 ⚠️ This is not equivalent to:
 
@@ -22,7 +22,6 @@ export function bufferTimeSubscribePipe<GValue>(
 The timer begins only when a value is received, meaning empty arrays will never be emitted.
 
 ⚠️ There is not RxJS equivalent. [bufferTime](https://rxjs.dev/api/operators/bufferTime) does something different.
-
 
 ### Examples
 

@@ -2,7 +2,7 @@ import { ISubscribeFunction } from '../types/subscribe-function/subscribe-functi
 import { pipeSubscribeFunction } from '../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
 import { mapSubscribePipe } from '../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import {
-  getObjectPropertyPathValue, getOptionalObjectPropertyPathValue
+  getObjectPropertyPathValue, getOptionalObjectPropertyPathValue,
 } from '../misc/helpers/property-path/get-object-property-path-value';
 import { createMulticastReplayLastSource, IMulticastReplayLastSource } from '../source';
 import { IEmitFunction } from '../types';
@@ -85,7 +85,6 @@ export function createSubscribeFunctionProxy<GData extends object>(
     },
   });
 }
-
 
 /**
  * THIS VERSION SUPPORTS SET AND GET (PRIMITIVE)

@@ -6,7 +6,6 @@ export type GetUnionValue<GUnion extends GenericUnion> =
     ? GValue
     : never;
 
-
 export type SuperUnionConstraint<// generics
   GSuperUnion extends GenericUnion,
   GSubUnion extends GenericUnion,
@@ -22,7 +21,6 @@ export type UnionMerge<// generics
   GUnionB extends GenericUnion,
   //
   > = Union<GUnionA['value'] | GUnionB['value']>;
-
 
 export type UnionExclude<// generics
   GUnionA extends GenericUnion,

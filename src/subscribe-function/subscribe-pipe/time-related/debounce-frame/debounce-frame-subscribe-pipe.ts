@@ -4,7 +4,6 @@ import { IEmitFunction } from '../../../../types/emit-function/emit-function.typ
 import { IAbortTimer } from '../../../../misc/timer/abort-timer.type';
 import { createAnimationFrame } from '../../../../misc/timer/create-animation-frame';
 
-
 export function debounceFrameSubscribePipe<GValue>(): ISubscribePipeFunction<GValue, GValue> {
   return (subscribe: ISubscribeFunction<GValue>): ISubscribeFunction<GValue> => {
     return (emit: IEmitFunction<GValue>): IUnsubscribeFunction => {

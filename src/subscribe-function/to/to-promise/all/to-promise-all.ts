@@ -1,13 +1,12 @@
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types';
 import {
   asyncUnsubscribe, createAbortError, createEventListener, IDefaultInNotificationsUnion, IRemoveEventListener,
-  toTypedEventTarget
+  toTypedEventTarget,
 } from '../../../../misc';
 import { ISubscribeFunctionToPromiseOptions } from '../to-promise';
 import { notificationsToValuesSubscribePipe } from '../../../subscribe-pipe/notifications-related/notifications-to-values-subscribe-pipe';
 import { isAbortSignal } from '../../../../misc/abortable/is/is-abort-signal';
 import { pipeSubscribeFunction } from '../../../../functions';
-
 
 export type ISubscribeFunctionToPromiseNotifications<GValue> = IDefaultInNotificationsUnion<GValue>;
 
@@ -54,12 +53,11 @@ export function toPromiseAll<GValue>(
       reject(error);
     };
 
-
     const _subscribe: ISubscribeFunction<GValue[]> = pipeSubscribeFunction(subscribe, [
       notificationsToValuesSubscribePipe<GValue>(
         _reject,
         options?.maxNumberOfValues,
-      )
+      ),
     ]);
 
     const unsubscribe: IUnsubscribeFunction = _subscribe(_resolve);

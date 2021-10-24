@@ -1,7 +1,6 @@
 import { IEmitFunction } from '../types/emit-function/emit-function.type';
 import { IEmitPipeFunction } from '../types/emit-pipe-function/emit-pipe-function.type';
 
-
 export interface ITabCallback<GValue> {
   (value: GValue): void;
 }

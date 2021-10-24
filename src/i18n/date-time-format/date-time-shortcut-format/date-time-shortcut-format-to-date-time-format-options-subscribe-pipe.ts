@@ -2,7 +2,7 @@ import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/s
 import { IDateTimeFormatOptions } from '../date-time-format.type';
 import { mapSubscribePipe } from '../../../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import {
-  dateTimeShortcutFormatToDateTimeFormatOptions, IDateTimeShortcutFormat
+  dateTimeShortcutFormatToDateTimeFormatOptions, IDateTimeShortcutFormat,
 } from './date-time-shortcut-format-to-date-time-format-options';
 
 export function dateTimeShortcutFormatToDateTimeFormatOptionsSubscribePipe(): ISubscribePipeFunction<IDateTimeShortcutFormat, IDateTimeFormatOptions> {

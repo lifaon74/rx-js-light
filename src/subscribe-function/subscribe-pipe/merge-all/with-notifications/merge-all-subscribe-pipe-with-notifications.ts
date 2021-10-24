@@ -12,7 +12,6 @@ export type IMergeAllToSubscribePipeOutNotifications<GValue> = IDefaultNotificat
 export type IMergeAllToSubscribePipeWithNotificationsReturn<GValue> =
   ISubscribePipeFunction<IMergeAllToSubscribePipeInNotifications<GValue>, IMergeAllToSubscribePipeOutNotifications<GValue>>;
 
-
 // export type IMergeAllSubscribePipeNotificationsConstraint = UnionMerge<Union<IGenericNextNotification>, Union<IGenericNotification>>;
 //
 // export type IMergeAllInNotifications<GValue> = IDefaultInNotificationsUnion<ISubscribeFunction<IDefaultInNotificationsUnion<GValue>>>;

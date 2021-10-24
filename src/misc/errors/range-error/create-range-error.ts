@@ -1,5 +1,5 @@
 import {
-  IGenericRangeErrorOptions, IRangeError, IRangeOptions, IRangeOptionsNormalized, IRangeOptionsWithVariableName
+  IGenericRangeErrorOptions, IRangeError, IRangeOptions, IRangeOptionsNormalized, IRangeOptionsWithVariableName,
 } from './range-error.type';
 import { normalizeRangeOptions } from './normalize-range-options';
 import { ICustomErrorOptions } from '../custom-error';
@@ -22,7 +22,7 @@ export function createRangeErrorMessage(
   variableName: string,
   options: IRangeOptionsNormalized,
 ): string {
-  return `'${ variableName }' must be in the range ${ options.minIncluded ? '[' : ']' }${ options.min }, ${ options.max }${ options.maxIncluded ? ']' : '[' }`;
+  return `'${variableName}' must be in the range ${options.minIncluded ? '[' : ']'}${options.min}, ${options.max}${options.maxIncluded ? ']' : '['}`;
 }
 
 /*-----*/

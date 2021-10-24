@@ -24,7 +24,6 @@ export type IInferFirstReturnedValueOfUnaryFunctionListOrValue<// generics
     ? GValue
     : IInferFirstReturnedValueOfUnaryFunctionList<GFunctions>;
 
-
 // type F0 = () => string;
 // type F1 = (a: number) => string;
 // type F2 = (a: string) => boolean;
