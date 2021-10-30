@@ -1,0 +1,22 @@
+https://mermaid-js.github.io/mermaid-live-editor/edit#eyJjb2RlIjoiZ3JhcGggTFJcblxuICAgIFNFTEVDVHt7IzEgPHNlbGVjdD46IGxpc3Qgb2YgbG9jYWxlcyA9PiBvbmNoYW5nZX19XG4gICAgTE9DQUxFKCMxLjEgPHNlbGVjdD4udmFsdWU6IHNlbGVjdGVkIGxvY2FsZSlcblxuICAgIElOVEVSVkFMe3sjMiBFdmVyeSBzZWNvbmR9fVxuICAgIFRJTUVTVEFNUCgjMi4xIEN1cnJlbnQgdGltZXN0YW1wKVxuXG4gICAgTUVSR0UoIzMgQ29udmVydCByZWNlaXZlZCBsb2NhbGUgYW5kIGRhdGUgaW50byBhIHN0cmluZylcblxuICAgIE9VVFBVVFtbRGlzcGxheSByZXN1bHRdXVxuXG4gICAgU0VMRUNULS0-TE9DQUxFXG4gICAgSU5URVJWQUwtLT5USU1FU1RBTVBcblxuICAgIExPQ0FMRS0tPk1FUkdFXG4gICAgVElNRVNUQU1QLS0-TUVSR0VcblxuICAgIE1FUkdFLS0-T1VUUFVUXG5cbiIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9
+
+graph LR
+
+    SELECT{{#1 <select>: list of locales => onchange}}
+    LOCALE(#1.1 <select>.value: selected locale)
+
+    INTERVAL{{#2 Every second}}
+    TIMESTAMP(#2.1 Current timestamp)
+
+    MERGE(#3 Convert received locale and date into a string)
+
+    OUTPUT[[Display result]]
+
+    SELECT-->LOCALE
+    INTERVAL-->TIMESTAMP
+
+    LOCALE-->MERGE
+    TIMESTAMP-->MERGE
+
+    MERGE-->OUTPUT
+

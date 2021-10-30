@@ -1,4 +1,4 @@
-import { IListFormatOptions } from '../list-format';
+import { IListFormatOptions } from '../list-format/list-format.type';
 
 interface ListFormat {
   format: (items: ArrayLike<string>) => string;

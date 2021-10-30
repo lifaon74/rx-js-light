@@ -1,5 +1,5 @@
+import { createCustomError } from '../custom-error/create-custom-error';
 import { ITimeoutError, ITimeoutErrorOptions } from './timeout-error.type';
-import { createCustomError } from '../custom-error';
 import { TIMEOUT_ERROR_NAME } from './timeout-error-name.constant';
 
 export function createTimeoutError(

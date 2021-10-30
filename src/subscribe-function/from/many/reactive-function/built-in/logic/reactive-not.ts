@@ -1,6 +1,6 @@
 import { IReactiveFunctionSubscribeFunctions } from '../../reactive-function';
 import { ISubscribeFunction } from '../../../../../../types/subscribe-function/subscribe-function.type';
-import { distinctReactiveFunction } from '../others';
+import { distinctReactiveFunction } from '../others/distinct-reactive-function';
 
 export function reactiveNot(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof not>

@@ -1,8 +1,8 @@
+import { ICustomErrorOptions } from '../custom-error/custom-error.type';
 import {
   IGenericRangeErrorOptions, IRangeError, IRangeOptions, IRangeOptionsNormalized, IRangeOptionsWithVariableName,
 } from './range-error.type';
 import { normalizeRangeOptions } from './normalize-range-options';
-import { ICustomErrorOptions } from '../custom-error';
 
 export function createRangeError(
   variableName: string,

@@ -1,9 +1,9 @@
+import { single } from '../../../subscribe-function/from/others/single/single';
 import { ISubscribeFunction } from '../../../types/subscribe-function/subscribe-function.type';
 import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 import { reactiveFunction } from '../../../subscribe-function/from/many/reactive-function/reactive-function';
 import { INumberFormatOptions, INumberFormatValue } from '../number-format.type';
 import { ILocales } from '../../locales/locales.type';
-import { single } from '../../../subscribe-function';
 import NumberFormat = Intl.NumberFormat;
 
 export function numberFormatSubscribePipe(

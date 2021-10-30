@@ -1,6 +1,6 @@
+import { createTimeout } from '../../../../misc/timer/create-timeout';
 import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
-import { createTimeout } from '../../../../misc';
 
 export function timeout(
   duration: number,

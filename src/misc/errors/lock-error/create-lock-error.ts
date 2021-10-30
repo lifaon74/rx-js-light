@@ -1,5 +1,5 @@
+import { createCustomError } from '../custom-error/create-custom-error';
 import { ILockError, ILockErrorOptions } from './lock-error.type';
-import { createCustomError } from '../custom-error';
 import { LOCK_ERROR_NAME } from './lock-error-name.constant';
 
 export function createLockError(

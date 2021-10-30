@@ -22,7 +22,7 @@ returned SubscribeFunction.
 ```ts
 let value: number; // let's assume we don't know yet the value to assign
 
-const subscribe = defer(() => of(value));
+const subscribe = defer(() => single(value));
 
 const destination = (value: number) => {
   console.log(value);

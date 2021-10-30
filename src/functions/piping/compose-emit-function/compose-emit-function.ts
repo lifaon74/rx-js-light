@@ -1,5 +1,5 @@
+import { IGenericEmitFunction } from '../../../types/emit-function/emit-function.type';
 import { IGenericEmitPipeFunction } from '../../../types/emit-pipe-function/emit-pipe-function.type';
-import { IGenericEmitFunction } from '../../../types';
 import { composeNow } from '../../../misc/functional/compose/compose-now';
 import { IInferComposeNowReturn } from '../../../misc/functional/compose/types/infer-compose-now-return.type';
 import { IComposeConstraint } from '../../../misc/functional/compose/types/compose-constraint.type';

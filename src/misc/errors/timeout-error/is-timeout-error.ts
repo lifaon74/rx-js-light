@@ -1,5 +1,5 @@
+import { isCustomError } from '../custom-error/is-custom-error';
 import { ITimeoutError } from './timeout-error.type';
-import { isCustomError } from '../custom-error';
 import { TIMEOUT_ERROR_NAME } from './timeout-error-name.constant';
 
 export function isTimeoutError(

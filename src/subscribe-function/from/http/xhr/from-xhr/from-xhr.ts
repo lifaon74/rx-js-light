@@ -1,4 +1,10 @@
+import { STATIC_COMPLETE_NOTIFICATION } from '../../../../../misc/notifications/built-in/complete/complete-notification.constant';
+import { createDownloadProgressNotification } from '../../../../../misc/notifications/built-in/download-progress/create-download-progress-notification';
+import { IDownloadProgressNotification } from '../../../../../misc/notifications/built-in/download-progress/download-progress-notification.type';
+import { createErrorNotification } from '../../../../../misc/notifications/built-in/error/create-error-notification';
 import { createNextNotification } from '../../../../../misc/notifications/built-in/next/create-next-notification';
+import { createUploadProgressNotification } from '../../../../../misc/notifications/built-in/upload-progress/create-upload-progress-notification';
+import { IUploadProgressNotification } from '../../../../../misc/notifications/built-in/upload-progress/upload-progress-notification.type';
 import { INotification } from '../../../../../misc/notifications/notification.type';
 import { createNotification } from '../../../../../misc/notifications/create-notification';
 import { createEventListener, IRemoveEventListener } from '../../../../../misc/event-listener/create-event-listener';
@@ -17,13 +23,9 @@ import {
   ISubscribeFunction, IUnsubscribeFunction,
 } from '../../../../../types/subscribe-function/subscribe-function.type';
 import { IDefaultNotificationsUnion } from '../../../../../misc/notifications/default-notifications-union.type';
-import {
-  createErrorNotification, createUploadProgressNotification, IUploadProgressNotification, STATIC_COMPLETE_NOTIFICATION,
-} from '../../../../../misc';
+
 import { createAbortErrorNotification } from '../../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
-import {
-  createDownloadProgressNotification, IDownloadProgressNotification,
-} from '../../../../../misc/notifications/built-in/download-progress';
+
 
 export type IUploadCompleteNotification = INotification<'upload-complete', void>;
 

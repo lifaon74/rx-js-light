@@ -1,6 +1,6 @@
-import { ISubscribeFunction } from '../../../../../types';
-import { IErrorNotification } from '../../../../../misc';
-import { ITimeoutError } from '../../../../../misc/errors/timeout-error';
+import { ITimeoutError } from '../../../../../misc/errors/timeout-error/timeout-error.type';
+import { IErrorNotification } from '../../../../../misc/notifications/built-in/error/error-notification.type';
+import { ISubscribeFunction } from '../../../../../types/subscribe-function/subscribe-function.type';
 import { timeout } from '../timeout';
 import { createTimeoutErrorNotification } from '../../../../../misc/notifications/built-in/error/derived/create-timeout-error-notification';
 

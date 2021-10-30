@@ -1,3 +1,4 @@
+import { single } from '../../subscribe-function/from/others/single/single';
 import { ISubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
 import { reactiveFunction } from '../../subscribe-function/from/many/reactive-function/reactive-function';
 import { of } from '../../subscribe-function/from/others/of/of';
@@ -7,7 +8,6 @@ import {
 } from '../../subscribe-function/from/many/reactive-function/built-in/string/reactive-string';
 import { pipeSubscribeFunction } from '../../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
 import { mergeAllSingleSubscribePipe } from '../../subscribe-function/subscribe-pipe/merge-all/merge-all-single-subscribe-pipe';
-import { single } from '../../subscribe-function';
 
 export function translateSubscribeFunction(
   translations: ISubscribeFunction<ITranslations>,

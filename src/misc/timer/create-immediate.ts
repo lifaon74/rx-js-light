@@ -1,4 +1,4 @@
-import { clearImmediate, setImmediate } from '../helpers';
+import { clearImmediate, setImmediate } from '../helpers/set-immediate/set-immediate';
 import { IAbortTimer } from './abort-timer.type';
 
 export function createImmediate(

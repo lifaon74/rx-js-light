@@ -1,7 +1,8 @@
-import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../../../types';
 import { createMulticastSource } from '../../../../source/multicast-source/create-multicast-source';
 import { IMulticastSource } from '../../../../source/multicast-source/multicast-source.type';
 import { freeze } from '../../../../misc/helpers/freeze';
+import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
 
 interface IResizeObserverAndSubscription {
   readonly subscribe: ISubscribeFunction<ReadonlyArray<ResizeObserverEntry>>;

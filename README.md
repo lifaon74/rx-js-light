@@ -9,58 +9,36 @@
 
 This library provides tools to generate and consume blazing fast Observables and Observers.
 
-However, it is not RxJS: **it's [faster (~3x), smaller (~10x)](./src/documentation/performances.md), and tries to be simpler.**
-Give it a try, and you'll love it !  
-Because it's extremely light and performant, you may include it even in your smallest projects.
-
-[<img src="https://img.shields.io/badge/-getting started-yellow?style=for-the-badge" />](src/documentation/tutorial-for-beginners-01/tutorial-for-beginners.md)
-[<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](./src/documentation/tutorial.md)
-[<img src="https://img.shields.io/badge/-purpose of rx js light-blue?style=for-the-badge" />](./src/documentation/goal.md)
-[<img src="https://img.shields.io/badge/-performances-orange?style=for-the-badge" />](./src/documentation/performances.md)
-[<img src="https://img.shields.io/badge/-playground-blueviolet?style=for-the-badge" />](https://stackblitz.com/edit/typescript-5ksaqe?file=index.ts)
-
-If you're not familiar with the concept of Observables you may
-check [the rxjs documentation](https://rxjs-dev.firebaseapp.com/guide/observable), or
-[this excellent tutorial](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
-
-The main purpose of Observables is to *provide an elegant framework for async events and elements*.
-
-**If anything in your app happens asynchronously, there is a high chance that an Observable will make that easier for you.**
+However, it is not RxJS: **it's [faster (~10x), smaller (6~12x)](./src/documentation/performances.md), and tries to be simpler.**
+It's so performant and optimized, that you can include it from your smallest to your largest projects.
+Give it a try, and you'll love it !
 
 *Example:*
 
 ```js
-const subscription = createSubscription(
-  fromEventTarget(window, 'mousemove'),
-  (event) => {
-    console.log(event.clientX, event.clientY);
-  },
-);
+const subscribe = pipeSubscribeFunction(fromEventTarget(window, 'click'), [
+  scanSubscribePipe(count => (count + 1), 0),
+  filterSubscribePipe(count => (count >= 2)),
+]);
 
-const subscribe = fromEventTarget(window, 'click');
-
-subscribe(() => {
-  subscription.toggle();
+const unsubscribe = subscribe(() => {
+  console.log('clicked twice');
+  unsubscribe();
 });
 ```
 
-This example displays the mouse position, with an *activate / deactivate* mechanism when we click.
+[Click here to see the live demo](https://stackblitz.com/edit/typescript-crwffj?devtoolsheight=33&file=index.ts)
 
----
+## 📖 Table of content
 
-**For new incomers, [starting with Observables looks overcomplicated](https://dev.to/mfcodeworks/comment/11agc).**
-It's discouraging, and they feel pointless, just like the *Promises* in their time.
-However, they solve a very specific problem that we don't often think about it deeply:
-how to truly work with async elements ?
-
-It's a different manner to compose your code: you don't ***compute*** or ***get*** static values => you ***react*** to changes.
-You trade the traditional **PULL** usage for the new **PUSH** paradigm.
-
-Mastering Observables allows you to code in a more concise way, with fewer variables, better resources' management,
-and with less inconsistent states in your application, as one change will cascade properly and update every other linked Observables.
-
-It's not for every usage, but if you work with a lot of async events, like in a standard web application,
-Observables should simplify many of your development.
+- [Introduction](./src/documentation/tutorial/01-introduction.md)
+- [Installation](./src/documentation/tutorial/02-installation.md)
+- [Your first Observable](./src/documentation/tutorial/03-your-first-observable.md)
+- [Using the built-in Observables](./src/documentation/tutorial/04-using-the-built-in-observables.md)
+- [Emitting values using sources](./src/documentation/05-sources.md)
+- [Shortcuts for rx-js-light => rx-js-light-shortcuts](./src/documentation/06-rx-js-light-shortcuts.md)
+- [A practical example for rx-js-light](./src/documentation/07-practical-example/07-practical-example.md)
+- [Notifications replace RxJS events](./src/documentation/08-notifications.md)
 
 
 ## 📦 Installation
@@ -71,25 +49,7 @@ yarn add @lifaon/rx-js-light
 npm install @lifaon/rx-js-light --save
 ```
 
-This library supports:
-
-- **common-js** (require): transpiled as es5, with .cjs extension, useful for old nodejs versions
-- **module** (esm import): transpiled as esnext, with .mjs extension (requires node resolution for external packages)
-
-In a **node** environment the library works immediately (no extra tooling required),
-however, in a **browser** environment, you'll need to resolve external imports thought a bundler like
-[snowpack](https://www.snowpack.dev/),
-[rollup](https://rollupjs.org/guide/en/),
-[webpack](https://webpack.js.org/),
-etc...
-or directly using [skypack](https://www.skypack.dev/):
-[https://cdn.skypack.dev/@lifaon/rx-js-light](https://cdn.skypack.dev/@lifaon/rx-js-light)
-
-**INFO:** you won't be able to directly measure the size of this library
-(ex: [bundlephobia](https://bundlephobia.com/)) as it has been optimized for tree-shacking and minification.
-No bundle is shipped with this lib: this ensures you properly optimize your project.
-If you only use typings, the lib will be 0 bytes, if you use only one function, only this one will be included, etc...
-So the size of this library will always be optimal. [You may find an example here](./src/documentation/examples/example03.md).
+[Click here to read the installation manual](src/documentation/tutorial/02-installation.md)
 
 
 ## 📕 Documentation
@@ -114,6 +74,8 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 ### I want to:
 
 #### create a SubscribeFunction from
+
+- nothing and emit not value: [empty](src/subscribe-function/from/others/empty/empty.md)
 
 - one value
   - already defined: [single](src/subscribe-function/from/others/single/single.md)
@@ -144,6 +106,7 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
   - an IntersectionObserver: [fromIntersectionObserver](src/subscribe-function/from/dom/from-intersection-observer/from-intersection-observer.md)
   - a ResizeObserver: [fromResizeObserver](src/subscribe-function/from/dom/from-resize-observer/from-resize-observer.md)
   - a css @media query: [fromMatchMedia](src/subscribe-function/from/dom/from-match-media/from-match-media.md)
+  - the position of the user (Geolocation): [fromGeolocationPosition](src/subscribe-function/from/dom/from-geolocation-position/from-geolocation-position.md)
   
 - a promise
   - with a factory: [fromPromiseFactory](src/subscribe-function/from/promise/from-promise-factory/from-promise-factory.md)
@@ -190,15 +153,11 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 
 - time related
   - emits every 'ms': [interval](src/subscribe-function/from/time-related/interval/interval.md)
+  - emits after 'ms':
+    - without notifications: [timeout](src/subscribe-function/from/time-related/timeout/timeout.md)
+    - with notifications: [timeoutWithErrorNotification](src/subscribe-function/from/time-related/timeout/derived/timeout-with-error-notification.ts)
   - emits when idle time is available: [idle](src/subscribe-function/from/time-related/idle/idle.md)
-
-[comment]: <> (TODO)
-
-[comment]: <> (timeout & timeoutWithErrorNotification)
-[comment]: <> (fromGeolocationPosition)
-[comment]: <> (deboundeImmediate)
-[comment]: <> (empty)
-[comment]: <> (fromAnimationFrame)
+  - emits on each animation frame: [fromAnimationFrame](src/subscribe-function/from/time-related/from-animation-frame/from-animation-frame.md)
 
 
 #### convert a SubscribeFunction to
@@ -215,6 +174,7 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
   - emits only distinct received values: [distinctSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe.ts)
   - filters received values: [filterSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/filter-subscribe-pipe.ts)
   - transforms received values: [mapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe.ts)
+  - transforms received values with an accumulator: [scanSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/scan-subscribe-pipe.ts)
   - reads received values, and re-emits them without transformations: [tapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/tap-subscribe-pipe.ts)
   - converts an EmitPipeFunction to a SubscribePipeFunction: [emitPipeToSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/emit-pipe-to-subscribe-pipe.ts)
 
@@ -233,8 +193,9 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 
 - time related
   - [debounceTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-time/debounce-time-subscribe-pipe.md)
-  - [periodTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/period-time/period-time-subscribe-pipe.md)
-  - [debounceFrameSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-frame/debounce-frame-subscribe-pipe.ts)
+  - [throttleTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/throttle-time/throttle-time-subscribe-pipe.md)
+  - [debounceFrameSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-frame/debounce-frame-subscribe-pipe.md)
+  - [debounceImmediateSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-immediate/debounce-immediate-subscribe-pipe.md)
 
 - logs the state of the upper SubscribeFunction: [logStateSubscribePipe](src/subscribe-function/subscribe-pipe/log-state-subscribe-pipe.ts)
 

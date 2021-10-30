@@ -1,6 +1,8 @@
-import { IEmitFunction, ISubscribeFunction, ISubscribePipeFunction, IUnsubscribeFunction } from '../../../types';
-import { IDefaultInNotificationsUnion } from '../../../misc';
-import { ISubscribeFunctionToPromiseNotifications } from '../../to';
+import { IDefaultInNotificationsUnion } from '../../../misc/notifications/default-notifications-union.type';
+import { IEmitFunction } from '../../../types/emit-function/emit-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../../types/subscribe-function/subscribe-function.type';
+import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
+import { ISubscribeFunctionToPromiseNotifications } from '../../to/to-promise/all/to-promise-all';
 
 export interface INotificationsToValuesSubscribePipeOnErrorFunction<GValue> {
   (error: any, emit: IEmitFunction<GValue[]>): void;

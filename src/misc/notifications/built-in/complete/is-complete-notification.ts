@@ -1,5 +1,5 @@
-import { ICompleteNotification } from '../complete';
 import { isNotification } from '../../is-notification';
+import { ICompleteNotification } from './complete-notification.type';
 
 export function isCompleteNotification(
   value: any,

@@ -1,5 +1,6 @@
+import { IEmitFunction } from '../../types/emit-function/emit-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
 import { ISubscription } from './subscription.type';
-import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../types';
 
 /**
  * TODO very close of a IEmitSubscribePair

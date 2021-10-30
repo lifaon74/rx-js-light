@@ -1,8 +1,8 @@
+import { STATIC_COMPLETE_NOTIFICATION } from '../../../../misc/notifications/built-in/complete/complete-notification.constant';
 import { ISubscribePipeFunction } from '../../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
 import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
 import { IDefaultNotificationsUnion } from '../../../../misc/notifications/default-notifications-union.type';
-import { STATIC_COMPLETE_NOTIFICATION } from '../../../../misc';
 
 export type IMergeAllToSubscribePipeInNotifications<GValue> = IDefaultNotificationsUnion<ISubscribeFunction<IDefaultNotificationsUnion<GValue>>>;
 // export type IMergeAllToSubscribePipeInNotifications<GValue> = IDefaultInNotificationsUnion<GValue>;

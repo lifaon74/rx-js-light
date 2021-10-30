@@ -1,8 +1,20 @@
 ## Performances
 
+---
+
+**SYSTEM CONFIGURATION:**
+
+- CPU: Intel(R) Core(TM) i7-8750H CPU @ 2.20GHz (6 cores / 12 threads)
+- Memory: 16Go
+- OS: Ubuntu 20.04 LTS
+- Browser: Chrome 94
+- Date: 28/10/2021
+
+---
+
 `rx-js-light` is **extremely performant** because it relies only on pure functions:
 
-- unbeatable speed: 3 times faster in the following performance test (simple test using 3 different operators).
+- unbeatable speed: up to 10 times faster in the following performance test (simple test using 3 different operators).
 - minimal size: up to 10 times smaller.
 
 All of this due to the usage of functions instead of classes and methods:
@@ -69,7 +81,7 @@ function rxJSLightPerformancesExample() {
   withRXJS();
 
   // time:
-  //  1259.89697265625 ms
+  //  2267.360107421875 ms
 
   // size:
   //  dist/assets/index.df218447.js    0.89kb / brotli: 0.46kb
@@ -82,11 +94,15 @@ function rxJSLightPerformancesExample() {
   // withRXJSLight();
 
   // time:
-  //  388.719970703125 ms
-  //  => 3.2x faster
+  //  218.35107421875 ms
+  //  => 10.3x faster
 
   // size:
   //  dist/assets/index.f4437db2.js    1.09kb / brotli: 0.52kb
   //  => 12.1x / 6.53x smaller
 }
+
+rxJSLightPerformancesExample();
 ```
+
+[Click here to run the code](https://stackblitz.com/edit/vite-cfrug8?file=main.ts)

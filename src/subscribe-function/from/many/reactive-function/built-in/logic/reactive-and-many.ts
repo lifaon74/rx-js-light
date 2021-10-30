@@ -1,6 +1,7 @@
+import { ISubscribeFunction } from '../../../../../../types/subscribe-function/subscribe-function.type';
 import { IReactiveFunctionSubscribeFunctions } from '../../reactive-function';
-import { ISubscribeFunction } from '../../../../../../types';
-import { distinctReactiveFunction } from '../others';
+import { distinctReactiveFunction } from '../others/distinct-reactive-function';
+
 
 export function reactiveAndMany(
   ...subscribeFunctions: IReactiveFunctionSubscribeFunctions<typeof andMany>

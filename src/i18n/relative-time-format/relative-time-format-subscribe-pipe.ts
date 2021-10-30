@@ -1,6 +1,8 @@
-import { ILocales } from '../locales';
-import { ISubscribeFunction, ISubscribePipeFunction } from '../../types';
-import { reactiveFunction, single } from '../../subscribe-function';
+import { reactiveFunction } from '../../subscribe-function/from/many/reactive-function/reactive-function';
+import { single } from '../../subscribe-function/from/others/single/single';
+import { ISubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { ISubscribePipeFunction } from '../../types/subscribe-pipe-function/subscribe-pipe-function.type';
+import { ILocales } from '../locales/locales.type';
 import { IRelativeTimeFormatOptions, IRelativeTimeFormatValueAndUnit } from './relative-time-format.type';
 import RelativeTimeFormat = Intl.RelativeTimeFormat;
 

@@ -1,5 +1,6 @@
-import { noop } from '../../../../misc';
-import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../../../types';
+import { noop } from '../../../../misc/helpers/noop';
+import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
 
 export interface IGetReferenceValue<GValue> {
   (): GValue;

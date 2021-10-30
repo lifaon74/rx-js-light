@@ -1,5 +1,5 @@
-import { ISubscribeFunction } from '../../../../types';
-import { ISubscribeFunctionToPromiseAllOptions, ISubscribeFunctionToPromiseNotifications, toPromiseAll } from '../all';
+import { ISubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
+import { ISubscribeFunctionToPromiseAllOptions, ISubscribeFunctionToPromiseNotifications, toPromiseAll } from '../all/to-promise-all';
 
 export type ISubscribeFunctionToPromiseLastOptions = Omit<ISubscribeFunctionToPromiseAllOptions, 'maxNumberOfValues'>;
 

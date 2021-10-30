@@ -1,5 +1,5 @@
+import { isCustomError } from '../custom-error/is-custom-error';
 import { ILockError } from './lock-error.type';
-import { isCustomError } from '../custom-error';
 import { LOCK_ERROR_NAME } from './lock-error-name.constant';
 
 export function isLockError(

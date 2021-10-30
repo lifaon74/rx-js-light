@@ -1,9 +1,14 @@
-import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../../../../types';
+import { STATIC_COMPLETE_NOTIFICATION } from '../../../../../misc/notifications/built-in/complete/complete-notification.constant';
+import { createErrorNotification } from '../../../../../misc/notifications/built-in/error/create-error-notification';
+import { IErrorNotification } from '../../../../../misc/notifications/built-in/error/error-notification.type';
+import { INextNotification } from '../../../../../misc/notifications/built-in/next/next-notification.type';
 import {
-  createErrorNotification, IDefaultNotificationsUnion, IErrorNotification, IGenericDefaultInNotificationsUnion,
-  INextNotification, STATIC_COMPLETE_NOTIFICATION,
-} from '../../../../../misc';
+  IDefaultNotificationsUnion,
+  IGenericDefaultInNotificationsUnion,
+} from '../../../../../misc/notifications/default-notifications-union.type';
 import { TupleTypes } from '../../../../../misc/types/tuple-types';
+import { IEmitFunction } from '../../../../../types/emit-function/emit-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../../types/subscribe-function/subscribe-function.type';
 
 export type IMergeWithNotificationsSubscribeFunctionsValues<GSubscribeFunctions extends IGenericMergeWithNotificationsSubscribeFunctions> = TupleTypes<{
   [GKey in keyof GSubscribeFunctions]: GSubscribeFunctions[GKey] extends ISubscribeFunction<infer GNotificationUnion>

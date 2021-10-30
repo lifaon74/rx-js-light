@@ -1,6 +1,7 @@
-import { IEmitFunction, ISubscribeFunction, IUnsubscribeFunction } from '../../types';
+import { IEmitFunction } from '../../types/emit-function/emit-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { freeze } from '../helpers/freeze';
 import { ISubscription } from './subscription.type';
-import { freeze } from '../helpers';
 
 export function createSubscription<GValue>(
   subscribe: ISubscribeFunction<GValue>,

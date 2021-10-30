@@ -1,6 +1,7 @@
-import { ILocales } from '../../locales';
-import { ISubscribeFunction, ISubscribePipeFunction } from '../../../types';
-import { reactiveFunction } from '../../../subscribe-function';
+import { reactiveFunction } from '../../../subscribe-function/from/many/reactive-function/reactive-function';
+import { ISubscribeFunction } from '../../../types/subscribe-function/subscribe-function.type';
+import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
+import { ILocales } from '../../locales/locales.type';
 import {
   IRelativeTimeFormatOptions, IRelativeTimeFormatUnit, IRelativeTimeFormatValue, IRelativeTimeFormatValueAndUnit,
 } from '../relative-time-format.type';

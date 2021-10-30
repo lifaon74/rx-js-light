@@ -1,5 +1,5 @@
+import { isCustomError } from '../custom-error/is-custom-error';
 import { IAbortError } from './abort-error.type';
-import { isCustomError } from '../custom-error';
 import { ABORT_ERROR_NAME } from './abort-error-name.constant';
 
 export function isAbortError(

@@ -1,6 +1,6 @@
-import { IUnsubscribeFunction } from '../../types';
+import { IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { isReferenceError } from '../errors/reference-error/is-reference-error';
 import { noop } from './noop';
-import { isReferenceError } from '../errors';
 import { setImmediate } from './set-immediate/set-immediate';
 
 export const DEFAULT_ON_ERROR_FOR_ASYNC_UNSUBSCRIBE = (error: any) => {

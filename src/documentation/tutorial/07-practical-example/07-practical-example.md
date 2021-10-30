@@ -1,32 +1,11 @@
-# Why Observables are awesome
+# A practical example for rx-js-light
 
-Let me convince you that Observables are **AWESOME**. Not for **EVERY** projet, but for **SOME** use cases they are
-really handful.
-
-First, if you are in a hurry, here are the situations where the Observables shine:
-
-- everytime you're using an async task:
-  - observing events (ex: mousedown, keypress, etc...)
-  - using promises
-  - using timers (setInterval, setTimeout, requestAnimationFrame, etc...)
-- managing the state of a web application, and updating the DOM nodes
-- working with streams
-
-However, you don't need Observables in these situations:
-
-- computing only: rendering a 2D/3D scene, wasm, intensive task, hash, etc...
-- having an application that almost doesn't rely on async calls
-
-## Introduction example
-
-I'll start on a very simple example to illustrate the usage of Observables and the simplification they provide. Don't
-focus too much on the details of the code. Just take a look of the global imbrications and usage of the Observables. We
-will learn deeper about Observables later.
+So, we've seen many things about Observable. Now, it's time to practice.
 
 Let's imagine a simple application where we have a `<select>` that contains a list of languages, and an `<output>` that
 display the current date and time formatted according to the selected locale.
 
-Here is the workflow we'll implement:
+Here is the target workflow:
 
 ![alt text](./example-01.png "schema")
 
@@ -64,7 +43,7 @@ function createLocaleSelectElement(
 }
 ```
 
-Second, we create and inject our `<select>` and `<output>` element.
+Second, we create and inject our `<select>` and `<output>` elements into the body.
 
 ```ts
 const selectElement = createLocaleSelectElement();
@@ -192,8 +171,8 @@ function classic() {
 
 As you may see it's pretty simple. However, we may quickly anticipate some limits:
 
-- in the real world, we have more than 2 variables, usually in the range of thousands or millions for the largest
-  applications, so keeping a coherent state (refreshing + updating the variables) is tricky, and bugs will appear soon.
+- in the real world, we have more than 2 variables, usually in the range of thousands and more,
+  so keeping a coherent state (refreshing + updating the variables) is tricky, and bugs will appear soon.
 - releasing resources (removeEventListener, clearInterval), can easily be forgotten, creating memory leaks. For
   long-running application this is not optimal.
 
@@ -217,24 +196,8 @@ function observables() {
 
 [Click here to see the live demo](https://stackblitz.com/edit/typescript-fdrebf?file=index.ts)
 
-Yes, for new incomers, this code is probably incomprehensible. However, you may notice how compact it is, in comparison
-to the *classic* example. Do not focus strongly on the code: learning Observables is all about remembering a bunch of
-functions, what they do, and how to nest / chain them. At first, it's a nightmare, but when you start to know the main
-functions, this will become a breeze.
-
----
-
-**First: what's an Observable ?**
-
-An Observable is **simply a function**. It takes as first and only argument a callback, that will receive the values
-emitted by this observable, and returns a function used to free the resources when we want to dispose of it.
-
-Here's a quick look how to consume an Observable:
-
-```ts
-const observable$ = of(1, 1, 2, 3, 5, 8, 13, 21);
-observable$((value) => console.log(value)); // outputs 1, 1, 2, 3, 5, 8, 13, 21
-```
+I guess you noticed how compact is it in comparison to the *classic* example.
+That's where Reactive Programing shines: asynchronous event streams, and operations on them.
 
 Ok, now let's decompose the code.
 
@@ -265,7 +228,7 @@ conjunction with `merge`, to dispatch the current `<select>` value.
 ```ts
 const locale$ = merge([
   single(selectElement.value),
-  map$$(selectElementChangeImmediately$, () => selectElement.value)
+  map$$(selectElementChange$, () => selectElement.value)
 ]);
 ```
 
@@ -331,7 +294,7 @@ function observables() {
   const selectElementChange$ = fromEventTarget(selectElement, 'change'); // #1
   const locale$ = merge([
     single(selectElement.value),
-    map$$(selectElementChangeImmediately$, () => selectElement.value)
+    map$$(selectElementChange$, () => selectElement.value)
   ]); // #1.1
 
   /* DATE */
@@ -368,4 +331,16 @@ So, as you may see, the power of Observables comes from 3 factors:
 So, for any front-end work, they are a good solution to handle the state of your application, update the DOM nodes, and
 listen on some events. They work exceptionally well with the DOM.
 
+---
+
+## Table of content
+
+- [Introduction](../01-introduction.md)
+- [Installation](../02-installation.md)
+- [Your first Observable](../03-your-first-observable.md)
+- [Using the built-in Observables](../04-using-the-built-in-observables.md)
+- [Emitting values using sources](../05-sources.md)
+- [Shortcuts for rx-js-light => rx-js-light-shortcuts](../06-rx-js-light-shortcuts.md)
+- [A practical example for rx-js-light](./07-practical-example.md)
+- [Notifications replace RxJS events](../08-notifications.md)
 

@@ -1,7 +1,7 @@
+import { verifyNumberInRange } from '../../../misc/errors/range-error/verify-number-in-range';
 import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../../types/subscribe-function/subscribe-function.type';
 import { IEmitFunction } from '../../../types/emit-function/emit-function.type';
-import { verifyNumberInRange } from '../../../misc';
 
 export function mergeAllSubscribePipe<GValue>(
   maxNumberOfSubscriptions: number = Number.POSITIVE_INFINITY,

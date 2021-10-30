@@ -1,5 +1,5 @@
+import { ISourceToReadonlySource } from '../../../readonly-source/source-to-readonly-source.type';
 import { ISource } from '../../../source.type';
-import { ISourceToReadonlySource } from '../../../readonly-source';
 import { IReplayLastSource } from '../../replay-last-source.type';
 
 export type IReadonlyReplayLastSource<GValue, GSource extends ISource<GValue>> =

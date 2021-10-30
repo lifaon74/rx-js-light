@@ -1,11 +1,15 @@
+import {
+  createMulticastReplayLastSource,
+  IMulticastReplayLastSource,
+} from '../source/replay-last-source/derived/create-multicast-replay-last-source';
+import { IEmitFunction } from '../types/emit-function/emit-function.type';
 import { ISubscribeFunction } from '../types/subscribe-function/subscribe-function.type';
 import { pipeSubscribeFunction } from '../functions/piping/pipe-subscribe-function/pipe-subscribe-function';
 import { mapSubscribePipe } from '../subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe';
 import {
   getObjectPropertyPathValue, getOptionalObjectPropertyPathValue,
 } from '../misc/helpers/property-path/get-object-property-path-value';
-import { createMulticastReplayLastSource, IMulticastReplayLastSource } from '../source';
-import { IEmitFunction } from '../types';
+
 
 export type ISubscribeFunctionProxy<GData> = {
   [GKey in keyof GData]: ISubscribeFunctionProxy<GData[GKey]>;

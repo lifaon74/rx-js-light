@@ -1,3 +1,5 @@
+import { STATIC_COMPLETE_NOTIFICATION } from '../../../../misc/notifications/built-in/complete/complete-notification.constant';
+import { createErrorNotification } from '../../../../misc/notifications/built-in/error/create-error-notification';
 import { createNextNotification } from '../../../../misc/notifications/built-in/next/create-next-notification';
 import { createEventListener, IRemoveEventListener } from '../../../../misc/event-listener/create-event-listener';
 import { isAbortSignal } from '../../../../misc/abortable/is/is-abort-signal';
@@ -6,7 +8,6 @@ import { toTypedEventTarget } from '../../../../misc/event-listener/to-typed-eve
 import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
 import { ISubscribeFunction, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
 import { IDefaultNotificationsUnion } from '../../../../misc/notifications/default-notifications-union.type';
-import { createErrorNotification, STATIC_COMPLETE_NOTIFICATION } from '../../../../misc';
 import { createAbortErrorNotification } from '../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
 
 export interface ISubscribeFunctionFromPromiseFactoryOptions {

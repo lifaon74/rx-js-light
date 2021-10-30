@@ -12,7 +12,7 @@ interface ISourceSubscribePipeGetSource<GValue> {
 }
 ```
 
-This SubscribePipe does the bridge between a Source which is not lazy loaded, and a SubscibeFunction (which is lazy
+This SubscribePipe does the bridge between a Source which is not lazy loaded, and a SubscribeFunction (which is lazy
 loaded).
 
 - it counts the number of subscriptions and subscribes (only once) to the SubscribeFunction if the number of
@@ -36,9 +36,8 @@ function shareSubscribePipe<GValue>(
 #### Sharing the same SubscribeFunction
 
 ```ts
-let i: number = 0;
 const subscribe = pipeSubscribeFunction(interval(1000), [
-  mapSubscribePipe<void, number>(() => (i++)),
+  scanSubscribePipe<void, number>(count => (count + 1), 0),
   sourceSubscribePipe<number>(createMulticastSource),
 ]);
 
@@ -64,9 +63,8 @@ value - B: 1
 #### Same but using shareSubscribePipe
 
 ```ts
-let i: number = 0;
 const subscribe = pipeSubscribeFunction(interval(1000), [
-  mapSubscribePipe<void, number>(() => (i++)),
+  scanSubscribePipe<void, number>(count => (count + 1), 0),
   shareSubscribePipe<number>(),
 ]);
 

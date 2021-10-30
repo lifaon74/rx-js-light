@@ -1,5 +1,5 @@
+import { isArrayLike } from '../../misc/helpers/is-type/is-array-like';
 import { ILocale, ILocales } from './locales.type';
-import { isArrayLike } from '../../misc';
 
 export function localeToString(
   locale: ILocale,

@@ -1,4 +1,4 @@
-import { freeze } from '../../misc';
+import { freeze } from '../../misc/helpers/freeze';
 import { IGenericSource } from '../source.type';
 import { ISourceToReadonlySource } from './source-to-readonly-source.type';
 

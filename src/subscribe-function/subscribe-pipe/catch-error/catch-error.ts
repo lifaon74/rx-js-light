@@ -1,6 +1,9 @@
-import { IEmitFunction, ISubscribeFunction, ISubscribePipeFunction, IUnsubscribeFunction } from '../../../types';
-import { IErrorNotification, IGenericErrorNotification, isErrorNotification } from '../../../misc';
 import { asyncUnsubscribe } from '../../../misc/helpers/async-unsubscribe';
+import { IErrorNotification, IGenericErrorNotification } from '../../../misc/notifications/built-in/error/error-notification.type';
+import { isErrorNotification } from '../../../misc/notifications/built-in/error/is-error-notification';
+import { IEmitFunction } from '../../../types/emit-function/emit-function.type';
+import { ISubscribeFunction, IUnsubscribeFunction } from '../../../types/subscribe-function/subscribe-function.type';
+import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 
 export interface ICatchErrorSubscribePipeOnError<GError, GOnErrorOut> {
   (error: GError): ISubscribeFunction<GOnErrorOut>;

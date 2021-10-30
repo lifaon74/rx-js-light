@@ -1,4 +1,4 @@
-import { createEmptyError } from '../../../../misc';
+import { createEmptyError } from '../../../../misc/errors/empty-error/create-empty-error';
 import { TupleTypes } from '../../../../misc/types/tuple-types';
 import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
 import {

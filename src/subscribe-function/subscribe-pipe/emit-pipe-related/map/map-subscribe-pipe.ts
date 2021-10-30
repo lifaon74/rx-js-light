@@ -1,6 +1,6 @@
+import { IMapFunction, mapEmitPipe } from '../../../../pipes/map/map-emit-pipe';
 import { emitPipeToSubscribePipe } from '../emit-pipe-to-subscribe-pipe';
 import { ISubscribePipeFunction } from '../../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
-import { IMapFunction, mapEmitPipe } from '../../../../pipes';
 
 /**
  * @see mapEmitPipe

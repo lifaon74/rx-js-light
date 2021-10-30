@@ -1,11 +1,11 @@
-import { createEmptyError } from '../../../../misc';
+import { createEmptyError } from '../../../../misc/errors/empty-error/create-empty-error';
 import { IEmitFunction } from '../../../../types/emit-function/emit-function.type';
 import {
   IGenericSubscribeFunction,
   ISubscribeFunction,
   IUnsubscribeFunction,
 } from '../../../../types/subscribe-function/subscribe-function.type';
-import { single } from '../../others';
+import { single } from '../../others/single/single';
 import { TMapSubscribeFunctionTupleToValueTuple } from '../types';
 
 export type ICombineLatestSubscribeFunctionsValues<GSubscribeFunctions extends readonly IGenericSubscribeFunction[]> =

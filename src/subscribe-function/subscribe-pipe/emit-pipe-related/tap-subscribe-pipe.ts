@@ -1,6 +1,6 @@
+import { ITabCallback, tapEmitPipe } from '../../../pipes/tap-emit-pipe';
 import { emitPipeToSubscribePipe } from './emit-pipe-to-subscribe-pipe';
 import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
-import { ITabCallback, tapEmitPipe } from '../../../pipes';
 
 /**
  * @see tapEmitPipe

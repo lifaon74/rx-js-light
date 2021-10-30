@@ -1,7 +1,8 @@
-import { ISubscribeFunction, ISubscribePipeFunction } from '../../../types';
+import { reactiveFunction } from '../../../subscribe-function/from/many/reactive-function/reactive-function';
+import { ISubscribeFunction } from '../../../types/subscribe-function/subscribe-function.type';
+import { ISubscribePipeFunction } from '../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
 import { IDateTimeFormatOptions, IDateTimeFormatValue } from '../date-time-format.type';
 import { ILocales } from '../../locales/locales.type';
-import { reactiveFunction } from '../../../subscribe-function';
 import DateTimeFormat = Intl.DateTimeFormat;
 import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 

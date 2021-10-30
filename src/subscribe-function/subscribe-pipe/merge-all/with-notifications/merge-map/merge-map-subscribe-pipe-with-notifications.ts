@@ -22,7 +22,7 @@ export function mergeMapSubscribePipeWithNotifications<GIn, GMapValueOut>(
 ): ISubscribePipeFunction<GIn, IDefaultNotificationsUnion<GMapValueOut>> {
   type GMapOut = ISubscribeFunction<IDefaultNotificationsUnion<GMapValueOut>>;
   return pipeSubscribePipeFunctions([
-    mapSubscribePipeWithNotifications<IGenericDefaultNotificationsUnion, GMapOut>(mapFunction),
+    mapSubscribePipeWithNotifications<IGenericDefaultNotificationsUnion, GMapOut>(mapFunction as any),
     mergeAllSubscribePipeWithNotifications<GMapValueOut>(maxNumberOfSubscriptions),
   ]) as unknown as ISubscribePipeFunction<GIn, IDefaultNotificationsUnion<GMapValueOut>>;
 }

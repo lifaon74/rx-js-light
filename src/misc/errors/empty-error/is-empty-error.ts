@@ -1,6 +1,6 @@
-import { IEmptyError } from './empty-error.type';
-import { isCustomError } from '../custom-error';
+import { isCustomError } from '../custom-error/is-custom-error';
 import { EMPTY_ERROR_NAME } from './empty-error-name.constant';
+import { IEmptyError } from './empty-error.type';
 
 export function isEmptyError(
   value: unknown,

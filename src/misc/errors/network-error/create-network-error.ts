@@ -1,5 +1,5 @@
+import { createCustomError } from '../custom-error/create-custom-error';
 import { INetworkError, INetworkErrorOptions } from './network-error.type';
-import { createCustomError } from '../custom-error';
 import { NETWORK_ERROR_NAME } from './network-error-name.constant';
 
 export function createNetworkError(
