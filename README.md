@@ -16,9 +16,9 @@ Give it a try, and you'll love it !
 *Example:*
 
 ```js
-const subscribe = pipeSubscribeFunction(fromEventTarget(window, 'click'), [
-  scanSubscribePipe(count => (count + 1), 0),
-  filterSubscribePipe(count => (count >= 2)),
+const subscribe = pipeObservable(fromEventTarget(window, 'click'), [
+  scanObservablePipe(count => (count + 1), 0),
+  filterObservablePipe(count => (count >= 2)),
 ]);
 
 const unsubscribe = subscribe(() => {
@@ -35,10 +35,10 @@ const unsubscribe = subscribe(() => {
 - [Installation](./src/documentation/tutorial/02-installation.md)
 - [Your first Observable](./src/documentation/tutorial/03-your-first-observable.md)
 - [Using the built-in Observables](./src/documentation/tutorial/04-using-the-built-in-observables.md)
-- [Emitting values using sources](./src/documentation/05-sources.md)
-- [Shortcuts for rx-js-light => rx-js-light-shortcuts](./src/documentation/06-rx-js-light-shortcuts.md)
-- [A practical example for rx-js-light](./src/documentation/07-practical-example/07-practical-example.md)
-- [Notifications replace RxJS events](./src/documentation/08-notifications.md)
+- [Emitting values using sources](./src/documentation/tutorial/05-sources.md)
+- [Shortcuts](./src/documentation/tutorial/06-rx-js-light-shortcuts.md)
+- [A practical example for rx-js-light](./src/documentation/tutorial/07-practical-example/07-practical-example.md)
+- [Notifications replace RxJS events](./src/documentation/tutorial/08-notifications.md)
 
 
 ## 📦 Installation
@@ -54,166 +54,172 @@ npm install @lifaon/rx-js-light --save
 
 ## 📕 Documentation
 
-- [SubscribeFunction](src/types/subscribe-function/subscribe-function.md) (ak: Observable)
-- [EmitFunction](src/types/emit-function/emit-function.md) (ak: Observer)
-- [SubscribePipeFunction](src/types/subscribe-pipe-function/subscribe-pipe-function.md) (ak: Pipeable Operator)
-- [pipeSubscribeFunction](src/functions/piping/pipe-subscribe-function/pipe-subscribe-function.md) (ak: Observable.pipe)
-- [pipeSubscribePipeFunctions](src/functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions.md) (ak: pipe function)
+- [Observable](src/observable/type/observable.md)
+- [Observer](src/observer/type/observer.md)
+- [ObservablePipe](src/observable/pipes/type/observable-pipe.md) (ak: Pipeable Operator)
+- [pipeObservable](src/observable/helpers/piping/pipe-observable/pipe-observable.md) (ak: Observable.pipe)
+- [pipeObservablePipes](src/observable/helpers/piping/pipe-observable-pipes/pipe-observable-pipes.md) (ak: pipe function)
 - [Notification](src/misc/notifications/notifications.md) (ak: *next*, *complete* and *error*)
-- [MulticastSource](src/source/multicast-source/multicast-source.md) (ak: Subject)
-- [ReplayLastSource](src/source/replay-last-source/replay-last-source.md) (ak: BehaviorSubject)
+- [MulticastSource](src/observer-observable-pair/build-in/source/built-in/multicast-source/multicast-source.md) (ak: Subject)
+- [ReplayLastSource](src/observer-observable-pair/build-in/source/built-in/replay-last-source/replay-last-source.md) (ak: BehaviorSubject)
 - [Subscription](src/misc/subscription/subscription.md) (kind of: Subscription)
 
-Most of public functions or interfaces have their own documentation into a `.md` file in their respective directories. 
-
-If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](https://github.com/lifaon74/rx-js-light-shortcuts)
-
+Most of public functions or interfaces have their own documentation into a `.md` file in their respective directories.
 
 ## 🔥️ Select the right function
 
 ### I want to:
 
-#### create a SubscribeFunction from
+#### create an Observable from
 
-- nothing and emit not value: [empty](src/subscribe-function/from/others/empty/empty.md)
+*without notifications*
 
+- nothing and emit no value: [empty](src/observable/built-in/from/without-notifications/values/empty/empty.md)
+  
 - one value
-  - already defined: [single](src/subscribe-function/from/others/single/single.md)
-  - defined later: [reference](/src/subscribe-function/from/others/reference/reference.md)
+  - already defined: [single](src/observable/built-in/from/without-notifications/values/single/single.md)
+  - defined later: [reference](/src/observable/built-in/from/without-notifications/values/reference/reference.md) 
+    
+- a list of values: [of](src/observable/built-in/from/without-notifications/values/of/of.md)
 
-- a list of values
-  - without notifications: [of](src/subscribe-function/from/others/of/of.md)
-  - with notifications: [ofWithNotifications](src/subscribe-function/from/others/of/with-notifications/of-with-notifications.ts)
+- an iterable
+  - array: [fromArray](src/observable/built-in/from/without-notifications/iterable/from-array/from-array.md)
+  - iterable: [fromIterable](src/observable/built-in/from/without-notifications/iterable/from-iterable/from-iterable.md)
+  - iterator ⚠️: [fromIterator](src/observable/built-in/from/without-notifications/iterable/from-iterator/from-iterator.md)
+
+- something related to the DOM
+  - an EventTarget: [fromEventTarget](src/observable/built-in/from/without-notifications/dom/from-event-target/from-event-target.md)
+  - an IntersectionObserver: [fromIntersectionObserver](src/observable/built-in/from/without-notifications/dom/from-intersection-observer/from-intersection-observer.md)
+  - a ResizeObserver: [fromResizeObserver](src/observable/built-in/from/without-notifications/dom/from-resize-observer/from-resize-observer.md)
+  - a css @media query: [fromMatchMedia](src/observable/built-in/from/without-notifications/dom/from-match-media/from-match-media.md)
+
+- one Observable
+  - defined later: [defer](/src/observable/built-in/from/without-notifications/values/defer/defer.md)
+
+- many Observables. When any value is received
+  - re-emit it concurrently: [merge](src/observable/built-in/from/without-notifications/many-observables/merge/merge.ts)
+  - combine the values in an array and emit it: [combineLatest](src/observable/built-in/from/without-notifications/many-observables/combine-latest/combine-latest.md)
+  - combine the values in an array, runs a function with these values, and emit distinct returned
+    values: [reactiveFunction](src/observable/built-in/from/without-notifications/many-observables/reactive-function/reactive-function.md)
+    - arithmetic:
+      [reactiveAdd](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/arithmetic/add/reactive-add.ts),
+      [reactiveSubtract](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/arithmetic/subtract/reactive-subtract.ts),
+      [reactiveMultiply](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/arithmetic/multiply/reactive-multiply.ts),
+      [reactiveDivide](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/arithmetic/divide/reactive-divide.ts)
+    - logic:
+      [reactiveAnd](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/logic/and/reactive-and.ts),
+      [reactiveOr](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/logic/or/reactive-or.ts),
+      [reactiveNot](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/logic/not/reactive-not.ts)
+    - comparison:
+      [reactiveEqual](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/comparison/equal/reactive-equal.ts),
+      [reactiveNotEqual](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/comparison/not-equal/reactive-not-equal.ts),
+      [reactiveGreaterThan](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/comparison/greater-than/reactive-greater-than.ts),
+      [reactiveGreaterThanOrEqual](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/comparison/greater-than-or-equal/reactive-greater-than-or-equal.ts),
+      [reactiveLowerThan](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/comparison/lower-than/reactive-lower-than.ts),
+      [reactiveLowerThanOrEqual](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/comparison/lower-than-or-equal/reactive-lower-than-or-equal.ts)
+    - string:
+      [reactiveTemplateString](src/observable/built-in/from/without-notifications/many-observables/reactive-function/built-in/string/reactive-template-string.ts)
+
+- *time related*
+  - emits every 'ms': [interval](src/observable/built-in/from/without-notifications/time-related/interval/interval.md)
+  - emits after 'ms': [timeout](src/observable/built-in/from/without-notifications/time-related/timeout/timeout.md)
+    - with an error notification: [timeoutWithErrorNotification](src/observable/built-in/from/without-notifications/time-related/timeout/derived/timeout-with-error-notification.ts)
+  - emits when idle time is available: [idle](src/observable/built-in/from/without-notifications/time-related/idle/idle.md)
+  - emits on each animation frame: [fromAnimationFrame](src/observable/built-in/from/without-notifications/time-related/from-animation-frame/from-animation-frame.md)
+
+
+
+*with notifications*
+
+- a list of values: [ofWithNotifications](src/observable/built-in/from/with-notifications/values/of/of-with-notifications.ts)
 
 - an iterable
   - sync
-    - array
-      - without notifications: [fromArray](src/subscribe-function/from/iterable/sync/from-array/from-array.md)
-      - with notifications: [fromArrayWithNotifications](src/subscribe-function/from/iterable/sync/from-array/with-notifications/from-array-with-notifications.md)
-    - iterable
-      - without notifications: [fromIterable](src/subscribe-function/from/iterable/sync/from-iterable/from-iterable.md)
-      - with notifications: [fromIterableWithNotifications](src/subscribe-function/from/iterable/sync/from-iterable/with-notifications/from-iterable-with-notifications.md)
-    - iterator ⚠️
-      - without notifications: [fromIterator](src/subscribe-function/from/iterable/sync/from-iterator/from-iterator.md)
-      - with notifications: [fromIteratorWithNotifications](src/subscribe-function/from/iterable/sync/from-iterator/with-notifications/from-iterator-with-notifications.md)
+    - array: [fromArrayWithNotifications](src/observable/built-in/from/with-notifications/iterable/sync/from-array/from-array-with-notifications.md)
+    - iterable: [fromIterableWithNotifications](src/observable/built-in/from/with-notifications/iterable/sync/from-iterable/from-iterable-with-notifications.md)
+    - iterator ⚠️: [fromIteratorWithNotifications](src/observable/built-in/from/with-notifications/iterable/sync/from-iterator/from-iterator-with-notifications.md)
 
   - async
-    - async iterable: [fromAsyncIterable](src/subscribe-function/from/iterable/async/from-async-iterable/from-async-iterable.md)
-    - async iterator ⚠️: [fromAsyncIterator](src/subscribe-function/from/iterable/async/from-async-iterator/from-async-iterator.md)
+    - async iterable: [fromAsyncIterable](src/observable/built-in/from/with-notifications/iterable/async/from-async-iterable/from-async-iterable.md)
+    - async iterator ⚠️: [fromAsyncIterator](src/observable/built-in/from/with-notifications/iterable/async/from-async-iterator/from-async-iterator.md)
   
 - something related to the DOM
-  - an EventTarget: [fromEventTarget](src/subscribe-function/from/dom/from-event-target/from-event-target.md)
-  - an IntersectionObserver: [fromIntersectionObserver](src/subscribe-function/from/dom/from-intersection-observer/from-intersection-observer.md)
-  - a ResizeObserver: [fromResizeObserver](src/subscribe-function/from/dom/from-resize-observer/from-resize-observer.md)
-  - a css @media query: [fromMatchMedia](src/subscribe-function/from/dom/from-match-media/from-match-media.md)
-  - the position of the user (Geolocation): [fromGeolocationPosition](src/subscribe-function/from/dom/from-geolocation-position/from-geolocation-position.md)
+  - the position of the user (Geolocation): [fromGeolocationPosition](src/observable/built-in/from/with-notifications/dom/from-geolocation-position/from-geolocation-position.md)
   
 - a promise
-  - with a factory: [fromPromiseFactory](src/subscribe-function/from/promise/from-promise-factory/from-promise-factory.md)
-  - without a factory ⚠️: [fromPromise](src/subscribe-function/from/promise/from-promise/from-promise.md)
+  - with a factory: [fromPromiseFactory](src/observable/built-in/from/with-notifications/promise/from-promise-factory/from-promise-factory.md)
+  - without a factory ⚠️: [fromPromise](src/observable/built-in/from/with-notifications/promise/from-promise/from-promise.md)
 
 - a readable stream
   - [w3c streams](https://streams.spec.whatwg.org/#rs-class)
-    - readable stream: [fromReadableStream](src/subscribe-function/from/readable-stream/w3c/from-readable-stream/from-readable-stream.md)
-    - readable stream reader ⚠: [fromReadableStreamReader](src/subscribe-function/from/readable-stream/w3c/from-readable-stream-reader/from-readable-stream-reader.md)
+    - readable stream: [fromReadableStream](src/observable/built-in/from/with-notifications/readable-stream/w3c/from-readable-stream/from-readable-stream.md)
+    - readable stream reader ⚠: [fromReadableStreamReader](src/observable/built-in/from/with-notifications/readable-stream/w3c/from-readable-stream-reader/from-readable-stream-reader.md)
   - nodejs: TODO
 
 - an http request
-  - using fetch: [fromFetch](src/subscribe-function/from/http/from-fetch/from-fetch.md)
-  - using xhr: [fromXHR](src/subscribe-function/from/http/xhr/from-xhr/from-xhr.md)
+  - using fetch: [fromFetch](src/observable/built-in/from/with-notifications/http/from-fetch/from-fetch.md)
+  - using xhr: [fromXHR](src/observable/built-in/from/with-notifications/http/xhr/from-xhr/from-xhr.md)
   
-- a blob (reads content): [readBlob](src/subscribe-function/from/dom/read-blob/read-blob.md)
-  
-- one SubscribeFunction
-  - defined later: [defer](/src/subscribe-function/from/others/defer/defer.md)
-  
-- many SubscribeFunctions. When any value is received
-  - re-emit it concurrently: [merge](src/subscribe-function/from/many/merge/merge.ts)
-  - combine the values in an array and emit it: [combineLatest](src/subscribe-function/from/many/combine-latest/combine-latest.md)
-  - combine the values in an array, runs a function with these values, and emit distinct returned
-    values: [reactiveFunction](src/subscribe-function/from/many/reactive-function/reactive-function.md)
-    - arithmetic:
-      [reactiveAdd](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-add.ts),
-      [reactiveSubtract](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-subtract.ts),
-      [reactiveMultiply](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-multiply.ts),
-      [reactiveDivide](src/subscribe-function/from/many/reactive-function/built-in/arithmetic/reactive-divide.ts)
-    - logic:
-      [reactiveAnd](src/subscribe-function/from/many/reactive-function/built-in/logic/reactive-and.ts),
-      [reactiveOr](src/subscribe-function/from/many/reactive-function/built-in/logic/reactive-or.ts),
-      [reactiveNot](src/subscribe-function/from/many/reactive-function/built-in/logic/reactive-not.ts)
-    - comparison:
-      [reactiveEqual](src/subscribe-function/from/many/reactive-function/built-in/comparison/reactive-equal.ts),
-      [reactiveNotEqual](src/subscribe-function/from/many/reactive-function/built-in/comparison/reactive-not-equal.ts),
-      [reactiveGreaterThan](src/subscribe-function/from/many/reactive-function/built-in/comparison/reactive-greater-than.ts),
-      [reactiveGreaterThanOrEqual](src/subscribe-function/from/many/reactive-function/built-in/comparison/reactive-greater-than-or-equal.ts),
-      [reactiveLowerThan](src/subscribe-function/from/many/reactive-function/built-in/comparison/reactive-lower-than.ts),
-      [reactiveLowerThanOrEqual](src/subscribe-function/from/many/reactive-function/built-in/comparison/reactive-lower-than-or-equal.ts)
-    - string:
-      [reactiveTemplateString](src/subscribe-function/from/many/reactive-function/built-in/string/reactive-template-string.ts)
-
-- time related
-  - emits every 'ms': [interval](src/subscribe-function/from/time-related/interval/interval.md)
-  - emits after 'ms':
-    - without notifications: [timeout](src/subscribe-function/from/time-related/timeout/timeout.md)
-    - with notifications: [timeoutWithErrorNotification](src/subscribe-function/from/time-related/timeout/derived/timeout-with-error-notification.ts)
-  - emits when idle time is available: [idle](src/subscribe-function/from/time-related/idle/idle.md)
-  - emits on each animation frame: [fromAnimationFrame](src/subscribe-function/from/time-related/from-animation-frame/from-animation-frame.md)
+- a blob (reads content): [readBlob](src/observable/built-in/from/with-notifications/dom/read-blob/read-blob.md)
 
 
-#### convert a SubscribeFunction to
+#### convert an Observable to
+
+*without notifications*
+
+- a promise: [toPromise](src/observable/built-in/to/without-notifications/promise/to-promise.md)
+
+*with notifications*
 
 - a promise
-  - without notifications: [toPromise](src/subscribe-function/to/to-promise/to-promise.md)
-  - with notifications:
-    - with only the last value: [toPromiseLast](src/subscribe-function/to/to-promise/last/to-promise-last.md)
-    - with every value: [toPromiseAll](src/subscribe-function/to/to-promise/all/to-promise-all.md)
+  - with only the last value: [toPromiseLast](src/observable/built-in/to/with-notifications/promise/last/to-promise-last.md)
+  - with every value: [toPromiseAll](src/observable/built-in/to/with-notifications/promise/all/to-promise-all.md)
 
-#### create a SubscribePipeFunction which
+#### create an ObservablePipe which
 
-- EmitPipe related
-  - emits only distinct received values: [distinctSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe.ts)
-  - filters received values: [filterSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/filter-subscribe-pipe.ts)
-  - transforms received values: [mapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe.ts)
-  - transforms received values with an accumulator: [scanSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/scan-subscribe-pipe.ts)
-  - reads received values, and re-emits them without transformations: [tapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/tap-subscribe-pipe.ts)
-  - converts an EmitPipeFunction to a SubscribePipeFunction: [emitPipeToSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/emit-pipe-to-subscribe-pipe.ts)
+- *ObserverPipe related*
+  - emits only distinct received values: [distinctObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/distinct/distinct-observable-pipe.ts)
+  - filters received values: [filterObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/filter/filter-observable-pipe.ts)
+  - transforms received values: [mapObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/map/map-observable-pipe.ts)
+  - transforms and filter received values: [mapFilterObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/map-filter/map-filter-observable-pipe.ts)
+  - transforms received values with an accumulator: [scanObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/scan/scan-observable-pipe.ts)
+  - reads received values, and re-emits them without transformations: [tapObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/tap/tap-observable-pipe.ts)
 
-- Source related
-  - allows one SubscribeFunction to emit its values to many SubscribeFunction: [shareSubscribePipe](src/subscribe-function/subscribe-pipe/source-related/share-subscribe-pipe.ts)
+- *Source related*
+  - allows one Observable to emit its values to many Observable: [shareObservablePipe](src/observable/pipes/built-in/without-notifications/source-related/built-in/share-observable-pipe.ts)
 
-- reduces the order of a SubscribeFunction of SubscribeFunctions
-  - [mergeAllSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-all-subscribe-pipe.md)
-  - maps a SubscribeFunction and then reduces the order:
-    - once: [mergeMapSingleSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-single-subscribe-pipe.ts)
-    - many: [mergeMapSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-subscribe-pipe.ts)
+- reduces the order of an Observable of Observables
+  - [mergeAllObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-all/merge-all-observable-pipe.md)
+  - maps an Observable and then reduces the order:
+    - once: [mergeMapSingleObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-map-single/merge-map-single-observable-pipe.ts)
+    - many: [mergeMapObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-map/merge-map-observable-pipe.ts)
 
 - accumulates values:
-  - until another SubscribeFunction emits: [bufferSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-subscribe-pipe.md)
-  - within a fixed period of time: [bufferTimeSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-time/buffer-time-subscribe-pipe.md)
+  - until another Observable emits: [bufferObservablePipe](src/observable/pipes/built-in/without-notifications/others/buffer/buffer-observable-pipe.md)
+  - within a fixed period of time: [bufferTimeObservablePipe](src/observable/pipes/built-in/without-notifications/others/buffer/derived/buffer-time/buffer-time-observable-pipe.md)
 
 - time related
-  - [debounceTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-time/debounce-time-subscribe-pipe.md)
-  - [throttleTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/throttle-time/throttle-time-subscribe-pipe.md)
-  - [debounceFrameSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-frame/debounce-frame-subscribe-pipe.md)
-  - [debounceImmediateSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-immediate/debounce-immediate-subscribe-pipe.md)
+  - [debounceTimeObservablePipe](src/observable/pipes/built-in/without-notifications/time-related/debounce-time/debounce-time-observable-pipe.md)
+  - [throttleTimeObservablePipe](src/observable/pipes/built-in/without-notifications/time-related/throttle-time/throttle-time-observable-pipe.md)
+  - [debounceFrameObservablePipe](src/observable/pipes/built-in/without-notifications/time-related/debounce-frame/debounce-frame-observable-pipe.md)
+  - [debounceImmediateObservablePipe](src/observable/pipes/built-in/without-notifications/time-related/debounce-immediate/debounce-immediate-observable-pipe.md)
 
-- logs the state of the upper SubscribeFunction: [logStateSubscribePipe](src/subscribe-function/subscribe-pipe/log-state-subscribe-pipe.ts)
+- logs the state of the upper Observable: [logStateObservablePipe](src/observable/pipes/built-in/without-notifications/others/log-state/log-state-observable-pipe.ts)
 
 
 #### emit a value myself => create a Source which emits values to
 
-- multiple EmitFunctions: [createMulticastSource](src/source/multicast-source/multicast-source.md)
-- only one EmitFunction: [createUnicastSource](src/source/unicast-source/unicast-source.md)
-- one or many EmitFunction and stores the last emitted value:
-  [createReplayLastSource](src/source/replay-last-source/replay-last-source.md),
-  [createMulticastReplayLastSource](src/source/replay-last-source/derived/create-multicast-replay-last-source.ts),
-  [createUnicastReplayLastSource](src/source/replay-last-source/derived/create-unicast-replay-last-source.ts)
+- multiple Observers: [createMulticastSource](src/observer-observable-pair/build-in/source/built-in/multicast-source/multicast-source.md)
+- only one Observer: [createUnicastSource](src/observer-observable-pair/build-in/source/built-in/unicast-source/unicast-source.md)
+- one or many Observer and stores the last emitted value:
+  [createReplayLastSource](src/observer-observable-pair/build-in/source/built-in/replay-last-source/replay-last-source.md),
+  [createMulticastReplayLastSource](src/observer-observable-pair/build-in/source/built-in/replay-last-source/derived/create-multicast-replay-last-source.ts),
+  [createUnicastReplayLastSource](src/observer-observable-pair/build-in/source/built-in/replay-last-source/derived/create-unicast-replay-last-source.ts)
 
 #### others
 
-- chain many SubscribePipeFunctions: [pipeSubscribePipeFunctions](src/functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions.md)
-- chain many SubscribePipeFunctions with a
-  SubscribeFunction: [pipeSubscribeFunction](src/functions/piping/pipe-subscribe-function/pipe-subscribe-function.md)
+- chain many ObservablePipes: [pipeObservablePipes](src/observable/helpers/piping/pipe-observable-pipes/pipe-observable-pipes.md)
+- chain many ObservablePipes with an Observable: [pipeObservable](src/observable/helpers/piping/pipe-observable/pipe-observable.md)
   
 
 Can't find a function that suits your needs ? Open a discussion, or create your own and share it !
@@ -228,8 +234,7 @@ Can't find a function that suits your needs ? Open a discussion, or create your 
 - no `next`, `complete` and `error`: instead this lib use [notifications](src/misc/notifications/notifications.md).
   In reality, not all *Observables* require to emit a final state. For example, the RxJS `interval`
   never reaches a `complete` state. It just sends numbers. Moreover, some *Observables* may want to emit more
-  than this 3 *events*: we may imagine an XHR
-  Observable which emits an `upload-progress` and `download-progress` *events*.
+  than this 3 *events*: we may imagine an XHR Observable which emits an `upload-progress` and `download-progress` *events*.
 
 - some concepts / operators / methods may have a different behaviour or name.
   Take care to read the documentation before any hasty use.

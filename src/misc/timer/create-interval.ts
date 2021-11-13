@@ -5,7 +5,7 @@ export function createInterval(
   interval: number,
 ): IAbortTimer {
   const timer = setInterval(callback, interval);
-  return () => {
+  return (): void => {
     clearInterval(timer);
   };
 }

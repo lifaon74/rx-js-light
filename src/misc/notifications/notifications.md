@@ -24,10 +24,10 @@ Moreover, some pre-existing *Notifications* may be found in [built-in](./built-i
 
 ### Examples
 
-#### Create a SubscribeFunction from a Promise
+#### Create a Observable from a Promise
 
 ```ts
-type ISubscribeFunctionFromPromiseNotifications<GValue> =
+type IObservableFromPromiseNotifications<GValue> =
   INextNotification<GValue>
   | ICompleteNotification
   | IErrorNotification
@@ -35,9 +35,9 @@ type ISubscribeFunctionFromPromiseNotifications<GValue> =
 
 function fromPromise<GValue>(
   promise: Promise<GValue>,
-): ISubscribeFunction<ISubscribeFunctionFromPromiseNotifications<GValue>> {
-  type GNotificationsUnion = ISubscribeFunctionFromPromiseNotifications<GValue>;
-  return (emit: IEmitFunction<GNotificationsUnion>): IUnsubscribeFunction => {
+): IObservable<IObservableFromPromiseNotifications<GValue>> {
+  type GNotificationsUnion = IObservableFromPromiseNotifications<GValue>;
+  return (emit: IObserver<GNotificationsUnion>): IUnsubscribe => {
     let running: boolean = true;
     promise
       .then(
@@ -67,7 +67,7 @@ function fromPromise<GValue>(
 ```ts
 const subscribe = fromPromise(Promise.resolve(5));
 
-subscribe((notification: ISubscribeFunctionFromPromiseNotifications<number>) => {
+subscribe((notification: IObservableFromPromiseNotifications<number>) => {
   switch (notification.name) {
     case 'next':
       console.log('next', notification.value);
@@ -94,7 +94,7 @@ You may also use [notificationObserver](./notification-observer.ts) if you prefe
 ```ts
 function notificationObserver<GNotificationsUnion extends IGenericNotification>(
   map: TInferNotificationsObserverMapFromNotificationsUnion<GNotificationsUnion>,
-): IEmitFunction<GNotificationsUnion>
+): IObserver<GNotificationsUnion>
 ```
 
 ```ts

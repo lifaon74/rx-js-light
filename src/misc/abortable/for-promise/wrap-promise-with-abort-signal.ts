@@ -1,5 +1,5 @@
-import { createEventListener, IRemoveEventListener } from '../../event-listener/create-event-listener';
-import { toTypedEventTarget } from '../../event-listener/to-typed-event-target';
+import { createEventListener, IRemoveEventListener } from '../../event-listener/__old/create-event-listener';
+import { toTypedEventTarget } from '../../event-listener/__old/to-typed-event-target';
 import { createAbortError } from '../../errors/abort-error/create-abort-error';
 import { IPromiseFactory } from '../promise-factory.type';
 import { DEFAULT_ABORTED_PROMISE_FACTORY } from '../default-aborted-promise-factory.constant';

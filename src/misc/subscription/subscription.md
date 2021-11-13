@@ -2,8 +2,8 @@
 
 ```ts
 interface ISubscription<GValue> {
-  readonly subscribe: ISubscribeFunction<GValue>;
-  readonly emit: IEmitFunction<GValue>;
+  readonly subscribe: IObservable<GValue>;
+  readonly emit: IObserver<GValue>;
 
   isActivated(): boolean;
 
@@ -18,18 +18,18 @@ interface ISubscription<GValue> {
 ```ts
 interface ISubscriptionConstructor {
   new<GValue>(
-    subscribe: ISubscribeFunction<GValue>,
-    emit: IEmitFunction<GValue>,
+    subscribe: IObservable<GValue>,
+    emit: IObserver<GValue>,
   ): ISubscription<GValue>;
 }
 ```
 
-An *Subscription* is used to link a *SubscribeFunction* with an *EmitFunction* using an `activate`/`deactivate`
+An *Subscription* is used to link a *Observable* with an *Observer* using an `activate`/`deactivate`
 mechanism.
 
 ### Examples
 
-#### Toggle a 'mousemove' SubscribeFunction on 'click'
+#### Toggle a 'mousemove' Observable on 'click'
 
 ```ts
 const subscription = new Subscription(

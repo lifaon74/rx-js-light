@@ -44,7 +44,7 @@ Moreover, some pre-existing *Notifications* may be found in [built-in](../../mis
 ## Example of an Observable based on a Promise and emitting some Notifications
 
 ```ts
-type ISubscribeFunctionFromPromiseNotifications<GValue> =
+type IObservableFromPromiseNotifications<GValue> =
   INextNotification<GValue>
   | ICompleteNotification
   | IErrorNotification
@@ -52,9 +52,9 @@ type ISubscribeFunctionFromPromiseNotifications<GValue> =
 
 function fromPromise<GValue>(
   promise: Promise<GValue>,
-): ISubscribeFunction<ISubscribeFunctionFromPromiseNotifications<GValue>> {
-  type GNotificationsUnion = ISubscribeFunctionFromPromiseNotifications<GValue>;
-  return (emit: IEmitFunction<GNotificationsUnion>): IUnsubscribeFunction => {
+): IObservable<IObservableFromPromiseNotifications<GValue>> {
+  type GNotificationsUnion = IObservableFromPromiseNotifications<GValue>;
+  return (emit: IObserver<GNotificationsUnion>): IUnsubscribe => {
     let running: boolean = true;
     promise
       .then(
@@ -86,7 +86,7 @@ It's simple: you just have to `switch` on the received notification's name, and 
 ```ts
 const subscribe = fromPromise(Promise.resolve(5));
 
-subscribe((notification: ISubscribeFunctionFromPromiseNotifications<number>) => {
+subscribe((notification: IObservableFromPromiseNotifications<number>) => {
   switch (notification.name) {
     case 'next':
       console.log('next', notification.value);
@@ -113,7 +113,7 @@ You may also use [notificationObserver](../../misc/notifications/notification-ob
 ```ts
 function notificationObserver<GNotificationsUnion extends IGenericNotification>(
   map: TInferNotificationsObserverMapFromNotificationsUnion<GNotificationsUnion>,
-): IEmitFunction<GNotificationsUnion>
+): IObserver<GNotificationsUnion>
 ```
 
 ```ts
@@ -141,6 +141,6 @@ subscribe(
 - [Your first Observable](./03-your-first-observable.md)
 - [Using the built-in Observables](./04-using-the-built-in-observables.md)
 - [Emitting values using sources](./05-sources.md)
-- [Shortcuts for rx-js-light => rx-js-light-shortcuts](./06-rx-js-light-shortcuts.md)
+- [Shortcuts](./06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./08-notifications.md)

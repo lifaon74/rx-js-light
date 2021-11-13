@@ -37,7 +37,7 @@ We capture these emitted values only **asynchronously**, by defining a function 
 The "listening" to the stream is called **subscribing**.
 The functions we are defining are *Observers*. The stream is the *Observable* being observed.
 
-**INFO:** rx-js-light use a different terminology a *SubscribeFunction* is an *Observable* and an *EmitFunction* is an *Observer*.
+**INFO:** rx-js-light use a different terminology a *Observable* is an *Observable* and an *Observer* is an *Observer*.
 Their functionalities are identical, only the name differs and can be interchanged.
 
 ## Reactive Programming by example
@@ -73,9 +73,9 @@ document.addEventListener('click', () => {
 With rx-js-light:
 
 ```js
-const subscribe = pipeSubscribeFunction(fromEvent(document, 'click'), [
-  throttleTimeSubscribePipe(1000),
-  scanSubscribePipe(count => count + 1, 0),
+const subscribe = pipeObservable(fromEvent(document, 'click'), [
+  throttleTimeObservablePipe(1000),
+  scanObservablePipe(count => count + 1, 0),
 ]);
 subscribe(count => console.log(`clicked ${count} times`));
 ```
@@ -107,7 +107,7 @@ Take a look, it goes deeply into RP.
 - [Your first Observable](./03-your-first-observable.md)
 - [Using the built-in Observables](./04-using-the-built-in-observables.md)
 - [Emitting values using sources](./05-sources.md)
-- [Shortcuts for rx-js-light => rx-js-light-shortcuts](./06-rx-js-light-shortcuts.md)
+- [Shortcuts](./06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./08-notifications.md)
 

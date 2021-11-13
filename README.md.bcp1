@@ -43,9 +43,9 @@ subscribe(() => {
   subscription.toggle();
 });
 
-const subscribe = pipeSubscribeFunction(fromEventTarget(window, 'click'), [
-  scanSubscribePipe(count => (count + 1), 0),
-  filterSubscribePipe(count => (count >= 2)),
+const subscribe = pipeObservable(fromEventTarget(window, 'click'), [
+  scanObservablePipe(count => (count + 1), 0),
+  filterObservablePipe(count => (count >= 2)),
 ]);
 
 const unsubscribe = subscribe(() => {
@@ -104,17 +104,17 @@ So the size of this library will always be optimal. [You may find an example her
 
 ## 📕 Documentation
 
-- [SubscribeFunction](src/types/subscribe-function/subscribe-function.md) (ak: Observable)
-- [EmitFunction](src/types/emit-function/emit-function.md) (ak: Observer)
-- [SubscribePipeFunction](src/types/subscribe-pipe-function/subscribe-pipe-function.md) (ak: Pipeable Operator)
-- [pipeSubscribeFunction](src/functions/piping/pipe-subscribe-function/pipe-subscribe-function.md) (ak: Observable.pipe)
-- [pipeSubscribePipeFunctions](src/functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions.md) (ak: pipe function)
+- [Observable](src/types/subscribe-function/subscribe-function.md) (ak: Observable)
+- [Observer](src/types/emit-function/emit-function.md) (ak: Observer)
+- [ObservablePipe](src/types/subscribe-pipe-function/subscribe-pipe-function.md) (ak: Pipeable Operator)
+- [pipeObservable](src/functions/piping/pipe-subscribe-function/pipe-subscribe-function.md) (ak: Observable.pipe)
+- [pipeObservablePipes](src/functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions.md) (ak: pipe function)
 - [Notification](src/misc/notifications/notifications.md) (ak: *next*, *complete* and *error*)
 - [MulticastSource](src/source/multicast-source/multicast-source.md) (ak: Subject)
 - [ReplayLastSource](src/source/replay-last-source/replay-last-source.md) (ak: BehaviorSubject)
 - [Subscription](src/misc/subscription/subscription.md) (kind of: Subscription)
 
-Most of public functions or interfaces have their own documentation into a `.md` file in their respective directories. 
+Most of public functions or interfaces have their own documentation into a `.md` file in their respective directories.
 
 If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](https://github.com/lifaon74/rx-js-light-shortcuts)
 
@@ -123,7 +123,7 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 
 ### I want to:
 
-#### create a SubscribeFunction from
+#### create a Observable from
 
 - one value
   - already defined: [single](src/subscribe-function/from/others/single/single.md)
@@ -148,13 +148,13 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
   - async
     - async iterable: [fromAsyncIterable](src/subscribe-function/from/iterable/async/from-async-iterable/from-async-iterable.md)
     - async iterator ⚠️: [fromAsyncIterator](src/subscribe-function/from/iterable/async/from-async-iterator/from-async-iterator.md)
-  
+
 - something related to the DOM
   - an EventTarget: [fromEventTarget](src/subscribe-function/from/dom/from-event-target/from-event-target.md)
   - an IntersectionObserver: [fromIntersectionObserver](src/subscribe-function/from/dom/from-intersection-observer/from-intersection-observer.md)
   - a ResizeObserver: [fromResizeObserver](src/subscribe-function/from/dom/from-resize-observer/from-resize-observer.md)
   - a css @media query: [fromMatchMedia](src/subscribe-function/from/dom/from-match-media/from-match-media.md)
-  
+
 - a promise
   - with a factory: [fromPromiseFactory](src/subscribe-function/from/promise/from-promise-factory/from-promise-factory.md)
   - without a factory ⚠️: [fromPromise](src/subscribe-function/from/promise/from-promise/from-promise.md)
@@ -168,13 +168,13 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 - an http request
   - using fetch: [fromFetch](src/subscribe-function/from/http/from-fetch/from-fetch.md)
   - using xhr: [fromXHR](src/subscribe-function/from/http/xhr/from-xhr/from-xhr.md)
-  
+
 - a blob (reads content): [readBlob](src/subscribe-function/from/dom/read-blob/read-blob.md)
-  
-- one SubscribeFunction
+
+- one Observable
   - defined later: [defer](/src/subscribe-function/from/others/defer/defer.md)
-  
-- many SubscribeFunctions. When any value is received
+
+- many Observables. When any value is received
   - re-emit it concurrently: [merge](src/subscribe-function/from/many/merge/merge.ts)
   - combine the values in an array and emit it: [combineLatest](src/subscribe-function/from/many/combine-latest/combine-latest.md)
   - combine the values in an array, runs a function with these values, and emit distinct returned
@@ -211,7 +211,7 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
 [comment]: <> (fromAnimationFrame)
 
 
-#### convert a SubscribeFunction to
+#### convert a Observable to
 
 - a promise
   - without notifications: [toPromise](src/subscribe-function/to/to-promise/to-promise.md)
@@ -219,52 +219,52 @@ If you prefer to use shortcuts, you may want to use [rx-js-light-shortcuts](http
     - with only the last value: [toPromiseLast](src/subscribe-function/to/to-promise/last/to-promise-last.md)
     - with every value: [toPromiseAll](src/subscribe-function/to/to-promise/all/to-promise-all.md)
 
-#### create a SubscribePipeFunction which
+#### create a ObservablePipe which
 
 - EmitPipe related
-  - emits only distinct received values: [distinctSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe.ts)
-  - filters received values: [filterSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/filter-subscribe-pipe.ts)
-  - transforms received values: [mapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe.ts)
-  - transforms received values with an accumulator: [scanSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/scan-subscribe-pipe.ts)
-  - reads received values, and re-emits them without transformations: [tapSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/tap-subscribe-pipe.ts)
-  - converts an EmitPipeFunction to a SubscribePipeFunction: [emitPipeToSubscribePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/emit-pipe-to-subscribe-pipe.ts)
+  - emits only distinct received values: [distinctObservablePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/distinct-subscribe-pipe.ts)
+  - filters received values: [filterObservablePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/filter-subscribe-pipe.ts)
+  - transforms received values: [mapObservablePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/map/map-subscribe-pipe.ts)
+  - transforms received values with an accumulator: [scanObservablePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/scan-subscribe-pipe.ts)
+  - reads received values, and re-emits them without transformations: [tapObservablePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/tap-subscribe-pipe.ts)
+  - converts an EmitPipeFunction to a ObservablePipe: [emitPipeToObservablePipe](src/subscribe-function/subscribe-pipe/emit-pipe-related/emit-pipe-to-subscribe-pipe.ts)
 
 - Source related
-  - allows one SubscribeFunction to emit its values to many SubscribeFunction: [shareSubscribePipe](src/subscribe-function/subscribe-pipe/source-related/share-subscribe-pipe.ts)
+  - allows one Observable to emit its values to many Observable: [shareObservablePipe](src/subscribe-function/subscribe-pipe/source-related/share-subscribe-pipe.ts)
 
-- reduces the order of a SubscribeFunction of SubscribeFunctions
-  - [mergeAllSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-all-subscribe-pipe.md)
-  - maps a SubscribeFunction and then reduces the order:
-    - once: [mergeMapSingleSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-single-subscribe-pipe.ts)
-    - many: [mergeMapSubscribePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-subscribe-pipe.ts)
+- reduces the order of a Observable of Observables
+  - [mergeAllObservablePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-all-subscribe-pipe.md)
+  - maps a Observable and then reduces the order:
+    - once: [mergeMapSingleObservablePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-single-subscribe-pipe.ts)
+    - many: [mergeMapObservablePipe](src/subscribe-function/subscribe-pipe/merge-all/merge-map/merge-map-subscribe-pipe.ts)
 
 - accumulates values:
-  - until another SubscribeFunction emits: [bufferSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-subscribe-pipe.md)
-  - within a fixed period of time: [bufferTimeSubscribePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-time/buffer-time-subscribe-pipe.md)
+  - until another Observable emits: [bufferObservablePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-subscribe-pipe.md)
+  - within a fixed period of time: [bufferTimeObservablePipe](src/subscribe-function/subscribe-pipe/buffer/buffer-time/buffer-time-subscribe-pipe.md)
 
 - time related
-  - [debounceTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-time/debounce-time-subscribe-pipe.md)
-  - [throttleTimeSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/throttle-time/throttle-time-subscribe-pipe.md)
-  - [debounceFrameSubscribePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-frame/debounce-frame-subscribe-pipe.ts)
+  - [debounceTimeObservablePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-time/debounce-time-subscribe-pipe.md)
+  - [throttleTimeObservablePipe](src/subscribe-function/subscribe-pipe/time-related/throttle-time/throttle-time-subscribe-pipe.md)
+  - [debounceFrameObservablePipe](src/subscribe-function/subscribe-pipe/time-related/debounce-frame/debounce-frame-subscribe-pipe.ts)
 
-- logs the state of the upper SubscribeFunction: [logStateSubscribePipe](src/subscribe-function/subscribe-pipe/log-state-subscribe-pipe.ts)
+- logs the state of the upper Observable: [logStateObservablePipe](src/subscribe-function/subscribe-pipe/log-state-subscribe-pipe.ts)
 
 
 #### emit a value myself => create a Source which emits values to
 
-- multiple EmitFunctions: [createMulticastSource](src/source/multicast-source/multicast-source.md)
-- only one EmitFunction: [createUnicastSource](src/source/unicast-source/unicast-source.md)
-- one or many EmitFunction and stores the last emitted value:
+- multiple Observers: [createMulticastSource](src/source/multicast-source/multicast-source.md)
+- only one Observer: [createUnicastSource](src/source/unicast-source/unicast-source.md)
+- one or many Observer and stores the last emitted value:
   [createReplayLastSource](src/source/replay-last-source/replay-last-source.md),
   [createMulticastReplayLastSource](src/source/replay-last-source/derived/create-multicast-replay-last-source.ts),
   [createUnicastReplayLastSource](src/source/replay-last-source/derived/create-unicast-replay-last-source.ts)
 
 #### others
 
-- chain many SubscribePipeFunctions: [pipeSubscribePipeFunctions](src/functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions.md)
-- chain many SubscribePipeFunctions with a
-  SubscribeFunction: [pipeSubscribeFunction](src/functions/piping/pipe-subscribe-function/pipe-subscribe-function.md)
-  
+- chain many ObservablePipes: [pipeObservablePipes](src/functions/piping/pipe-subscribe-pipe-functions/pipe-subscribe-pipe-functions.md)
+- chain many ObservablePipes with a
+  Observable: [pipeObservable](src/functions/piping/pipe-subscribe-function/pipe-subscribe-function.md)
+
 
 Can't find a function that suits your needs ? Open a discussion, or create your own and share it !
 
@@ -283,4 +283,4 @@ Can't find a function that suits your needs ? Open a discussion, or create your 
 
 - some concepts / operators / methods may have a different behaviour or name.
   Take care to read the documentation before any hasty use.
-  
+

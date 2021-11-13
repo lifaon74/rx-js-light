@@ -9,10 +9,10 @@ npm install @lifaon/rx-js-light --save
 Then you can import and use it:
 
 ```ts
-import { of, pipeSubscribeFunction, mapSubscribePipe } from '@lifaon/rx-js-light';
+import { of, pipeObservable, mapObservablePipe } from '@lifaon/rx-js-light';
 
-const subscribe = pipeSubscribeFunction(of(1, 2, 3), [
-  mapSubscribePipe(value => `-> ${value}`),
+const subscribe = pipeObservable(of(1, 2, 3), [
+  mapObservablePipe(value => `-> ${value}`),
 ]);
 ```
 
@@ -39,7 +39,7 @@ As a CDN, you can use [skypack](https://www.skypack.dev/):
 - [Your first Observable](./03-your-first-observable.md)
 - [Using the built-in Observables](./04-using-the-built-in-observables.md)
 - [Emitting values using sources](./05-sources.md)
-- [Shortcuts for rx-js-light => rx-js-light-shortcuts](./06-rx-js-light-shortcuts.md)
+- [Shortcuts](./06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./08-notifications.md)
 

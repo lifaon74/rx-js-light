@@ -4,7 +4,7 @@ export function createAnimationFrame(
   callback: () => void,
 ): IAbortTimer {
   const timer = requestAnimationFrame(callback);
-  return () => {
+  return (): void => {
     cancelAnimationFrame(timer);
   };
 }

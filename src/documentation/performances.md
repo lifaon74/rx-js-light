@@ -27,10 +27,8 @@ For large projects or browser applications requiring critical performances and r
 
 ```ts
 import { from as fromRXJS } from 'rxjs';
-import { fromArray } from '@lifaon/rx-js-light';
+import { fromArray, distinct$$$, map$$$, pipe$$, filter$$$ } from '@lifaon/rx-js-light';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { distinct$$$, map$$$, pipe$$, filter$$$ } from '@lifaon/rx-js-light-shortcuts';
-
 
 function rxJSLightPerformancesExample() {
   const values = Array.from({ length: 1e5 }, (v: any, index: number) => index);

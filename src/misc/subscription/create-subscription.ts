@@ -1,14 +1,14 @@
-import { IEmitFunction } from '../../types/emit-function/emit-function.type';
-import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { IObserver } from '../../observer/type/observer.type';
+import { IObservable, IUnsubscribe } from '../../observable/type/observable.type';
 import { freeze } from '../helpers/freeze';
 import { ISubscription } from './subscription.type';
 
 export function createSubscription<GValue>(
-  subscribe: ISubscribeFunction<GValue>,
-  emit: IEmitFunction<GValue>,
+  subscribe: IObservable<GValue>,
+  emit: IObserver<GValue>,
 ): ISubscription<GValue> {
 
-  let unsubscribe: IUnsubscribeFunction | null = null;
+  let unsubscribe: IUnsubscribe | null = null;
 
   const isActivated = (): boolean => {
     return unsubscribe !== null;

@@ -3,17 +3,15 @@ import { IInferLastReturnedValueOfUnaryFunctionList } from '../../shared-types/i
 import { IGenericUnaryFunction } from '../../shared-types/unary-function.type';
 
 export type IInferPipeReturnRaw<// generics
-  GFunctions extends readonly GUnaryFunction[],
-  GUnaryFunction extends IGenericUnaryFunction
+  GFunctions extends readonly IGenericUnaryFunction[],
   //
   > =
   (value: IInferFirstArgumentOfUnaryFunctionList<GFunctions>) => IInferLastReturnedValueOfUnaryFunctionList<GFunctions>;
 
 export type IInferPipeReturn<// generics
-  GFunctions extends readonly GUnaryFunction[],
-  GUnaryFunction extends IGenericUnaryFunction
+  GFunctions extends readonly IGenericUnaryFunction[],
   //
   > =
   GFunctions extends []
     ? <GValue>(value: GValue) => GValue
-    : IInferPipeReturnRaw<GFunctions, GUnaryFunction>;
+    : IInferPipeReturnRaw<GFunctions>;

@@ -6,12 +6,12 @@ For this, we will use a *Source*:
 
 ```ts
 interface ISource<GValue> {
-  readonly emit: IEmitFunction<GValue>;
-  readonly subscribe: ISubscribeFunction<GValue>;
+  readonly emit: IObserver<GValue>;
+  readonly subscribe: IObservable<GValue>;
 }
 ```
 
-A Source does the link between an *EmitFunction* and a *SubscribeFunction*.
+A Source does the link between an *Observer* and a *Observable*.
 `emit` and `subscribe` are tied together, by an internal algorithm: usually, emitting a value using `emit` will emit this value into
 the Observable of the Source.
 
@@ -23,7 +23,7 @@ the Observable of the Source.
 
 ```ts
 interface IMulticastSource<GValue> extends ISource<GValue> {
-  getObservers(): readonly IEmitFunction<GValue>[]; // readonly list of observers for this source
+  getObservers(): readonly IObserver<GValue>[]; // readonly list of observers for this source
 }
 ```
 
@@ -31,7 +31,7 @@ interface IMulticastSource<GValue> extends ISource<GValue> {
 function createMulticastSource<GValue>(): ISource<GValue>;
 ```
 
-A *MulticastSource* is used to emit one value to multiple observers (*EmitFunction*).
+A *MulticastSource* is used to emit one value to multiple observers (*Observer*).
 
 While plain Observables are unicast (each subscribed Observer owns an independent execution of the Observable),
 *MulticastSource* are multicast.
@@ -66,13 +66,13 @@ value - B: 2
 ```
 
 If you already have an Observable and want to "convert" it to a *MulticastSource* (share its values), you can use the
-Pipeable Operator `shareSubscribePipe`:
+ObservablePipe `shareObservablePipe`:
 
 
 ```ts
-const subscribe = pipeSubscribeFunction(interval(1000), [
-  scanSubscribePipe<void, number>(count => (count + 1), 0),
-  shareSubscribePipe<number>(),
+const subscribe = pipeObservable(interval(1000), [
+  scanObservablePipe<void, number>(count => (count + 1), 0),
+  shareObservablePipe<number>(),
 ]);
 ```
 
@@ -167,7 +167,7 @@ value - B: 3
 - [Your first Observable](./03-your-first-observable.md)
 - [Using the built-in Observables](./04-using-the-built-in-observables.md)
 - [Emitting values using sources](./05-sources.md)
-- [Shortcuts for rx-js-light => rx-js-light-shortcuts](./06-rx-js-light-shortcuts.md)
+- [Shortcuts](./06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./08-notifications.md)
 

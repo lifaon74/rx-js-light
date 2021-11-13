@@ -1,5 +1,5 @@
-import { IEmitFunction } from '../../types/emit-function/emit-function.type';
-import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { IObserver } from '../../observer/type/observer.type';
+import { IObservable, IUnsubscribe } from '../../observable/type/observable.type';
 import { ISubscription } from './subscription.type';
 
 /**
@@ -7,14 +7,14 @@ import { ISubscription } from './subscription.type';
  */
 
 export class Subscription<GValue> implements ISubscription<GValue> {
-  public readonly subscribe: ISubscribeFunction<GValue>;
-  public readonly emit: IEmitFunction<GValue>;
+  public readonly subscribe: IObservable<GValue>;
+  public readonly emit: IObserver<GValue>;
 
-  protected _unsubscribe: IUnsubscribeFunction | null;
+  protected _unsubscribe: IUnsubscribe | null;
 
   constructor(
-    subscribe: ISubscribeFunction<GValue>,
-    emit: IEmitFunction<GValue>,
+    subscribe: IObservable<GValue>,
+    emit: IObserver<GValue>,
   ) {
     this.subscribe = subscribe;
     this.emit = emit;

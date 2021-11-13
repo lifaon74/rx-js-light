@@ -1,0 +1,107 @@
+import { IObservablePipe } from '../../../../types/subscribe-pipe-function/subscribe-pipe-function.type';
+import { IObservable, IUnsubscribeFunction } from '../../../../types/subscribe-function/subscribe-function.type';
+import { IObserver } from '../../../../types/emit-function/emit-function.type';
+import { ICompleteNotification } from '../../../../misc/notifications/built-in/complete-notification';
+import { IErrorNotification } from '../../../../misc/notifications/built-in/error-notification';
+import { IDefaultNotificationsUnion } from '../../../../misc/notifications/default-notifications-union.type';
+import { Union, UnionMerge } from '../../../../misc/types/union.type';
+import { INextNotification } from '../../../../misc/notifications/built-in/next/next-notification.type';
+import { IGenericNotification } from '../../../../misc/notifications/notification.type';
+
+export type IMergeAllToObservablePipeInNotifications<GValue> = UnionMerge<Union<INextNotification<GValue>>, Union<IGenericNotification>>;
+
+export type IMergeAllToObservablePipeOutNotifications<GValue> = IDefaultNotificationsUnion<GValue>;
+
+export type IMergeAllToObservablePipeWithNotificationsReturn<GValue> =
+  IObservablePipe<IMergeAllToObservablePipeInNotifications<GValue>, IMergeAllToObservablePipeOutNotifications<GValue>>;
+
+
+// export type IMergeAllObservablePipeNotificationsConstraint = UnionMerge<Union<IGenericNextNotification>, Union<IGenericNotification>>;
+//
+// export type IMergeAllInNotifications<GValue> = IDefaultInNotificationsUnion<IObservable<IDefaultInNotificationsUnion<GValue>>>;
+
+// export type IMergeAllInNotifications<GValue> =
+//   IDefaultNotificationsUnion<IObservable<IDefaultNotificationsUnion<GValue>>>
+//   | IGenericNotification
+//   ;
+//
+
+// TODO
+
+export function mergeAllObservablePipeWithNotifications<GValue>(): IMergeAllToObservablePipeWithNotificationsReturn<GValue> {
+  type GInNotificationsUnion = IMergeAllToObservablePipeInNotifications<GValue>;
+  type GOutNotificationsUnion = IMergeAllToObservablePipeOutNotifications<GValue>;
+
+  return (subscribe: IObservable<GInNotificationsUnion>): IObservable<GOutNotificationsUnion> => {
+    return (emit: IObserver<GOutNotificationsUnion>): IUnsubscribeFunction => {
+      let running: boolean = true;
+      const childrenUnsubscribeFunctions: IUnsubscribeFunction[] = [];
+      let runningChildren: number = 0;
+      let done: boolean = false;
+
+      const end = () => {
+        if (running) {
+          running = false;
+          unsubscribe();
+          for (let i = 0, l = childrenUnsubscribeFunctions.length; i < l; i++) {
+            childrenUnsubscribeFunctions[i]();
+          }
+        }
+      };
+
+      const unsubscribe = subscribe((notification: GInNotificationsUnion): void => {
+        switch (notification.name) {
+          case 'next': {
+            runningChildren++;
+            let childDone: boolean = false;
+            const childSubscription: IUnsubscribeFunction = notification.value((notification: GOutNotificationsUnion) => {
+              switch (notification.name) {
+                case 'next': {
+                  emit(notification);
+                  break;
+                }
+                case 'complete': {
+                  childDone = true;
+                  runningChildren--;
+                  if (done && (runningChildren === 0)) {
+                    end();
+                    emit(notification);
+                  } else if (typeof childSubscription !== 'undefined') {
+                    childrenUnsubscribeFunctions.splice(childrenUnsubscribeFunctions.indexOf(childSubscription), 1);
+                  }
+                  break;
+                }
+                case 'error': {
+                  childDone = true;
+                  end();
+                  emit(notification);
+                  break;
+                }
+              }
+            });
+            if (!childDone) {
+              childrenUnsubscribeFunctions.push(childSubscription);
+            }
+            break;
+          }
+          case 'complete': {
+            done = true;
+            if (runningChildren === 0) {
+              end();
+              emit(notification as ICompleteNotification);
+            }
+            break;
+          }
+          case 'error': {
+            end();
+            emit(notification as IErrorNotification);
+            break;
+          }
+        }
+      });
+
+      return end;
+    };
+  };
+}
+

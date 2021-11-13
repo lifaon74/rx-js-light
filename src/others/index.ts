@@ -1,1 +1,1 @@
-export * from './create-subscribe-function-proxy';
+export * from './create-observable-proxy';

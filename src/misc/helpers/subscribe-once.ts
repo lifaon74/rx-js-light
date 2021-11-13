@@ -1,12 +1,12 @@
 import { asyncUnsubscribe } from './async-unsubscribe';
-import { IEmitFunction } from '../../types/emit-function/emit-function.type';
-import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { IObserver } from '../../observer/type/observer.type';
+import { IObservable, IUnsubscribe } from '../../observable/type/observable.type';
 
 export function subscribeOnce<GValue>(
-  subscribe: ISubscribeFunction<GValue>,
-  emit: IEmitFunction<GValue>,
-): IUnsubscribeFunction {
-  const unsubscribe = subscribe((value: GValue) => {
+  subscribe: IObservable<GValue>,
+  emit: IObserver<GValue>,
+): IUnsubscribe {
+  const unsubscribe = subscribe((value: GValue): void => {
     unsubscribe();
     emit(value);
   });
@@ -14,10 +14,10 @@ export function subscribeOnce<GValue>(
 }
 
 export function subscribeOnceAsync<GValue>(
-  subscribe: ISubscribeFunction<GValue>,
-  emit: IEmitFunction<GValue>,
-): IUnsubscribeFunction {
-  const unsubscribe = subscribe((value: GValue) => {
+  subscribe: IObservable<GValue>,
+  emit: IObserver<GValue>,
+): IUnsubscribe {
+  const unsubscribe = subscribe((value: GValue): void => {
     asyncUnsubscribe(() => unsubscribe);
     emit(value);
   });

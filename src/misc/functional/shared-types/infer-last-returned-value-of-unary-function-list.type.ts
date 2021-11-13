@@ -1,4 +1,4 @@
-import { IGenericUnaryFunction } from './unary-function.type';
+import { IGenericUnaryFunction, IUnaryFunction } from './unary-function.type';
 
 /**
  * Returns the return value of the last unary function from a list of unary functions, or NEVER
@@ -7,10 +7,10 @@ export type IInferLastReturnedValueOfUnaryFunctionList<// generics
   GFunctions extends readonly IGenericUnaryFunction[],
   //
   > =
-  GFunctions extends [...infer GRest, infer GLast]
+  GFunctions extends [...infer GRestFunctions, infer GLastFunction]
     ? (
-      GLast extends ((value: any) => infer GFirstReturn)
-        ? GFirstReturn
+      GLastFunction extends IUnaryFunction<any, infer GOut>
+        ? GOut
         : never
       )
     : never;

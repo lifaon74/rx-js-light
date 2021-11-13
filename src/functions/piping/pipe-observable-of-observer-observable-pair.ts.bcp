@@ -1,0 +1,49 @@
+import { pipeNow } from '../../misc/functional/pipe/pipe-now';
+import { IInferPipeNowReturn } from '../../misc/functional/pipe/types/infer-pipe-now-return.type';
+import { IPipeConstraint } from '../../misc/functional/pipe/types/pipe-constraint.type';
+import { IGenericObservablePipe } from '../../observable/pipes/type/observable-pipe.type';
+import {
+  IGenericObserverObservablePair,
+  IInferObserverObservablePairGObservableValue,
+  IInferObserverObservablePairGObserverValue,
+  IObserverObservablePair,
+} from '../../observer-observable-pair/type/observer-observable-pair.type';
+import { IInferObserverGValue } from '../../observer/type/observer.type';
+
+export type IObserverObservablePairPipeConstraint<// generics
+  GObserverObservablePair extends IGenericObserverObservablePair,
+  GFunctions extends readonly IGenericObservablePipe[]
+  //
+  >
+  = IPipeConstraint<GFunctions, GObserverObservablePair['subscribe'], IGenericObservablePipe>;
+
+export type IObserverObservablePairPipeReturn<// generics
+  GObserverObservablePair extends IGenericObserverObservablePair,
+  GFunctions extends readonly IGenericObservablePipe[]
+  //
+  >
+  = IObserverObservablePair<// generics
+  IInferObserverObservablePairGObserverValue<GObserverObservablePair>,
+  // IInferPipeNowReturn<IInferObserverObservablePairGObservableValue<GObserverObservablePair>, GFunctions>
+  // IInferPipeNowReturn<GValue, GFunctions>
+  IInferObserverGValue<IInferPipeNowReturn<GObserverObservablePair['subscribe'], GFunctions>>
+  //
+  >;
+
+export function pipeObservableOfObserverObservablePair<// generics
+  GObserverObservablePair extends IGenericObserverObservablePair,
+  GFunctions extends IObserverObservablePairPipeConstraint<GObserverObservablePair, GFunctions>
+  //
+  >(
+  {
+    emit,
+    subscribe,
+  }: GObserverObservablePair,
+  fns: GFunctions,
+): IObserverObservablePairPipeReturn<GObserverObservablePair, GFunctions> {
+  return {
+    emit,
+    subscribe: pipeNow<GObserverObservablePair['subscribe'], GFunctions, IGenericObservablePipe>(subscribe, fns),
+  };
+}
+

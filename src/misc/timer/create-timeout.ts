@@ -5,7 +5,7 @@ export function createTimeout(
   timeout: number,
 ): IAbortTimer {
   const timer = setTimeout(callback, timeout);
-  return () => {
+  return (): void => {
     clearTimeout(timer);
   };
 }

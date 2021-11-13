@@ -1,9 +1,9 @@
-import { IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { IUnsubscribe } from '../../observable/type/observable.type';
 import { isReferenceError } from '../errors/reference-error/is-reference-error';
 import { noop } from './noop';
 import { setImmediate } from './set-immediate/set-immediate';
 
-export const DEFAULT_ON_ERROR_FOR_ASYNC_UNSUBSCRIBE = (error: any) => {
+export const DEFAULT_ON_ERROR_FOR_ASYNC_UNSUBSCRIBE = (error: any): never => {
   throw error;
 };
 
@@ -12,11 +12,11 @@ export const DEFAULT_ON_ERROR_FOR_ASYNC_UNSUBSCRIBE = (error: any) => {
  * INFO: this is useful to unsubscribe before the unsubscribe function is even assigned
  */
 export function asyncUnsubscribe(
-  getUnsubscribe: () => IUnsubscribeFunction,
+  getUnsubscribe: () => IUnsubscribe,
   onSuccess: () => void = noop,
   onError: (error: any) => void = DEFAULT_ON_ERROR_FOR_ASYNC_UNSUBSCRIBE,
 ): void {
-  let unsubscribe!: IUnsubscribeFunction;
+  let unsubscribe!: IUnsubscribe;
   try {
     unsubscribe = getUnsubscribe();
   } catch (error) {
@@ -38,7 +38,7 @@ export function asyncUnsubscribe(
 }
 
 export function asyncUnsubscribePromise(
-  getUnsubscribe: () => IUnsubscribeFunction,
+  getUnsubscribe: () => IUnsubscribe,
 ): Promise<void> {
   return new Promise<void>((
     resolve: () => void,

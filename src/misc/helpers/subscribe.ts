@@ -1,9 +1,9 @@
-import { IEmitFunction } from '../../types/emit-function/emit-function.type';
-import { ISubscribeFunction, IUnsubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { IObserver } from '../../observer/type/observer.type';
+import { IObservable, IUnsubscribe } from '../../observable/type/observable.type';
 
 export function subscribe<GValue>(
-  subscribeFunction: ISubscribeFunction<GValue>,
-  emitFunction: IEmitFunction<GValue>,
-): IUnsubscribeFunction {
-  return subscribeFunction(emitFunction);
+  observable: IObservable<GValue>,
+  observer: IObserver<GValue>,
+): IUnsubscribe {
+  return observable(observer);
 }

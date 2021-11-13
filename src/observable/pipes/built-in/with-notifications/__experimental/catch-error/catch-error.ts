@@ -1,0 +1,59 @@
+import { asyncUnsubscribe } from '../../../../../../misc/helpers/async-unsubscribe';
+import { IErrorNotification, IGenericErrorNotification } from '../../../../../../misc/notifications/built-in/error/error-notification.type';
+import { isErrorNotification } from '../../../../../../misc/notifications/built-in/error/is-error-notification';
+import { IObserver } from '../../../../../../observer/type/observer.type';
+import { IObservable, IUnsubscribe } from '../../../../../type/observable.type';
+import { IObservablePipe } from '../../../../type/observable-pipe.type';
+
+export interface ICatchErrorObservablePipeOnError<GError, GOnErrorOut> {
+  (error: GError): IObservable<GOnErrorOut>;
+}
+
+export type IInferCatchErrorObservablePipeInError<GIn> =
+  GIn extends IErrorNotification<infer GError>
+    ? GError
+    : never;
+
+export type ICatchErrorObservablePipeOutValue<GIn, GOnErrorOut> =
+  Exclude<GIn, IGenericErrorNotification> | GOnErrorOut;
+
+export type ICatchErrorObservablePipeWithNotificationsReturn<GIn, GEmitPipeOut> =
+  IObservablePipe<GIn, ICatchErrorObservablePipeOutValue<GIn, GEmitPipeOut>>;
+
+export function catchErrorObservablePipe<GIn, GOnErrorOut>(
+  onError: ICatchErrorObservablePipeOnError<IInferCatchErrorObservablePipeInError<GIn>, GOnErrorOut>,
+): ICatchErrorObservablePipeWithNotificationsReturn<GIn, GOnErrorOut> {
+  type GError = IInferCatchErrorObservablePipeInError<GIn>;
+  type GOut = ICatchErrorObservablePipeOutValue<GIn, GOnErrorOut>;
+
+  return (subscribe: IObservable<GIn>): IObservable<GOut> => {
+    return (emit: IObserver<GOut>): IUnsubscribe => {
+      let running: boolean = true;
+      let childUnsubscribe: IUnsubscribe | undefined;
+      let parentRunning: boolean = true;
+
+      const parentUnsubscribe = subscribe((value: GIn): void => {
+        if (isErrorNotification<GError>(value)) {
+          asyncUnsubscribe(() => parentUnsubscribe, () => {
+            parentRunning = false;
+          });
+          childUnsubscribe = onError(value.value)(emit);
+        } else {
+          emit(value as GOut);
+        }
+      });
+
+      return (): void => {
+        if (running) {
+          running = false;
+          if (parentRunning) {
+            parentUnsubscribe();
+          }
+          if (childUnsubscribe !== void 0) {
+            childUnsubscribe();
+          }
+        }
+      };
+    };
+  };
+}

@@ -18,7 +18,7 @@ export function createAnimationFrameLoop(
 
   loop();
 
-  return () => {
+  return (): void => {
     if (running) {
       running = false;
       abortAnimationFrame();

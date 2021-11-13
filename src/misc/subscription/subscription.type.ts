@@ -1,9 +1,9 @@
-import { IEmitFunction } from '../../types/emit-function/emit-function.type';
-import { ISubscribeFunction } from '../../types/subscribe-function/subscribe-function.type';
+import { IObserver } from '../../observer/type/observer.type';
+import { IObservable } from '../../observable/type/observable.type';
 
 export interface ISubscription<GValue> {
-  readonly subscribe: ISubscribeFunction<GValue>;
-  readonly emit: IEmitFunction<GValue>;
+  readonly subscribe: IObservable<GValue>;
+  readonly emit: IObserver<GValue>;
 
   isActivated(): boolean;
 
@@ -16,7 +16,7 @@ export interface ISubscription<GValue> {
 
 export interface ISubscriptionConstructor {
   new<GValue>(
-    subscribe: ISubscribeFunction<GValue>,
-    emit: IEmitFunction<GValue>,
+    subscribe: IObservable<GValue>,
+    emit: IObserver<GValue>,
   ): ISubscription<GValue>;
 }

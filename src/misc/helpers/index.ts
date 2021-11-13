@@ -5,4 +5,5 @@ export * from './freeze';
 export * from './merge-unsubscribe-functions';
 export * from './noop';
 export * from './passthrough';
-export * from './read-subscribe-function-value';
+export * from './read-observable-value';
+export * from './tuple';

@@ -5,7 +5,7 @@ export function createImmediate(
   callback: () => void,
 ): IAbortTimer {
   const timer = setImmediate(callback);
-  return () => {
+  return (): void => {
     clearImmediate(timer);
   };
 }
