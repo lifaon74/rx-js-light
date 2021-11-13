@@ -9,16 +9,16 @@
 
 This library provides tools to generate and consume blazing fast Observables and Observers.
 
-However, it is not RxJS: **it's [faster (~10x), smaller (6~12x)](./src/documentation/performances.md), and tries to be simpler.**
+However, it is not RxJS: **it's [faster (10x), smaller (6-12x)](./src/documentation/performances.md), and tries to be simpler.**
 It's so performant and optimized, that you can include it from your smallest to your largest projects.
 Give it a try, and you'll love it !
 
 *Example:*
 
 ```js
-const subscribe = pipeObservable(fromEventTarget(window, 'click'), [
-  scanObservablePipe(count => (count + 1), 0),
-  filterObservablePipe(count => (count >= 2)),
+const subscribe = pipe$$(fromEventTarget(window, 'click'), [
+  scan$$$(count => (count + 1), 0),
+  filter$$$(count => (count >= 2)),
 ]);
 
 const unsubscribe = subscribe(() => {
