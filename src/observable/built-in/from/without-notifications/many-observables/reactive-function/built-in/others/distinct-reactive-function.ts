@@ -1,7 +1,6 @@
-import { pipeObservable } from '../../../../../../../helpers/piping/pipe-observable/pipe-observable';
 import { IGenericFunction } from '../../../../../../../../misc/types/generic-function.type';
-import { distinctObservablePipe } from '../../../../../../../pipes/built-in/without-notifications/observer-pipe-related/distinct/distinct-observable-pipe';
-import { IReactiveFunctionReturn, IReactiveFunctionObservables, reactiveFunction } from '../../reactive-function';
+import { distinctObservable } from '../../../../../../../pipes/built-in/without-notifications/observer-pipe-related/distinct/distinct-observable';
+import { IReactiveFunctionObservables, IReactiveFunctionReturn, reactiveFunction } from '../../reactive-function';
 
 export function distinctReactiveFunction<GFunction extends IGenericFunction>(
   observables: IReactiveFunctionObservables<GFunction>,
@@ -9,8 +8,6 @@ export function distinctReactiveFunction<GFunction extends IGenericFunction>(
 ): IReactiveFunctionReturn<GFunction> {
   type GOut = ReturnType<GFunction>;
 
-  return pipeObservable(reactiveFunction<GFunction>(observables, fnc), [
-    distinctObservablePipe<GOut>(),
-  ]);
+  return distinctObservable<GOut>(reactiveFunction<GFunction>(observables, fnc));
 }
 

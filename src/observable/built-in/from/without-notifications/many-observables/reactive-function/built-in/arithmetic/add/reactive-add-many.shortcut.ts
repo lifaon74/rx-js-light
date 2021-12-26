@@ -1,1 +1,1 @@
-export { reactiveAddMany as addM$$ } from './reactive-add-many';
+export { reactiveAddMany as addMany$$, reactiveAddMany as addM$$ } from './reactive-add-many';

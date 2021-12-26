@@ -8,7 +8,7 @@ interface IObserver<GValue> {
 
 An *Observer* receives and consumes a value.
 
-This is equivalent to a *push destination* or an *[Observer](https://rxjs-dev.firebaseapp.com/guide/observer)*.
+This is equivalent to a *push destination* or a *[RxJS Observer](https://rxjs-dev.firebaseapp.com/guide/observer)*.
 
 ### Examples
 

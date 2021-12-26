@@ -8,6 +8,7 @@ export function conditionalObservable<GValue>(
   return (emit: IObserver<GValue>): IUnsubscribe => {
     let running: boolean = true;
     let unsubscribe: IUnsubscribe | null = null;
+    let lastValue: boolean;
 
     const _unsubscribe = (): void => {
       if (unsubscribe !== null) {
@@ -17,9 +18,12 @@ export function conditionalObservable<GValue>(
     };
 
     const unsubscribeOfCondition: IUnsubscribe = condition((value: boolean): void => {
-      _unsubscribe();
-      if (value && running) {
-        unsubscribe = subscribe(emit);
+      if (value !== lastValue) {
+        lastValue = value;
+        _unsubscribe();
+        if (value && running) {
+          unsubscribe = subscribe(emit);
+        }
       }
     });
 

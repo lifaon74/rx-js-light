@@ -4,7 +4,7 @@
 function readBlob<GReadType extends IFileReaderReadType>(
   blob: Blob,
   readType: GReadType
-): IObservable<IObservableReadBlobNotifications<GReadType>>
+): IObservable<IReadBlobObservableNotifications<GReadType>>
 ```
 
 ```ts

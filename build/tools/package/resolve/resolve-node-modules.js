@@ -268,6 +268,7 @@ async function resolveCJSFile(jsFilePath) {
           .then((resolvedRequireValue) => {
             // console.log(jsFilePath, ':', requireValue, '->', resolvedRequireValue);
             node.value = resolvedRequireValue;
+            node.raw = JSON.stringify(resolvedRequireValue);
           }),
       );
     };

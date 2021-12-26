@@ -1,13 +1,13 @@
-## fromArrayWithNotifications
+## fromArrayWithNotifications or fromArrayN
 
 ```ts
 function fromArrayWithNotifications<GValue>(
   array: ArrayLike<GValue>,
-): IObservable<IObservableFromArrayNotifications<GValue>>
+): IObservable<IFromArrayObservableNotifications<GValue>>
 ```
 
 ```ts
-type IObservableFromArrayNotifications<GValue> =
+type IFromArrayObservableNotifications<GValue> =
   INextNotification<GValue>
   | ICompleteNotification
 ```

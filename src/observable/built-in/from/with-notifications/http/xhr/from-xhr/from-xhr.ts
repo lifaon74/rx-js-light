@@ -1,60 +1,38 @@
+import { isAbortError } from '../../../../../../../misc/errors/abort-error/is-abort-error';
+import { createNetworkErrorFromRequest } from '../../../../../../../misc/errors/network-error/create-network-error';
 import { createEventListener, IRemoveEventListener } from '../../../../../../../misc/event-listener/functions/create-event-listener';
 import { toTypedEventTarget } from '../../../../../../../misc/event-listener/functions/to-typed-event-target';
-import { STATIC_COMPLETE_NOTIFICATION } from '../../../../../../../misc/notifications/built-in/complete/complete-notification.constant';
-import { createDownloadProgressNotification } from '../../../../../../../misc/notifications/built-in/download-progress/create-download-progress-notification';
-import { IDownloadProgressNotification } from '../../../../../../../misc/notifications/built-in/download-progress/download-progress-notification.type';
-import { createErrorNotification } from '../../../../../../../misc/notifications/built-in/error/create-error-notification';
-import { createNextNotification } from '../../../../../../../misc/notifications/built-in/next/create-next-notification';
-import { createUploadProgressNotification } from '../../../../../../../misc/notifications/built-in/upload-progress/create-upload-progress-notification';
-import { IUploadProgressNotification } from '../../../../../../../misc/notifications/built-in/upload-progress/upload-progress-notification.type';
-import { INotification } from '../../../../../../../misc/notifications/notification.type';
-import { createNotification } from '../../../../../../../misc/notifications/create-notification';
-import {
-  areReadableStreamSupported, initAndSendXHRFromRequest, XHRResponse, XHRResponseToReadableStream,
-  XHRResponseToResponse, XHRResponseToResponseInit, XHRResponseTypeExtended,
-} from '../xhr-helpers';
-import { IProgress } from '../../../../../../../misc/progress/progress.type';
-import { createProgressFromProgressEvent } from '../../../../../../../misc/progress/create-progress-from-progress-event';
 import { noop } from '../../../../../../../misc/helpers/noop';
-import { createNetworkErrorFromRequest } from '../../../../../../../misc/errors/network-error/create-network-error';
-import { isAbortError } from '../../../../../../../misc/errors/abort-error/is-abort-error';
-import { IObserver } from '../../../../../../../observer/type/observer.type';
+import { STATIC_COMPLETE_NOTIFICATION } from '../../../../../../../misc/notifications/built-in/complete/complete-notification.constant';
 import {
-  IObservable, IUnsubscribe,
-} from '../../../../../../type/observable.type';
-import { IDefaultNotificationsUnion } from '../../../../../../../misc/notifications/default-notifications-union.type';
+  createDownloadProgressNotification,
+} from '../../../../../../../misc/notifications/built-in/download-progress/create-download-progress-notification';
+import { createErrorNotification } from '../../../../../../../misc/notifications/built-in/error/create-error-notification';
 
-import { createAbortErrorNotification } from '../../../../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
-
-
-export type IUploadCompleteNotification = INotification<'upload-complete', void>;
-
-export function createUploadCompleteNotification(): IUploadCompleteNotification {
-  return createNotification<'upload-complete', void>('upload-complete', void 0);
-}
-
-/*--*/
-
-export interface IObservableFromXHROptions {
-  useReadableStream?: boolean; // (default: true) - if you want to use ReadableStream. INFO won't work for too big downloads
-}
-
-export type IObservableFromXHRNotifications =
-  IDefaultNotificationsUnion<Response>
-  | IUploadProgressNotification
-  | IUploadCompleteNotification
-  | IDownloadProgressNotification
-  ;
-
-// export type IObservableFromXHRNotifications =
-//   INextNotification<Response>
-//   | ICompleteNotification
-//   | IErrorNotification
-//   | IAbortNotification<void>
-//   | IUploadProgressNotification
-//   | IUploadCompleteNotification
-//   | IDownloadProgressNotification
-//   ;
+import {
+  createAbortErrorNotification,
+} from '../../../../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
+import { createNextNotification } from '../../../../../../../misc/notifications/built-in/next/create-next-notification';
+import {
+  STATIC_UPLOAD_COMPLETE_NOTIFICATION,
+} from '../../../../../../../misc/notifications/built-in/upload-complete/upload-complete-notification.constant';
+import {
+  createUploadProgressNotification,
+} from '../../../../../../../misc/notifications/built-in/upload-progress/create-upload-progress-notification';
+import { createProgressFromProgressEvent } from '../../../../../../../misc/progress/create-progress-from-progress-event';
+import { IProgress } from '../../../../../../../misc/progress/progress.type';
+import { IObserver } from '../../../../../../../observer/type/observer.type';
+import { IObservable, IUnsubscribe } from '../../../../../../type/observable.type';
+import {
+  areReadableStreamSupported,
+  initAndSendXHRFromRequest,
+  XHRResponse,
+  XHRResponseToReadableStream,
+  XHRResponseToResponse,
+  XHRResponseToResponseInit,
+  XHRResponseTypeExtended,
+} from '../xhr-helpers';
+import { IFromXHRObservableNotifications, IFromXHRObservableOptions } from './from-xhr-observable-notifications.type';
 
 /**
  * Uses the Fetch API to make an HTTP request.
@@ -62,8 +40,8 @@ export type IObservableFromXHRNotifications =
 export function fromXHR(
   requestInfo: RequestInfo,
   requestInit?: RequestInit,
-  options?: IObservableFromXHROptions,
-): IObservable<IObservableFromXHRNotifications> {
+  options?: IFromXHRObservableOptions,
+): IObservable<IFromXHRObservableNotifications> {
   const request: Request = new Request(requestInfo, requestInit);
 
   const useReadableStream: boolean = areReadableStreamSupported()
@@ -73,7 +51,7 @@ export function fromXHR(
         : options.useReadableStream
     );
 
-  return (emit: IObserver<IObservableFromXHRNotifications>): IUnsubscribe => {
+  return (emit: IObserver<IFromXHRObservableNotifications>): IUnsubscribe => {
     if (request.signal.aborted) {
       emit(createAbortErrorNotification({ signal: request.signal }));
       return noop;
@@ -141,7 +119,7 @@ export function fromXHR(
 
       const uploadComplete = (): void => {
         if (running) {
-          emit(createUploadCompleteNotification());
+          emit(STATIC_UPLOAD_COMPLETE_NOTIFICATION);
         }
       };
 

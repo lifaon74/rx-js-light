@@ -3,7 +3,7 @@
 ```ts
 function fromPromise<GValue>(
   promise: Promise<GValue>,
-): IObservable<IObservableFromPromiseNotifications<GValue>>
+): IObservable<IFromPromiseObservableNotifications<GValue>>
 ```
 
 Creates an Observable from a Promise.

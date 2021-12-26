@@ -108,11 +108,11 @@ next: 5
 resolved
 ```
 
-You may also use [notificationObserver](../../misc/notifications/notification-observer.ts) if you prefer:
+You may also use the function [notificationObserver](../../misc/notifications/notification-observer.ts) if you prefer:
 
 ```ts
 function notificationObserver<GNotificationsUnion extends IGenericNotification>(
-  map: TInferNotificationsObserverMapFromNotificationsUnion<GNotificationsUnion>,
+  map: IInferNotificationsObserverMapFromNotificationsUnion<GNotificationsUnion>,
 ): IObserver<GNotificationsUnion>
 ```
 
@@ -144,3 +144,5 @@ subscribe(
 - [Shortcuts](./06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./08-notifications.md)
+- [Migrating from rxjs to rx-js-light](./09-migrating-from-rxjs-to-rx-js-light.md)
+- [From Promise to rx-js-light](./10-from-promise-to-rx-js-light.md)

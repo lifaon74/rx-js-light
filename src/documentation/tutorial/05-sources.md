@@ -1,6 +1,6 @@
 # Emitting values using sources
 
-We've seen how to create Observables, but how can we emit simply some values ?
+We've seen how to create Observables, but how can we simply emit some values ?
 
 For this, we will use a *Source*:
 
@@ -31,7 +31,7 @@ interface IMulticastSource<GValue> extends ISource<GValue> {
 function createMulticastSource<GValue>(): ISource<GValue>;
 ```
 
-A *MulticastSource* is used to emit one value to multiple observers (*Observer*).
+A *MulticastSource* is used to emit one value to multiple Observers.
 
 While plain Observables are unicast (each subscribed Observer owns an independent execution of the Observable),
 *MulticastSource* are multicast.
@@ -102,7 +102,7 @@ interface ICreateReplayLastSourceOptions<GValue> {
 }
 ```
 
-A *ReplayLastSource* is used to store a value and emit it each time we subscribe to it.
+A *ReplayLastSource* is used to **store** a value and emit it each time we subscribe to it.
 It's a Source that caches the last received value.
 
 When calling `createReplayLastSource` you must provide a `source` which is used to build the ReplayLastSource. You may
@@ -158,6 +158,8 @@ value - A: 3
 value - B: 3
 ```
 
+Because `createMulticastReplayLastSource` is really verbose, you may prefer the shortcut: `let$$`
+
 ---
 
 ## Table of content
@@ -170,4 +172,6 @@ value - B: 3
 - [Shortcuts](./06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./08-notifications.md)
+- [Migrating from rxjs to rx-js-light](./09-migrating-from-rxjs-to-rx-js-light.md)
+- [From Promise to rx-js-light](./10-from-promise-to-rx-js-light.md)
 

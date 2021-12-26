@@ -1,13 +1,10 @@
-## pipeObservable
-
-[comment]: <> (TODO verify DOC)
+## pipeObservable or pipe$$
 
 ```ts
-function pipeObservable<// generics
+function pipeObservable<
   GObservable extends IGenericObservable,
   GFunctions extends IObservablePipeConstraint<GObservable, GFunctions>
-  //
-  >(
+>(
   subscribe: GObservable,
   fns: GFunctions,
 ): IObservablePipeReturn<GObservable, GFunctions>

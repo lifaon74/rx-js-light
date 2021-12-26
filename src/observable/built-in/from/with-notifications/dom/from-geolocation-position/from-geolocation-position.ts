@@ -1,19 +1,13 @@
 import { createErrorNotification } from '../../../../../../misc/notifications/built-in/error/create-error-notification';
-import { IErrorNotification } from '../../../../../../misc/notifications/built-in/error/error-notification.type';
 import { createNextNotification } from '../../../../../../misc/notifications/built-in/next/create-next-notification';
-import { INextNotification } from '../../../../../../misc/notifications/built-in/next/next-notification.type';
 import { IObserver } from '../../../../../../observer/type/observer.type';
 import { IObservable, IUnsubscribe } from '../../../../../type/observable.type';
-
-export type IObservableFromGeolocationPositionNotifications =
-  INextNotification<GeolocationPosition>
-  | IErrorNotification<GeolocationPositionError>
-  ;
+import { IFromGeolocationPositionObservableNotifications } from './from-geolocation-position-observable-notifications.type';
 
 export function fromGeolocationPosition(
   options?: PositionOptions,
-): IObservable<IObservableFromGeolocationPositionNotifications> {
-  return (emit: IObserver<IObservableFromGeolocationPositionNotifications>): IUnsubscribe => {
+): IObservable<IFromGeolocationPositionObservableNotifications> {
+  return (emit: IObserver<IFromGeolocationPositionObservableNotifications>): IUnsubscribe => {
     let running: boolean = true;
 
     const watchId: number = navigator.geolocation.watchPosition(

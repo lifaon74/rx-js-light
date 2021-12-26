@@ -1,4 +1,4 @@
-## debounceImmediateObservablePipe
+## debounceImmediateObservablePipe or debounceImmediate$$$
 
 ```ts
 function debounceImmediateObservablePipe<GValue>(): IObservablePipe<GValue, GValue>

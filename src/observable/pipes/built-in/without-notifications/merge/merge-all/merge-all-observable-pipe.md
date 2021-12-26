@@ -1,4 +1,4 @@
-## mergeAllObservablePipe
+## mergeAllObservablePipe or mergeAll$$$
 
 ```ts
 function mergeAllObservablePipe<GValue>(
@@ -6,8 +6,8 @@ function mergeAllObservablePipe<GValue>(
 ): IObservablePipe<IObservable<GValue>, GValue>
 ```
 
-This function subscribes to a *Observable* that emits some *Observables*, also known as a higher-order
-*Observable*.
+This function subscribes to a *Observable* that emits some *Observables*, also known as an
+*HigherOrderObservable*.
 
 Each time it observes one of these emitted inner *Observable*, it subscribes to that and delivers all the values from the inner *Observable*
 on the output *Observable*.

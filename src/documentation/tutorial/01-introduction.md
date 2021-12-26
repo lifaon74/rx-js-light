@@ -16,7 +16,7 @@ Actually, this it's new:
 
 - Promises are streams of values with a `success` and `error` state, and you can "pipe" them with `then` or `catch`
 - EventListeners are streams of events
-- Timers (setTimeout/setInterval) are somehow streams of "void" values
+- Timers (setTimeout/setInterval) are somehow streams of "void/empty" values
 - [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)
   and [Readable](https://nodejs.org/api/stream.html#class-streamreadable) are data streams too
 - websockets
@@ -29,7 +29,7 @@ variables, user inputs, properties, tasks, data structures,...
 **On top of that, you are given an amazing toolbox of functions to combine, create and filter any of those streams.**
 That's where the "functional" magic kicks in. A stream can be used as an input to another one. Even multiple streams can be used as inputs
 to another stream. You can merge two streams. You can filter a stream to get another one that has only those events you are interested in.
-You can map data values from one stream to another new one.
+You can map data values from one stream to another new one. Etc.
 
 A stream is a sequence of **ongoing values ordered in time**.
 
@@ -37,21 +37,22 @@ We capture these emitted values only **asynchronously**, by defining a function 
 The "listening" to the stream is called **subscribing**.
 The functions we are defining are *Observers*. The stream is the *Observable* being observed.
 
-**INFO:** rx-js-light use a different terminology a *Observable* is an *Observable* and an *Observer* is an *Observer*.
-Their functionalities are identical, only the name differs and can be interchanged.
-
 ## Reactive Programming by example
 
 Normally you'll register event listeners like this:
 
 ```js
-document.addEventListener('click', () => console.log('clicked'));
+const cb = () => console.log('clicked');
+document.addEventListener('click', cb);
+document.removeEventListener('click', cb);
 ```
 
 Using rx-js-light you create an Observable instead:
 
 ```js
-fromEvent(document, 'click')(() => console.log('Clicked!'));
+const observable$ = fromEventTarget(document, 'click');
+const unsubscribe = observable$(() => console.log('Clicked!'));
+unsubscribe();
 ```
 
 Moreover, with reactive programing, you take control of the flow of your values.
@@ -73,7 +74,7 @@ document.addEventListener('click', () => {
 With rx-js-light:
 
 ```js
-const subscribe = pipeObservable(fromEvent(document, 'click'), [
+const subscribe = pipeObservable(fromEventTarget(document, 'click'), [
   throttleTimeObservablePipe(1000),
   scanObservablePipe(count => count + 1, 0),
 ]);
@@ -84,7 +85,52 @@ I hope you enjoy the beauty of this approach.
 This example is just the tip of the iceberg: you can apply the same operations on different kinds of streams,
 for instance, on a stream of API responses; on the other hand, there are many other functions available.
 
-## Why should you consider adopting RP?
+## For what usage RP is great ?
+
+Usually, when we use variables and functions, we **PULL** values:
+
+```ts
+let firstname = 'Valentin';
+let lastname = 'Richard';
+const fullname = `${firstname} ${lastname}`; // you 'PULL' the values from 'firstname' and 'lastname' to compute 'fullname'
+console.log(fullname); // 'Valentin Richard'
+```
+
+But, sometimes (especially in javascript with a lot of async events, or in front-end applications) we have to deal with evolving values:
+If we update the value of `firstname` or `lastname`, we would like to update the value of `fullname` too.
+
+We could write:
+
+```ts
+const getFullName = () => `${firstname} ${lastname}`;
+console.log(getFullName()); // 'Valentin Richard'
+firstname = `Bob`;
+console.log(getFullName()); // 'Bob Richard'
+```
+
+But we're forced to **PULL** the "fullname" to get the value. It would be more convenient having `fullname`
+updating automatically when any of `firstname` or `lastname` changes.
+
+Here comes the Observables:
+
+
+```ts
+const firstname$ = createTextInputObservable('Valentin');
+const lastname$ = createTextInputObservable('Richard');
+const fullname$ = string$$`${firstname$} ${lastname$}`;
+
+fullname$((fullname) => {
+  console.log(fullname);
+});
+```
+
+If `firstname$` or `lastname$` changes, then `fullname$` is immediately updated.
+So Observables **PUSHES** values. We don't have to **PULL** them. It's magic, and it's perfect for all async events.
+
+[You can test this code here](https://stackblitz.com/edit/typescript-psdoti?file=index.ts)
+
+
+## Why should you consider adopting RP ?
 
 Reactive Programming raises the level of abstraction of your code, so you can focus on the interdependence of events that define the
 business logic, rather than having to constantly fiddle with a large amount of implementation details. Code in RP will likely be more
@@ -110,5 +156,7 @@ Take a look, it goes deeply into RP.
 - [Shortcuts](./06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./08-notifications.md)
+- [Migrating from rxjs to rx-js-light](./09-migrating-from-rxjs-to-rx-js-light.md)
+- [From Promise to rx-js-light](./10-from-promise-to-rx-js-light.md)
 
 

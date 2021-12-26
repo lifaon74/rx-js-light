@@ -1,7 +1,6 @@
 import { IUnsubscribe } from '../../observable/type/observable.type';
 import { isReferenceError } from '../errors/reference-error/is-reference-error';
 import { noop } from './noop';
-import { setImmediate } from './set-immediate/set-immediate';
 
 export const DEFAULT_ON_ERROR_FOR_ASYNC_UNSUBSCRIBE = (error: any): never => {
   throw error;
@@ -21,7 +20,8 @@ export function asyncUnsubscribe(
     unsubscribe = getUnsubscribe();
   } catch (error) {
     if (isReferenceError(error)) {
-      setImmediate(() => {
+      queueMicrotask(() => {
+      // setImmediate(() => {
         try {
           getUnsubscribe()();
         } catch (error) {

@@ -1,4 +1,4 @@
-## debounceFrameObservablePipe
+## debounceFrameObservablePipe or debounceFrame$$$
 
 ```ts
 function debounceFrameObservablePipe<GValue>(): IObservablePipe<GValue, GValue>

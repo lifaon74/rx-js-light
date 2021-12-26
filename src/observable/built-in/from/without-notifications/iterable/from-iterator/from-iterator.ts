@@ -1,3 +1,4 @@
+import { noop } from '../../../../../../misc/helpers/noop';
 import { IObserver } from '../../../../../../observer/type/observer.type';
 import {
   IObservable, IUnsubscribe,
@@ -10,13 +11,10 @@ export function fromIterator<GValue>(
   iterator: Iterator<GValue>,
 ): IObservable<GValue> {
   return (emit: IObserver<GValue>): IUnsubscribe => {
-    let running: boolean = true;
     let result: IteratorResult<GValue>;
-    while (running && !(result = iterator.next()).done) {
+    while (!(result = iterator.next()).done) {
       emit(result.value);
     }
-    return (): void => {
-      running = false;
-    };
+    return noop;
   };
 }

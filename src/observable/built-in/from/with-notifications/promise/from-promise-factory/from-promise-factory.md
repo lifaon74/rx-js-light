@@ -3,12 +3,12 @@
 ```ts
 function fromPromiseFactory<GValue>(
   createPromise: IFromPromiseFactoryCreatePromiseFunction<GValue>,
-  options?: IObservableFromPromiseFactoryOptions,
-): IObservable<IObservableFromPromiseFactoryNotifications<GValue>>
+  options?: IFromPromiseFactoryObservableOptions,
+): IObservable<IFromPromiseFactoryObservableNotifications<GValue>>
 ```
 
 ```ts
-interface IObservableFromPromiseFactoryOptions {
+interface IFromPromiseFactoryObservableOptions {
   signal?: AbortSignal | null;
 }
 

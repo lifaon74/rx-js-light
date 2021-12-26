@@ -4,12 +4,12 @@
 function fromXHR(
   requestInfo: RequestInfo,
   requestInit?: RequestInit,
-  options?: IObservableFromXHROptions,
-): IObservable<IObservableFromXHRNotifications>
+  options?: IFromXHRObservableOptions,
+): IObservable<IFromXHRObservableNotifications>
 ```
 
 ```ts
-interface IObservableFromXHROptions {
+interface IFromXHRObservableOptions {
   useReadableStream?: boolean; // (default: true) - if you want to use ReadableStream. INFO won't work for too big downloads
 }
 ```

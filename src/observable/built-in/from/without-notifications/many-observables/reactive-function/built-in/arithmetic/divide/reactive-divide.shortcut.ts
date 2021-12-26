@@ -1,2 +1,1 @@
-export { reactiveDivide as divide$$ } from './reactive-divide';
-export { reactiveDivide as div$$ } from './reactive-divide';
+export { reactiveDivide as divide$$, reactiveDivide as div$$ } from './reactive-divide';

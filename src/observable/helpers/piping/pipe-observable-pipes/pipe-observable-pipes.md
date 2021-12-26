@@ -1,4 +1,4 @@
-## pipeObservablePipes
+## pipeObservablePipes or pipe$$$
 
 ```ts
 function pipeObservablePipes<// generics

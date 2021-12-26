@@ -1,4 +1,4 @@
-## bufferTimeObservablePipe
+## bufferTimeObservablePipe or bufferTime$$$ or bufferT$$$
 
 ```ts
 function bufferTimeObservablePipe<GValue>(

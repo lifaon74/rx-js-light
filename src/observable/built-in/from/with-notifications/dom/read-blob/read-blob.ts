@@ -2,46 +2,25 @@ import { createEventListener, IRemoveEventListener } from '../../../../../../mis
 import { toTypedEventTarget } from '../../../../../../misc/event-listener/functions/to-typed-event-target';
 import { STATIC_COMPLETE_NOTIFICATION } from '../../../../../../misc/notifications/built-in/complete/complete-notification.constant';
 import { createErrorNotification } from '../../../../../../misc/notifications/built-in/error/create-error-notification';
+import { createAbortErrorNotification } from '../../../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
 import { createNextNotification } from '../../../../../../misc/notifications/built-in/next/create-next-notification';
-import {
-  createProgressNotification, IProgressNotification,
-} from '../../../../../../misc/notifications/built-in/progress-notification';
-import { IProgress } from '../../../../../../misc/progress/progress.type';
+import { createProgressNotification } from '../../../../../../misc/notifications/built-in/progress-notification';
 import { createProgressFromProgressEvent } from '../../../../../../misc/progress/create-progress-from-progress-event';
+import { IProgress } from '../../../../../../misc/progress/progress.type';
 import { IObserver } from '../../../../../../observer/type/observer.type';
 import { IObservable, IUnsubscribe } from '../../../../../type/observable.type';
-import { IDefaultNotificationsUnion } from '../../../../../../misc/notifications/default-notifications-union.type';
-import { createAbortErrorNotification } from '../../../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
-
-export interface IFileReaderFormatsToTypeMap {
-  'data-url': string;
-  'text': string;
-  'array-buffer': ArrayBuffer;
-}
-
-export type IFileReaderReadType = keyof IFileReaderFormatsToTypeMap;
-
-export type TInferFileReaderReturnTypeFromReadType<GReadType extends IFileReaderReadType> = IFileReaderFormatsToTypeMap[GReadType];
-
-export type IObservableReadBlobNotifications<GReadType extends IFileReaderReadType> =
-  IDefaultNotificationsUnion<TInferFileReaderReturnTypeFromReadType<GReadType>>
-  | IProgressNotification
-  ;
-
-// export type IObservableReadBlobNotifications<GReadType extends IFileReaderReadType> =
-//   INextNotification<TInferFileReaderReturnTypeFromReadType<GReadType>>
-//   | ICompleteNotification
-//   | IErrorNotification<DOMException>
-//   | IAbortNotification<void>
-//   | IProgressNotification
-//   ;
+import {
+  IFileReaderReadType,
+  IInferFileReaderReturnTypeFromReadType,
+  IReadBlobObservableNotifications,
+} from './read-blob-observable-notifications.type';
 
 export function readBlob<GReadType extends IFileReaderReadType>(
   blob: Blob,
   readType: GReadType,
-): IObservable<IObservableReadBlobNotifications<GReadType>> {
-  type GReturnType = TInferFileReaderReturnTypeFromReadType<GReadType>;
-  type GNotificationsUnion = IObservableReadBlobNotifications<GReadType>;
+): IObservable<IReadBlobObservableNotifications<GReadType>> {
+  type GReturnType = IInferFileReaderReturnTypeFromReadType<GReadType>;
+  type GNotificationsUnion = IReadBlobObservableNotifications<GReadType>;
   return (emit: IObserver<GNotificationsUnion>): IUnsubscribe => {
     const fileReader: FileReader = new FileReader();
     let running: boolean = true;

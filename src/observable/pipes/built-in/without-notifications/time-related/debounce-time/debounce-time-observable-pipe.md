@@ -1,4 +1,4 @@
-## debounceTimeObservablePipe
+## debounceTimeObservablePipe or debounceTime$$$
 
 ```ts
 function debounceTimeObservablePipe<GValue>(

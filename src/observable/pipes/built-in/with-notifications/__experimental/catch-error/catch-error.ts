@@ -20,19 +20,19 @@ export type ICatchErrorObservablePipeOutValue<GIn, GOnErrorOut> =
 export type ICatchErrorObservablePipeWithNotificationsReturn<GIn, GEmitPipeOut> =
   IObservablePipe<GIn, ICatchErrorObservablePipeOutValue<GIn, GEmitPipeOut>>;
 
-export function catchErrorObservablePipe<GIn, GOnErrorOut>(
-  onError: ICatchErrorObservablePipeOnError<IInferCatchErrorObservablePipeInError<GIn>, GOnErrorOut>,
-): ICatchErrorObservablePipeWithNotificationsReturn<GIn, GOnErrorOut> {
-  type GError = IInferCatchErrorObservablePipeInError<GIn>;
-  type GOut = ICatchErrorObservablePipeOutValue<GIn, GOnErrorOut>;
+export function catchErrorObservablePipe<GOnErrorIn, GOnErrorOut>(
+  onError: ICatchErrorObservablePipeOnError<GOnErrorIn, GOnErrorOut>,
+): ICatchErrorObservablePipeWithNotificationsReturn<GOnErrorIn, GOnErrorOut> {
+  type GError = IInferCatchErrorObservablePipeInError<GOnErrorIn>;
+  type GOut = ICatchErrorObservablePipeOutValue<GOnErrorIn, GOnErrorOut>;
 
-  return (subscribe: IObservable<GIn>): IObservable<GOut> => {
+  return (subscribe: IObservable<GOnErrorIn>): IObservable<GOut> => {
     return (emit: IObserver<GOut>): IUnsubscribe => {
       let running: boolean = true;
       let childUnsubscribe: IUnsubscribe | undefined;
       let parentRunning: boolean = true;
 
-      const parentUnsubscribe = subscribe((value: GIn): void => {
+      const parentUnsubscribe = subscribe((value: GOnErrorIn): void => {
         if (isErrorNotification<GError>(value)) {
           asyncUnsubscribe(() => parentUnsubscribe, () => {
             parentRunning = false;

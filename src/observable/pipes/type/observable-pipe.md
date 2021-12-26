@@ -8,7 +8,7 @@ interface IObservablePipe<GIn, GOut> {
 
 An *ObservablePipe* receives a value, performs some operation on it, and may emit something else.
 
-Similar to [EmitPipeFunction](../../../observer/pipes/type/observer-pipe.md) but works with
+Similar to an [ObserverPipe](../../../observer/pipes/type/observer-pipe.md) but works with
 [Observable](../../type/observable.md) instead.
 
 Somehow, this is both a *lazy push destination* (returned Observable), and a *lazy push source* (received Observable)

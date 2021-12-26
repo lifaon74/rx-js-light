@@ -1,7 +1,7 @@
 # Your first Observable
 
 The following tutorial will teach you the basics: what is an Observable and an Observer, what is the logic behind, etc...
-We will start using only typing. The rx-js-light function will be used later.
+We will start using only typing. The `rx-js-light`'s functions will be used later.
 
 ## Definition of an Observer
 
@@ -42,8 +42,8 @@ interface IUnsubscribe {
 }
 ```
 
-A *Observable* is a function that receives an *Observer* (used to emit some values, here `emit`),
-and returns an *UnsubscribeFunction* (used to notify the Observable to stop sending these values).
+An *Observable* is a function that receives an *Observer* (used to emit some values, here `emit`),
+and returns an *Unsubscribe* function (used to notify the Observable to stop sending these values).
 
 Here's an example of an *Observable* that emits numbers (an incremented value) every 500ms:
 
@@ -71,7 +71,7 @@ To read the values of an Observable we just have to write:
 const unsubscribe = observable(observer);
 ```
 
-The Observable will receive the Observer (the `emit` argument), and will start to send its values into this Observer.
+The Observable will receive the Observer (the `emit` argument), and will start sending its values into this Observer.
 
 It will output:
 
@@ -197,4 +197,6 @@ You can group your ObservablePipes too using [pipeObservablePipes](../../observa
 - [Shortcuts](./06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./08-notifications.md)
+- [Migrating from rxjs to rx-js-light](./09-migrating-from-rxjs-to-rx-js-light.md)
+- [From Promise to rx-js-light](./10-from-promise-to-rx-js-light.md)
 

@@ -3,7 +3,7 @@
 ```ts
 function fromAsyncIterator<GValue>(
   asyncIterator: AsyncIterator<GValue>,
-): IObservable<IObservableFromAsyncIteratorNotifications<GValue>>
+): IObservable<IFromAsyncIteratorObservableNotifications<GValue>>
 ```
 
 Creates an Observable from an AsyncIterator. It emits values in the form of Notifications.

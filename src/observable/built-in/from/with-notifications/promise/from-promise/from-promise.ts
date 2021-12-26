@@ -3,15 +3,7 @@ import { createErrorNotification } from '../../../../../../misc/notifications/bu
 import { createNextNotification } from '../../../../../../misc/notifications/built-in/next/create-next-notification';
 import { IObserver } from '../../../../../../observer/type/observer.type';
 import { IObservable, IUnsubscribe } from '../../../../../type/observable.type';
-import { IDefaultNotificationsUnion } from '../../../../../../misc/notifications/default-notifications-union.type';
-
-export type IObservableFromPromiseNotifications<GValue> = IDefaultNotificationsUnion<GValue>;
-
-// export type IObservableFromPromiseNotifications<GValue> =
-//   INextNotification<GValue>
-//   | ICompleteNotification
-//   | IErrorNotification
-//   ;
+import { IFromPromiseObservableNotifications } from './from-promise-observable-notifications.type';
 
 /**
  * Creates an Observable from a Promise
@@ -19,8 +11,8 @@ export type IObservableFromPromiseNotifications<GValue> = IDefaultNotificationsU
  */
 export function fromPromise<GValue>(
   promise: Promise<GValue>,
-): IObservable<IObservableFromPromiseNotifications<GValue>> {
-  type GNotificationsUnion = IObservableFromPromiseNotifications<GValue>;
+): IObservable<IFromPromiseObservableNotifications<GValue>> {
+  type GNotificationsUnion = IFromPromiseObservableNotifications<GValue>;
   return (emit: IObserver<GNotificationsUnion>): IUnsubscribe => {
     let running: boolean = true;
     promise

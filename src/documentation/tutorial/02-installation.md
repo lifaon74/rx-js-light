@@ -9,10 +9,10 @@ npm install @lifaon/rx-js-light --save
 Then you can import and use it:
 
 ```ts
-import { of, pipeObservable, mapObservablePipe } from '@lifaon/rx-js-light';
+import { of, pipe$$, map$$$ } from '@lifaon/rx-js-light';
 
-const subscribe = pipeObservable(of(1, 2, 3), [
-  mapObservablePipe(value => `-> ${value}`),
+const subscribe = pipe$$(of(1, 2, 3), [
+  map$$$(value => `-> ${value}`),
 ]);
 ```
 
@@ -42,4 +42,6 @@ As a CDN, you can use [skypack](https://www.skypack.dev/):
 - [Shortcuts](./06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./08-notifications.md)
+- [Migrating from rxjs to rx-js-light](./09-migrating-from-rxjs-to-rx-js-light.md)
+- [From Promise to rx-js-light](./10-from-promise-to-rx-js-light.md)
 

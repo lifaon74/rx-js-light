@@ -8,7 +8,7 @@ interface INotification<GName extends string, GValue> {
 ```
 
 A *Notification* is used as a replacement of the `next`, `complete`and `error` *events*:
-you emit directly a `INextNotification` instead of calling `subscriber.next()` for example.
+you will emit directly a `INextNotification` instead of calling `subscriber.next()` for example.
 
 To create a Notification, you may use a plain object `{ name, value }` or use the
 function [createNotification](./create-notification.ts):
@@ -24,7 +24,7 @@ Moreover, some pre-existing *Notifications* may be found in [built-in](./built-i
 
 ### Examples
 
-#### Create a Observable from a Promise
+#### Create an Observable from a Promise
 
 ```ts
 type IObservableFromPromiseNotifications<GValue> =

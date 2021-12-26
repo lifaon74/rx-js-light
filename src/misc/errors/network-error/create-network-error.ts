@@ -5,7 +5,7 @@ import { NETWORK_ERROR_NAME } from './network-error-name.constant';
 export function createNetworkError(
   options?: INetworkErrorOptions,
 ): INetworkError {
-  return createCustomError(NETWORK_ERROR_NAME, { message: 'Network Error', ...options });
+  return Object.assign(createCustomError(NETWORK_ERROR_NAME, { message: 'Network Error', ...options }), options);
 }
 
 export function createNetworkErrorFromRequest(
@@ -17,5 +17,5 @@ export function createNetworkErrorFromRequest(
 export function createNetworkErrorFromResponse(
   response: Response,
 ): INetworkError {
-  return createNetworkError({ message: `${response.status} '${response.url}'` });
+  return createNetworkError({ message: `${response.status} '${response.url}'`, status: response.status });
 }

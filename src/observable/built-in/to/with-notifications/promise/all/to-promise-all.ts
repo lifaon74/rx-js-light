@@ -1,15 +1,12 @@
+import { isAbortSignal } from '../../../../../../misc/abortable/is/is-abort-signal';
+import { createAbortError } from '../../../../../../misc/errors/abort-error/create-abort-error';
 import { createEventListener, IRemoveEventListener } from '../../../../../../misc/event-listener/functions/create-event-listener';
 import { toTypedEventTarget } from '../../../../../../misc/event-listener/functions/to-typed-event-target';
-import { pipeObservable } from '../../../../../helpers/piping/pipe-observable/pipe-observable';
-import { createAbortError } from '../../../../../../misc/errors/abort-error/create-abort-error';
 import { asyncUnsubscribe } from '../../../../../../misc/helpers/async-unsubscribe';
 import { IDefaultInNotificationsUnion } from '../../../../../../misc/notifications/default-notifications-union.type';
+import { notificationsToValuesObservable } from '../../../../../pipes/built-in/with-notifications/others/notifications-to-values/notifications-to-values-observable';
 import { IObservable, IUnsubscribe } from '../../../../../type/observable.type';
 import { IObservableToPromiseOptions } from '../../../without-notifications/promise/to-promise';
-import {
-  notificationsToValuesObservablePipe,
-} from '../../../../../pipes/built-in/with-notifications/others/notifications-to-values/notifications-to-values-observable-pipe';
-import { isAbortSignal } from '../../../../../../misc/abortable/is/is-abort-signal';
 
 export type IObservableToPromiseNotifications<GValue> = IDefaultInNotificationsUnion<GValue>;
 
@@ -57,12 +54,11 @@ export function toPromiseAll<GValue>(
       reject(error);
     };
 
-    const _subscribe: IObservable<GValue[]> = pipeObservable(subscribe, [
-      notificationsToValuesObservablePipe<GValue>(
-        _reject,
-        options?.maxNumberOfValues,
-      ),
-    ]);
+    const _subscribe: IObservable<GValue[]> = notificationsToValuesObservable<GValue>(
+      subscribe,
+      _reject,
+      options?.maxNumberOfValues,
+    );
 
     const unsubscribe: IUnsubscribe = _subscribe(_resolve);
   });

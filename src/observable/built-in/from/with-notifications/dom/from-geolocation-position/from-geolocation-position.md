@@ -3,7 +3,7 @@
 ```ts
 function fromGeolocationPosition(
   options?: PositionOptions
-): IObservable<IObservableFromGeolocationPositionNotifications>
+): IObservable<IFromGeolocationPositionObservableNotifications>
 ```
 
 Creates an Observable that emits the geolocation position of the user.

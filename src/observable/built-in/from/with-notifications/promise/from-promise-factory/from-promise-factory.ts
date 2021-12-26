@@ -1,24 +1,18 @@
+import { isAbortSignal } from '../../../../../../misc/abortable/is/is-abort-signal';
 import { createEventListener, IRemoveEventListener } from '../../../../../../misc/event-listener/functions/create-event-listener';
 import { toTypedEventTarget } from '../../../../../../misc/event-listener/functions/to-typed-event-target';
+import { noop } from '../../../../../../misc/helpers/noop';
 import { STATIC_COMPLETE_NOTIFICATION } from '../../../../../../misc/notifications/built-in/complete/complete-notification.constant';
 import { createErrorNotification } from '../../../../../../misc/notifications/built-in/error/create-error-notification';
+import { createAbortErrorNotification } from '../../../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
 import { createNextNotification } from '../../../../../../misc/notifications/built-in/next/create-next-notification';
-import { isAbortSignal } from '../../../../../../misc/abortable/is/is-abort-signal';
-import { noop } from '../../../../../../misc/helpers/noop';
 import { IObserver } from '../../../../../../observer/type/observer.type';
 import { IObservable, IUnsubscribe } from '../../../../../type/observable.type';
-import { IDefaultNotificationsUnion } from '../../../../../../misc/notifications/default-notifications-union.type';
-import { createAbortErrorNotification } from '../../../../../../misc/notifications/built-in/error/derived/create-abort-error-notification';
-
-export interface IObservableFromPromiseFactoryOptions {
-  signal?: AbortSignal | null;
-}
-
-export type IObservableFromPromiseFactoryNotifications<GValue> = IDefaultNotificationsUnion<GValue>;
-
-export interface IFromPromiseFactoryCreatePromiseFunction<GValue> {
-  (signal: AbortSignal): Promise<GValue>;
-}
+import {
+  IFromPromiseFactoryCreatePromiseFunction,
+  IFromPromiseFactoryObservableNotifications,
+  IFromPromiseFactoryObservableOptions,
+} from './from-promise-factory-observable-notifications.type';
 
 /**
  * Creates an Observable from a promise factory function
@@ -29,9 +23,9 @@ export interface IFromPromiseFactoryCreatePromiseFunction<GValue> {
  */
 export function fromPromiseFactory<GValue>(
   createPromise: IFromPromiseFactoryCreatePromiseFunction<GValue>,
-  options?: IObservableFromPromiseFactoryOptions,
-): IObservable<IObservableFromPromiseFactoryNotifications<GValue>> {
-  type GNotificationsUnion = IObservableFromPromiseFactoryNotifications<GValue>;
+  options?: IFromPromiseFactoryObservableOptions,
+): IObservable<IFromPromiseFactoryObservableNotifications<GValue>> {
+  type GNotificationsUnion = IFromPromiseFactoryObservableNotifications<GValue>;
   const signal: AbortSignal | null = ((options !== void 0) && isAbortSignal(options.signal))
     ? options.signal
     : null;

@@ -2,20 +2,20 @@
 # yarn lockfile v1
 
 
-"@types/node@^16.10.1":
-  version "16.10.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.10.1.tgz#f3647623199ca920960006b3dccf633ea905f243"
-  integrity sha512-4/Z9DMPKFexZj/Gn3LylFgamNKHm4K3QDi0gz9B26Uk0c8izYf97B5fxfpspMNkWlFupblKM/nV8+NA9Ffvr+w==
+"@types/node@^16.11.12":
+  version "16.11.12"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.12.tgz#ac7fb693ac587ee182c3780c26eb65546a1a3c10"
+  integrity sha512-+2Iggwg7PxoO5Kyhvsq9VarmPbIelXP070HMImEpbtGCoyWNINQj4wzjbQCXzdHTRXnqufutJb5KAURZANNBAw==
 
 acorn-walk@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.2.0.tgz#741210f2e2426454508853a2f44d0ab83b7f69c1"
   integrity sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==
 
-acorn@^8.5.0:
-  version "8.5.0"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.5.0.tgz#4512ccb99b3698c752591e9bb4472e38ad43cee2"
-  integrity sha512-yXbYeFy+jUuYd3/CDcg2NkIYE991XYX/bje7LmjJigUciaeO1JR4XxXgCIV1/Zc/dRuFEyw1L0pbA+qynJkW5Q==
+acorn@^8.6.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.6.0.tgz#e3692ba0eb1a0c83eaa4f37f5fa7368dd7142895"
+  integrity sha512-U1riIR+lBSNi3IbxtaHOIKdH8sLFv3NYfNv8sg7ZsNhcfl4HF2++BfqqrNAxoCLQW1iiylOj76ecnaUxz+z9yw==
 
 ansi-red@^0.1.1:
   version "0.1.1"
@@ -48,10 +48,10 @@ argparse@^1.0.10, argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-astring@^1.7.5:
-  version "1.7.5"
-  resolved "https://registry.yarnpkg.com/astring/-/astring-1.7.5.tgz#a7d47fceaf32b052d33a3d07c511efeec67447ca"
-  integrity sha512-lobf6RWXb8c4uZ7Mdq0U12efYmpD1UFnyOWVJPTa3ukqZrMopav+2hdNu0hgBF0JIBFK9QgrBDfwYvh3DFJDAA==
+astring@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/astring/-/astring-1.8.1.tgz#a91c4afd4af3523e11f31242a3d5d9af62bb6cc6"
+  integrity sha512-Aj3mbwVzj7Vve4I/v2JYOPFkCGM2YS7OqQTNSxmUR+LECRpokuPgAYghePgr6SALDo5bD5DlfbSaYjOzGJZOLQ==
 
 autolinker@~0.28.0:
   version "0.28.1"
@@ -1013,10 +1013,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@4.4.3:
-  version "4.4.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.3.tgz#bdc5407caa2b109efd4f82fe130656f977a29324"
-  integrity sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA==
+typescript@4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.2.tgz#8ac1fba9f52256fdb06fb89e4122fa6a346c2998"
+  integrity sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==
 
 util-deprecate@~1.0.1:
   version "1.0.2"

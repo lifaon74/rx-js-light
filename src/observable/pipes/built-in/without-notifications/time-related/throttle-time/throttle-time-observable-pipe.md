@@ -1,4 +1,4 @@
-## throttleTimeObservablePipe
+## throttleTimeObservablePipe or throttleTime$$$
 
 ```ts
 function throttleTimeObservablePipe<GValue>(

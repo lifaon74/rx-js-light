@@ -1,14 +1,13 @@
 import { IObserver } from '../../../../../../../observer/type/observer.type';
 import { IObservable, IUnsubscribe } from '../../../../../../type/observable.type';
-import { fromIteratorWithNotifications, IObservableFromIteratorNotifications } from '../from-iterator/from-iterator-with-notifications';
-
-export type IObservableFromIterableNotifications<GValue> = IObservableFromIteratorNotifications<GValue>;
+import { IFromIteratorObservableNotifications } from '../from-iterator/from-iterator-observable-notifications.type';
+import { fromIteratorWithNotifications} from '../from-iterator/from-iterator-with-notifications';
+import { IFromIterableObservableNotifications } from './from-iterable-observable-notifications.type';
 
 export function fromIterableWithNotifications<GValue>(
   iterable: Iterable<GValue>,
-): IObservable<IObservableFromIterableNotifications<GValue>> {
-  return (emit: IObserver<IObservableFromIteratorNotifications<GValue>>): IUnsubscribe => {
+): IObservable<IFromIterableObservableNotifications<GValue>> {
+  return (emit: IObserver<IFromIteratorObservableNotifications<GValue>>): IUnsubscribe => {
     return fromIteratorWithNotifications<GValue>(iterable[Symbol.iterator]())(emit);
   };
-
 }

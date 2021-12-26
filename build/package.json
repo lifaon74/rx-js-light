@@ -1,6 +1,6 @@
 {
   "name": "ts-lib-seed",
-  "version": "1.1.6",
+  "version": "1.1.9",
   "description": "Seed to build a library",
   "main": "index.js",
   "scripts": {
@@ -51,16 +51,16 @@
   "license": "MIT",
   "access": "public",
   "devDependencies": {
-    "@types/node": "^16.10.1",
-    "acorn": "^8.5.0",
+    "@types/node": "^16.11.12",
+    "acorn": "^8.6.0",
     "acorn-walk": "^8.2.0",
-    "astring": "^1.7.5",
+    "astring": "^1.8.1",
     "markdown-toc": "^1.2.0",
     "npm-run-all": "^4.1.5",
     "shx": "^0.3.3",
     "tsc-watch": "^4.5.0",
     "tslib": "^2.3.1",
-    "typescript": "4.4.3"
+    "typescript": "4.5.2"
   },
   "dependencies": {}
 }

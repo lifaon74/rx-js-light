@@ -3,7 +3,7 @@
 ```ts
 function fromReadableStreamReader<GValue>(
   reader: ReadableStreamReader<GValue>
-): IObservable<IObservableFromReadableStreamReaderNotifications<GValue>>
+): IObservable<IFromReadableStreamReaderObservableNotifications<GValue>>
 ```
 
 Creates an Observable from a [ReadableStreamReader](https://streams.spec.whatwg.org/#typedefdef-readablestreamreader).

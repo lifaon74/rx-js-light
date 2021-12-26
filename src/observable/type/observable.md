@@ -10,10 +10,12 @@ interface IUnsubscribe {
 }
 ```
 
-A *Observable* emits values when subscribed, and stops when unsubscribed.
+An *Observable* emits values when subscribed, and stops when unsubscribed.
 
-This is equivalent to a *push source*, an *[Observable](https://rxjs-dev.firebaseapp.com/guide/observable)*
+This is equivalent to a *push source*, a *[RxJS Observable](https://rxjs-dev.firebaseapp.com/guide/observable)*
 or somehow an *[EventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)*.
+
+**INFO:** it's common to have your Observables ending with `$`. Ex: `value$ = of(1, 2, 3)`
 
 ### Examples
 

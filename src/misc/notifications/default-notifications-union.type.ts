@@ -9,13 +9,6 @@ export type IDefaultNotificationsUnion<GValue> =
   | IErrorNotification
   ;
 
-// export type IDefaultNotificationsUnion<GValue> = Union<// types
-//   INextNotification<GValue>
-//   | ICompleteNotification
-//   | IErrorNotification
-//   //
-//   >;
-
 export type IDefaultInNotificationsUnion<GValue> =
   IDefaultNotificationsUnion<GValue>
   | IGenericNotification;
