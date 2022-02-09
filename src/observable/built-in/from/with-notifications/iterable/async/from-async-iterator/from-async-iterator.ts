@@ -32,6 +32,10 @@ export function fromAsyncIterator<GValue>(
           }
         }
       }
+
+      if ('return' in asyncIterator) {
+        (asyncIterator as AsyncGenerator).return(void 0);
+      }
     })();
 
     return (): void => {

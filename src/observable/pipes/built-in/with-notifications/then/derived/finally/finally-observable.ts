@@ -4,7 +4,7 @@ import { throwError } from '../../../../../../built-in/from/with-notifications/o
 import {
   ISingleObservableNotifications,
 } from '../../../../../../built-in/from/with-notifications/values/single/single-observable-notifications.type';
-import { singleN } from '../../../../../../built-in/from/with-notifications/values/single/single-with-notifications.shortcut';
+import { singleWithNotifications } from '../../../../../../built-in/from/with-notifications/values/single/single-with-notifications';
 import { IObservable } from '../../../../../../type/observable.type';
 import { IThenObservableInNotifications, thenObservable } from '../../then-observable';
 import { fulfilledObservable } from '../fulfilled/fulfilled-observable';
@@ -24,7 +24,7 @@ export function finallyObservable<GInNextValue>(
           value,
         }),
         (): IObservable<ISingleObservableNotifications<GInNextValue>> => {
-          return singleN<GInNextValue>(value);
+          return singleWithNotifications<GInNextValue>(value);
         },
       );
     },

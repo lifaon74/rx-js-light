@@ -1,0 +1,13 @@
+sequenceDiagram
+
+participant observable
+participant mergeAllObservablePipe as mergeAllObservablePipe(onFulfilled, onRejected)
+participant OUT
+
+observable->>mergeAllObservablePipe: observable A
+Note over mergeAllObservablePipe: subscribes to observable A
+mergeAllObservablePipe-->>OUT: values send by observable A
+
+observable->>mergeAllObservablePipe: observable B
+Note over mergeAllObservablePipe: subscribes to observable B
+mergeAllObservablePipe-->>OUT: values send by observable B

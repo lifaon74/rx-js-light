@@ -1,0 +1,17 @@
+sequenceDiagram
+
+participant observable
+participant filterObservablePipe as filterObservablePipe(x => x % 2 === 1)
+participant OUT
+
+observable->>filterObservablePipe: 0
+
+observable->>filterObservablePipe: 1
+filterObservablePipe->>OUT: 1
+
+observable->>filterObservablePipe: 2
+
+observable->>filterObservablePipe: 3
+filterObservablePipe->>OUT: 3
+
+observable->>filterObservablePipe: 4

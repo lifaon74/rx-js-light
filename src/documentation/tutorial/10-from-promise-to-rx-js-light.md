@@ -8,9 +8,9 @@ or to setup the pipeline and then, on subscribe, start the async tasks.For these
 
 First, we need to understand the differences between a Promise and an Observable:
 
-An Observable may emit many values, where a Promise only resolves with one.
+An Observable may emit many values, where a Promise resolves with only one.
 
-It's not possible to unsubscribe of a Promise, so aborting one is tricky (usually it's done with an AbortSignal).
+It's not possible to unsubscribe of a Promise, so aborting one is tricky (usually it's done with an `AbortSignal`).
 
 A Promise has an internal state: 
   - `pending`: the Promise is not resolved yet
@@ -20,8 +20,8 @@ A Promise has an internal state:
 However, an Observable may emit any kind of values, so to mimic the behaviour of a Promise we will use some Notifications:
 
 - `type INextNotification<GValue> = INotification<'next', GValue>`: used to emit a value
-- `type ICompleteNotification = INotification<'complete', void>`:  used to notify of a `complete` state (success)
-- `type IErrorNotification<GError = any> = INotification<'error', GError>`: used to notify of an `error` state
+- `type ICompleteNotification = INotification<'complete', void>`:  used to notify of a `complete` state (success/fulfilled)
+- `type IErrorNotification<GError = any> = INotification<'error', GError>`: used to notify of an `error` state (rejected)
 
 So to represent a `fulfilled` Promise we have to emit a `next` Notification followed by a `complete` one,
 and to represent a `rejected` Promise  we have to emit an `error` Notification.
@@ -63,7 +63,11 @@ function throwError<GError>(
 
 #### Promise.all
 
-[forkJoin](../../observable/built-in/from/with-notifications/many-observables/fork-join/fork-join.md)
+[forkJoin or allWithNotifications](../../observable/built-in/from/with-notifications/many-observables/fork-join/fork-join.md)
+
+#### Promise.race
+
+[raceWithNotifications](../../observable/built-in/from/with-notifications/many-observables/race-with-notifications/race-with-notifications.md)
 
 #### Chaining -> then / catch
 
@@ -73,17 +77,20 @@ function throwError<GError>(
 
 [fulfilledObservablePipe](../../observable/pipes/built-in/with-notifications/then/derived/fulfilled/fulfilled-observable-pipe.ts)
 
-
 ##### catch
 
 [rejectedObservablePipe](../../observable/pipes/built-in/with-notifications/then/derived/rejected/rejected-observable-pipe.ts)
 
+##### finally
+
+[finallyObservablePipe](../../observable/pipes/built-in/with-notifications/then/derived/finally/finally-observable-pipe.md)
+
 #### Casting an Observable to a Promise
 
 In most cases, you simply want the last received value (last `next` Notification), so you can use the function 
-[toPromiseLast](src/observable/built-in/to/with-notifications/promise/last/to-promise-last.md)
+[toPromiseLast](../../observable/built-in/to/with-notifications/promise/last/to-promise-last.md)
 , but if for some reasons you prefer to receive all the values as an array, you can use the function
-[toPromiseAll](src/observable/built-in/to/with-notifications/promise/all/to-promise-all.md)
+[toPromiseAll](../../observable/built-in/to/with-notifications/promise/all/to-promise-all.md)
 
 
 ### Example
@@ -144,7 +151,7 @@ Output:
 'complete', undefined
 ```
 
-[Try it on stackblitz](https://stackblitz.com/edit/typescript-a6j2xx)
+[Try it on stackblitz](https://stackblitz.com/edit/typescript-a6j2xx?devtoolsheight=33&file=index.ts)
 
 ---
 

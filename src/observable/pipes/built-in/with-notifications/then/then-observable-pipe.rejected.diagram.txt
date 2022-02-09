@@ -1,0 +1,11 @@
+sequenceDiagram
+
+participant observable
+participant thenObservablePipe as thenObservablePipe(onFulfilled, onRejected)
+participant OUT
+
+observable->>thenObservablePipe: error: error
+Note over thenObservablePipe: onRejected(error)
+thenObservablePipe-->>OUT: values send by the observable retuned by onRejected
+
+

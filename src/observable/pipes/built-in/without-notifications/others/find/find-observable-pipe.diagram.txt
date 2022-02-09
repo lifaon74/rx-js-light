@@ -1,0 +1,17 @@
+sequenceDiagram
+
+participant observable
+participant findObservablePipe as findObservablePipe(x => x > 2)
+participant OUT
+
+observable->>findObservablePipe: 1
+observable->>findObservablePipe: 2
+observable->>findObservablePipe: 3
+findObservablePipe->>OUT: 3
+
+findObservablePipe-->>observable: unsubscribe
+
+opt Hypothetical next values
+observable->>findObservablePipe: 4
+observable->>findObservablePipe: 5
+end

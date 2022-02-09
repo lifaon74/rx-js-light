@@ -12,7 +12,8 @@ type IFromArrayObservableNotifications<GValue> =
   | ICompleteNotification
 ```
 
-Creates an Observable from an Array. It emits the array's values one by one in the form of Notifications.
+Creates an Observable from an Array. It emits the array's values one by one in the form of `next` Notifications
+and then complete (`complete` Notification).
 
 ### Examples
 

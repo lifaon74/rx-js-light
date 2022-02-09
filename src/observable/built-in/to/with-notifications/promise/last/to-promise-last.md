@@ -16,7 +16,7 @@ It's similar to [toPromiseAll](../all/to-promise-all.md) but returns the last re
 #### Simple http request
 
 ```ts
-toPromise(fromFetch('https://some-url.site'))
+toPromiseLast(fromFetch('https://some-url.site'))
   .then((response: Response) => {
     console.log(response.statusText);
   });
@@ -27,7 +27,7 @@ toPromise(fromFetch('https://some-url.site'))
 ```ts
 const controller = new AbortController();
 
-toPromise(fromFetch('https://some-url.site'), { signal: controller.signal })
+toPromiseLast(fromFetch('https://some-url.site'), { signal: controller.signal })
   .then((response: Response) => {
     console.log(response.statusText);
   });

@@ -1,0 +1,20 @@
+sequenceDiagram
+
+participant observable
+participant mapObservablePipe as mapObservablePipe(x => x * 10)
+participant OUT
+
+rect rgb(191, 223, 255)
+observable->>mapObservablePipe: value
+Note over mapObservablePipe: calls mapFunction(value)
+mapObservablePipe-->>OUT: value returned by mapFunction
+end
+
+observable->>mapObservablePipe: 1
+mapObservablePipe->>OUT: 10
+
+observable->>mapObservablePipe: 2
+mapObservablePipe->>OUT: 20
+
+observable->>mapObservablePipe: 3
+mapObservablePipe->>OUT: 30

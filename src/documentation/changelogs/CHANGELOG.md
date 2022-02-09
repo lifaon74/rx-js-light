@@ -1,9 +1,28 @@
 
+## 2.2.0 (2022-02-09)
+
+### What's new ?
+
+- improved documentation:
+  - add sequential diagrams for many Observables and pipes
+  - add `ofWithNotifications` doc
+  - add `ReplaySource` doc
+  - add `Should I use Observables ?` doc
+
+
+- improve `fromAsyncIterator`: when unsubscribed, the method `return` is called on the iterator.
+it allows `try { ... yield ... } finally { ... }` to enter into the `finally` as expected .
+
+- add `findObservablePipe`
+
+- add `raceWithNotifications`
+
+
 ## 2.1.0 (2021-12-26)
 
 ### What's new ?
 
-- Improved documentation: update tutorial and many functions' documentation.
+- improved documentation: update tutorial and many functions' documentation.
 
 - `conditionalObservable` now only subscribes/unsubscribes on **distinct** values received from its `condition`
 

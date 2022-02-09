@@ -1,0 +1,19 @@
+sequenceDiagram
+
+participant observable
+participant distinctObservablePipe as distinctObservablePipe(x => x % 2 === 1)
+participant OUT
+
+observable->>distinctObservablePipe: 0
+distinctObservablePipe->>OUT: 0
+
+observable->>distinctObservablePipe: 1
+distinctObservablePipe->>OUT: 1
+
+observable->>distinctObservablePipe: 1
+
+observable->>distinctObservablePipe: 2
+distinctObservablePipe->>OUT: 2
+
+observable->>distinctObservablePipe: 1
+distinctObservablePipe->>OUT: 1

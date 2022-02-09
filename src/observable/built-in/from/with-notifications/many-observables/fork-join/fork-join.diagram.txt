@@ -1,0 +1,15 @@
+sequenceDiagram
+
+participant A as observables[0]
+participant B as observables[1]
+participant forkJoin as forkJoin(observables)
+participant OUT
+
+B->>forkJoin: next: b1
+A->>forkJoin: next: a1
+A->>forkJoin: complete
+B->>forkJoin: next: b2
+B->>forkJoin: complete
+forkJoin->>OUT: next: [a1, b2]
+forkJoin->>OUT: complete
+

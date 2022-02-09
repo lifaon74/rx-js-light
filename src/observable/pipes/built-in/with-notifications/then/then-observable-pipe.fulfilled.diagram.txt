@@ -1,0 +1,10 @@
+sequenceDiagram
+
+participant observable
+participant thenObservablePipe as thenObservablePipe(onFulfilled, onRejected)
+participant OUT
+
+observable->>thenObservablePipe: next: value
+observable->>thenObservablePipe: complete
+Note over thenObservablePipe: onFulfilled(value)
+thenObservablePipe-->>OUT: values send by the observable retuned by onFulfilled

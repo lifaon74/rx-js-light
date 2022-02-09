@@ -1,6 +1,6 @@
-import { asyncUnsubscribe } from '../../../../../../../../misc/helpers/async-unsubscribe';
-import { IObserver } from '../../../../../../../../observer/type/observer.type';
-import { IObservable, IUnsubscribe } from '../../../../../../../type/observable.type';
+import { asyncUnsubscribe } from '../../../../../../misc/helpers/async-unsubscribe';
+import { IObserver } from '../../../../../../observer/type/observer.type';
+import { IObservable, IUnsubscribe } from '../../../../../type/observable.type';
 
 export function firstObservable<GValue>(
   subscribe: IObservable<GValue>,

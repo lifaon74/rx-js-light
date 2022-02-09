@@ -3,34 +3,35 @@
 ![NPM](https://img.shields.io/npm/l/@lifaon/rx-js-light.svg)
 ![npm type definitions](https://img.shields.io/npm/types/@lifaon/rx-js-light.svg)
 
-[comment]: <> (![downloads]&#40;https://img.shields.io/npm/dt/@lifaon/rx-js-light.svg&#41;)
+[//]: # (![downloads]&#40;https://img.shields.io/npm/dt/@lifaon/rx-js-light.svg&#41;)
 
 # ⚡ rx-js-light
 
-This library provides tools to generate and consume blazing fast Observables and Observers.
+*rx-js-light* is simply the [fastest and smallest](./src/documentation/performances.md) javascript library for `Reactive Programming`,
+providing different tools to generate, consume, and pipe Observables and Observers.
 
-However, it is not RxJS: **it's [faster (≈10x), smaller (≈10x)](./src/documentation/performances.md), and tries to be simpler.**
-It's so performant and optimized, that you can include it from your smallest to your largest projects.
-Give it a try, and you'll love it !
+If *Reactive Programming* does not tell you much or is a new concept to you, you may [take a look at this tutorial](./src/documentation/tutorial/01-introduction.md).
+In a few words, if you deal frequently with async programming like *events*, *timeouts*, *promises* or *streams* (ex: front-end development),
+then *rx-js-light* is the perfect candidate for you.
 
-*Example:*
+
+*Example: emulate double click*
 
 ```js
 const subscribe = pipe$$(fromEventTarget(window, 'click'), [
-  scan$$$(count => (count + 1), 0),
-  filter$$$(count => (count >= 2)),
+  bufferTime$$$(500),
+  filter$$$((events: PointerEvent[]) => events.length === 2),
+  map$$$((events: PointerEvent[]) => events[events.length - 1]),
 ]);
 
-const unsubscribe = subscribe(() => {
-  console.log('clicked twice');
-  unsubscribe();
+subscribe((event: PointerEvent) => {
+  console.log('double click', event);
 });
 ```
 
-[Click here to see the live demo](https://stackblitz.com/edit/typescript-crwffj?devtoolsheight=33&file=index.ts)
+[Click here to see the live demo](https://stackblitz.com/edit/typescript-sfkssg?devtoolsheight=33&file=index.ts)
 
-
-[<img src="https://img.shields.io/badge/-tutorial-brightgreen?style=for-the-badge" />](./src/documentation/tutorial/01-introduction.md)
+Give it a try, and you'll love it !
 
 
 ## 📖 Table of content
@@ -43,6 +44,11 @@ const unsubscribe = subscribe(() => {
 - [Shortcuts](./src/documentation/tutorial/06-rx-js-light-shortcuts.md)
 - [A practical example for rx-js-light](./src/documentation/tutorial/07-practical-example/07-practical-example.md)
 - [Notifications replace RxJS events](./src/documentation/tutorial/08-notifications.md)
+- [Migrating from rxjs to rx-js-light](./src/documentation/tutorial/09-migrating-from-rxjs-to-rx-js-light.md)
+- [From Promise to rx-js-light](./src/documentation/tutorial/10-from-promise-to-rx-js-light.md)
+
+
+- [CHANGELOG](./src/documentation/changelogs/CHANGELOG.md)
 
 
 ## 📦 Installation
@@ -101,7 +107,7 @@ Most of public functions or interfaces have their own documentation into a `.md`
   - defined later: [defer](/src/observable/built-in/from/without-notifications/values/defer/defer.md)
 
 - many Observables. When any value is received
-  - re-emit it concurrently: [merge](src/observable/built-in/from/without-notifications/many-observables/merge/merge.ts) 🔥
+  - re-emit it concurrently: [merge](src/observable/built-in/from/without-notifications/many-observables/merge/merge.md) 🔥
   - combine the values in an array and emit it: [combineLatest](src/observable/built-in/from/without-notifications/many-observables/combine-latest/combine-latest.md) 🔥
   - combine the values in an array, runs a function with these values, and emit distinct returned
     values: [reactiveFunction](src/observable/built-in/from/without-notifications/many-observables/reactive-function/reactive-function.md) 🔥
@@ -127,6 +133,7 @@ Most of public functions or interfaces have their own documentation into a `.md`
 - *time related*
   - emits every 'ms': [interval](src/observable/built-in/from/without-notifications/time-related/interval/interval.md) 🔥
   - emits after 'ms': [timeout](src/observable/built-in/from/without-notifications/time-related/timeout/timeout.md)
+    - with a complete notification: [timeoutWithCompleteNotification](src/observable/built-in/from/without-notifications/time-related/timeout/derived/timeout-with-complete-notification.ts)
     - with an error notification: [timeoutWithErrorNotification](src/observable/built-in/from/without-notifications/time-related/timeout/derived/timeout-with-error-notification.ts)
   - emits when idle time is available: [idle](src/observable/built-in/from/without-notifications/time-related/idle/idle.md)
   - emits on each animation frame: [fromAnimationFrame](src/observable/built-in/from/without-notifications/time-related/from-animation-frame/from-animation-frame.md)
@@ -135,12 +142,12 @@ Most of public functions or interfaces have their own documentation into a `.md`
 
 *with notifications*
 
-- nothing and send a `complete` Notification: [emptyWithNotifications](src/observable/built-in/from/with-notifications/values/empty/empty-with-notifications.ts) 🔥
+- nothing and send a `complete` Notification: [emptyWithNotifications](src/observable/built-in/from/with-notifications/values/empty/empty-with-notifications.md) 🔥
 
 - one value
   - already defined: [singleWithNotifications](src/observable/built-in/from/with-notifications/values/single/single-with-notifications.md) 🔥
 
-- a list of values: [ofWithNotifications](src/observable/built-in/from/with-notifications/values/of/of-with-notifications.ts) 🔥
+- a list of values: [ofWithNotifications](src/observable/built-in/from/with-notifications/values/of/of-with-notifications.md) 🔥
 
 - an iterable
   - sync
@@ -174,7 +181,8 @@ Most of public functions or interfaces have their own documentation into a `.md`
 - an error (send an `error` Notification): [throwError](src/observable/built-in/from/with-notifications/others/throw-error/throw-error.md) 🔥
 
 - many Observables:
-  - await that all Observables completes and then sends the last received values as an array: [forkJoin](src/observable/built-in/from/with-notifications/many-observables/fork-join/fork-join.md) 🔥
+  - awaits that all Observables complete and then sends the last received values as an array: [forkJoin](src/observable/built-in/from/with-notifications/many-observables/fork-join/fork-join.md) 🔥
+  - awaits that one Observable completes and then sends the last received value: [raceWithNotifications](src/observable/built-in/from/with-notifications/many-observables/race-with-notifications/race-with-notifications.md) 🔥
 
 
 #### convert an Observable to
@@ -188,7 +196,7 @@ Most of public functions or interfaces have their own documentation into a `.md`
 - a promise
   - with only the last value: [toPromiseLast](src/observable/built-in/to/with-notifications/promise/last/to-promise-last.md) 🔥
   - with every value: [toPromiseAll](src/observable/built-in/to/with-notifications/promise/all/to-promise-all.md)
-  - 
+
 - an async iterable: [toAsyncIterable](src/observable/built-in/to/with-notifications/async-iterable/to-async-iterable.md)
 
 #### create an ObservablePipe which
@@ -196,29 +204,30 @@ Most of public functions or interfaces have their own documentation into a `.md`
 *without notifications*
 
 - *ObserverPipe related*
-  - emits only distinct received values: [distinctObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/distinct/distinct-observable-pipe.ts) 🔥
-  - filters received values: [filterObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/filter/filter-observable-pipe.ts) 🔥
-  - transforms received values: [mapObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/map/map-observable-pipe.ts) 🔥
-  - transforms and filter received values: [mapFilterObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/map-filter/map-filter-observable-pipe.ts)
+  - emits only distinct received values: [distinctObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/distinct/distinct-observable-pipe.md) 🔥
+  - filters received values: [filterObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/filter/filter-observable-pipe.md) 🔥
+  - transforms received values: [mapObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/map/map-observable-pipe.md) 🔥
+  - transforms and filter received values: [mapFilterObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/map-filter/map-filter-observable-pipe.md)
   - transforms received values with an accumulator: [scanObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/scan/scan-observable-pipe.ts)
   - reads received values, and re-emits them without transformations: [tapObservablePipe](src/observable/pipes/built-in/without-notifications/observer-pipe-related/tap/tap-observable-pipe.ts)
 
 - *Source related*
-  - allows one Observable to emit its values to many Observable: [shareObservablePipe](src/observable/pipes/built-in/without-notifications/source-related/built-in/share-observable-pipe.ts) 🔥
+  - allows one Observable to emit its values to many Observable: [shareObservablePipe](src/observable/pipes/built-in/without-notifications/source-related/built-in/share-observable-pipe.md) 🔥
 
 - reduces the order of an Observable of Observables
-  - once: [mergeAllSingleObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-all/derived/merge-all-single/merge-all-single-observable-pipe.ts) 🔥
+  - once: [mergeAllSingleObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-all/derived/merge-all-single/merge-all-single-observable-pipe.md) 🔥
   - many: [mergeAllObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-all/merge-all-observable-pipe.md)
   - maps an Observable and then reduces the order:
-    - once: [mergeMapSingleObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-map/derived/merge-map-single/merge-map-single-observable-pipe.ts) 🔥
-    - many: [mergeMapObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-map/merge-map-observable-pipe.ts)
+    - once: [mergeMapSingleObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-map/derived/merge-map-single/merge-map-single-observable-pipe.md) 🔥
+    - many: [mergeMapObservablePipe](src/observable/pipes/built-in/without-notifications/merge/merge-map/merge-map-observable-pipe.md)
 
 - accumulates values:
   - until another Observable emits: [bufferObservablePipe](src/observable/pipes/built-in/without-notifications/others/buffer/buffer-observable-pipe.md)
   - within a fixed period of time: [bufferTimeObservablePipe](src/observable/pipes/built-in/without-notifications/others/buffer/derived/buffer-time/buffer-time-observable-pipe.md)
 
+- take the first value: [firstObservablePipe](src/observable/pipes/built-in/without-notifications/others/first/first-observable-pipe.md)
 - take the X first values: [takeObservablePipe](src/observable/pipes/built-in/without-notifications/others/take/take-observable-pipe.md)
-- take the first value: [firstObservablePipe](src/observable/pipes/built-in/without-notifications/others/take/derived/first/first-observable-pipe.md)
+- take the first value that passes a condition: [findObservablePipe](src/observable/pipes/built-in/without-notifications/others/find/find-observable-pipe.md)
 
 - time related
   - [debounceTimeObservablePipe](src/observable/pipes/built-in/without-notifications/time-related/debounce-time/debounce-time-observable-pipe.md) 🔥
@@ -234,9 +243,9 @@ Most of public functions or interfaces have their own documentation into a `.md`
 
 - awaits to receive a `complete` or `error` Notification, and performs some kind of `mergeMap`:
   - [thenObservablePipe](src/observable/pipes/built-in/with-notifications/then/then-observable-pipe.md) 🔥
-    - [fulfilledObservablePipe](src/observable/pipes/built-in/with-notifications/then/derived/fulfilled/fulfilled-observable-pipe.ts)
-    - [rejectedObservablePipe](src/observable/pipes/built-in/with-notifications/then/derived/rejected/rejected-observable-pipe.ts)
-    - [finallyObservablePipe](src/observable/pipes/built-in/with-notifications/then/derived/finally/finally-observable-pipe.ts)
+    - [fulfilledObservablePipe](src/observable/pipes/built-in/with-notifications/then/derived/fulfilled/fulfilled-observable-pipe.md)
+    - [rejectedObservablePipe](src/observable/pipes/built-in/with-notifications/then/derived/rejected/rejected-observable-pipe.md)
+    - [finallyObservablePipe](src/observable/pipes/built-in/with-notifications/then/derived/finally/finally-observable-pipe.md)
 
 #### emit a value myself => create a Source which emits values to
 

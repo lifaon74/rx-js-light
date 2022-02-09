@@ -3,7 +3,7 @@ import { STATIC_COMPLETE_NOTIFICATION } from '../../../../../../misc/notificatio
 import { createNextNotification } from '../../../../../../misc/notifications/built-in/next/create-next-notification';
 import { IObserver } from '../../../../../../observer/type/observer.type';
 import { IGenericObservable, IObservable, IUnsubscribe } from '../../../../../type/observable.type';
-import { singleN } from '../../values/single/single-with-notifications.shortcut';
+import { singleWithNotifications } from '../../values/single/single-with-notifications';
 import {
   IForkJoinObservableNotifications,
   IForkJoinObservablesValues,
@@ -17,7 +17,7 @@ export function forkJoin<GObservables extends IGenericForkInObservables>(
   type GNotifications = IForkJoinObservableNotifications<GObservables>;
   const length: number = observables.length;
   if (length === 0) {
-    return singleN<GValues>([] as unknown as GValues);
+    return singleWithNotifications<GValues>([] as unknown as GValues);
   } else {
     return (emit: IObserver<GNotifications>): IUnsubscribe => {
       const values: unknown[] = Array.from({ length });

@@ -1,0 +1,19 @@
+sequenceDiagram
+
+participant observable
+participant takeObservablePipe as takeObservablePipe(2)
+participant OUT
+
+observable->>takeObservablePipe: 1
+takeObservablePipe->>OUT: 1
+
+observable->>takeObservablePipe: 2
+takeObservablePipe->>OUT: 2
+
+takeObservablePipe-->>observable: unsubscribe
+
+
+opt Hypothetical next values
+observable->>takeObservablePipe: 3
+observable->>takeObservablePipe: 4
+end

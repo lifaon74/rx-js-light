@@ -1,0 +1,18 @@
+sequenceDiagram
+
+participant observable
+participant mapFilterObservablePipe as mapFilterObservablePipe(x => (x % 2 === 0) ? (x / 2) : MAP_FILTER_DISCARD)
+participant OUT
+
+observable->>mapFilterObservablePipe: 0
+mapFilterObservablePipe->>OUT: 0
+
+observable->>mapFilterObservablePipe: 1
+
+observable->>mapFilterObservablePipe: 2
+mapFilterObservablePipe->>OUT: 1
+
+observable->>mapFilterObservablePipe: 3
+
+observable->>mapFilterObservablePipe: 4
+mapFilterObservablePipe->>OUT: 2
