@@ -1,13 +1,14 @@
-import { ICustomError, ICustomErrorOptions } from '../custom-error/custom-error.type';
+import { ICustomError, ICustomErrorMessageOptionalOptions } from '../custom-error/custom-error.type';
+import { IAbortErrorName } from './abort-error-name.constant';
+
+export interface IAbortErrorOptions extends ICustomErrorMessageOptionalOptions {
+  signal?: AbortSignal;
+}
 
 export interface IAbortErrorProperties {
-  readonly signal?: AbortSignal;
+  readonly signal: AbortSignal | undefined;
 }
 
-export interface IAbortError extends ICustomError<'AbortError'>, IAbortErrorProperties {
-}
-
-export interface IAbortErrorOptions extends ICustomErrorOptions, Readonly<IAbortErrorProperties> {
-}
+export type IAbortError = ICustomError<IAbortErrorName, IAbortErrorProperties>;
 
 

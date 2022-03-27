@@ -1,6 +1,6 @@
 {
   "name": "@lifaon/rx-js-light",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Blazing fast Observables",
   "repository": {
     "type": "git",
@@ -10,7 +10,8 @@
     "rx-js",
     "reactive",
     "async",
-    "observable"
+    "observable",
+    "stream"
   ],
   "sideEffects": false,
   "author": "Valentin Richard",

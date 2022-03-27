@@ -1,0 +1,47 @@
+## takeUntilObservablePipe or takeUntil$$$
+
+```ts
+function takeUntilObservablePipe<GValue>(
+  until: IObservable<any>,
+): IObservablePipe<GValue, GValue>
+```
+
+Emits the values emitted by the source Observable until an Observable (`until`) emits a value.
+
+The RxJS equivalent is [takeUntil](https://rxjs.dev/api/operators/takeUntil)
+
+### Diagram
+
+[![](https://mermaid.ink/img/pako:eNqdV1uPmzoQ_iuIqtJWohH3Sx76sLen1dkjbdonXgwMiRXHpMZsN6fa_35sAhtsAklrpChkvu-b8Xg8dn6beVWAuTRr-NkAzeEeozVDu5SmdI8YxzneI8qNKquBvaKMgPp7QzkmzxNGjrbwXQX8i_dgoHrKdKPpfVEFn7-vZGCnYL5--zahtDSclE7YBEsotYhrxdyLYq4U08KfU0T0IBlTqoJ6imwp8lw3WZ0znMEsRwtAI6bUtMwdsB3ChVjz3yk1jNTkG9hBai7F1wJK1BCemtbA9AMxLMVqiWk50pShfLtmVUOLI_XXBnPoiNK-Z3iH2OGuIhU7Ij493D3cPT4OMDXkFS00VClGMVTiICpABW1qchPbluHY9mfLSMKFG_mBncS2l3z-Mg7itmIFMI3v-kIglPx4kv8R4FmF8EPAWwRu4jtOFPqRItDHfpYfXw6gm8AK3vgwR47neLZ9LlAdaYvhOmci0oBsnd0ki8DuhiOyOvk2DJBgCkN_XjsUf2pAqlVUIr3drgcFcmZaJ8CoNrI2r05nTrzIvr8dmd3OjMRQvCPGql8bQMXsDMqK8ke0w-RwRKSpmBWDrMk3wI1dLd8t4xVYgSiyDLlbiEZ_wf91O8wJ92_D9KEMyK22lT5BLJ8BjIomraZJ2UetuZ3qVCJy0tRi5Wcy2SOGMqOEdf3hCdPt_KJjTmB61aFYw9N1M0c5r5Sg2q0bJIvQDZ0wdl3fswzxGkVh4IWe48ZyP0WLxHaS0I5i31P201FuOpOtXdsaGRFR6pgnte7XDA7DusVrish0Ao721ezWOJZG9SainW2iH7izTe6vM9XKXsgEqar9BQitOIwiGxdWC1MnKgo0QIWGubw0-BVxXNGxzzAMzyM1t758lB50vBn90-wyRVE_8USzGuuJvopuHNuVZ5X4cIPAMuyFnyhFSfjLOe4FB-4pUb7SNTmqt-P5B55fZrkOUycfo8QuCg0jc_6E1xs-E1qPuwJyj9h2Zgl72HPDa1zAFcg7gvOtvKCo557nhJ6-4LC6LjUDsJqgrMyjshwg1wwPTw8i86Q1g6KiZ6RmkXqEGk5c5_h4FmUZi6HD1GoEZXGrAh20RqYi2iYwswQgDlCmpSgIXDF0kN7rRqicoLqWqKkrTokJWR32YE81wh7gTB1xPcA99UfP9i_fInued-I57ok3efnref6AF4XX-wtOvK9_4C4c3DCvdxYNgozjSW-S9p7Sd_FHotkXiMNDgcVxaC5LRGqwTNTw6uVAc3PJWQM9qPtX2aHe_wcSAWCg)](https://mermaid-js.github.io/mermaid-live-editor/edit/#pako:eNqdV1uPmzoQ_iuIqtJWohH3Sx76sLen1dkjbdonXgwMiRXHpMZsN6fa_35sAhtsAklrpChkvu-b8Xg8dn6beVWAuTRr-NkAzeEeozVDu5SmdI8YxzneI8qNKquBvaKMgPp7QzkmzxNGjrbwXQX8i_dgoHrKdKPpfVEFn7-vZGCnYL5--zahtDSclE7YBEsotYhrxdyLYq4U08KfU0T0IBlTqoJ6imwp8lw3WZ0znMEsRwtAI6bUtMwdsB3ChVjz3yk1jNTkG9hBai7F1wJK1BCemtbA9AMxLMVqiWk50pShfLtmVUOLI_XXBnPoiNK-Z3iH2OGuIhU7Ij493D3cPT4OMDXkFS00VClGMVTiICpABW1qchPbluHY9mfLSMKFG_mBncS2l3z-Mg7itmIFMI3v-kIglPx4kv8R4FmF8EPAWwRu4jtOFPqRItDHfpYfXw6gm8AK3vgwR47neLZ9LlAdaYvhOmci0oBsnd0ki8DuhiOyOvk2DJBgCkN_XjsUf2pAqlVUIr3drgcFcmZaJ8CoNrI2r05nTrzIvr8dmd3OjMRQvCPGql8bQMXsDMqK8ke0w-RwRKSpmBWDrMk3wI1dLd8t4xVYgSiyDLlbiEZ_wf91O8wJ92_D9KEMyK22lT5BLJ8BjIomraZJ2UetuZ3qVCJy0tRi5Wcy2SOGMqOEdf3hCdPt_KJjTmB61aFYw9N1M0c5r5Sg2q0bJIvQDZ0wdl3fswzxGkVh4IWe48ZyP0WLxHaS0I5i31P201FuOpOtXdsaGRFR6pgnte7XDA7DusVrish0Ao721ezWOJZG9SainW2iH7izTe6vM9XKXsgEqar9BQitOIwiGxdWC1MnKgo0QIWGubw0-BVxXNGxzzAMzyM1t758lB50vBn90-wyRVE_8USzGuuJvopuHNuVZ5X4cIPAMuyFnyhFSfjLOe4FB-4pUb7SNTmqt-P5B55fZrkOUycfo8QuCg0jc_6E1xs-E1qPuwJyj9h2Zgl72HPDa1zAFcg7gvOtvKCo557nhJ6-4LC6LjUDsJqgrMyjshwg1wwPTw8i86Q1g6KiZ6RmkXqEGk5c5_h4FmUZi6HD1GoEZXGrAh20RqYi2iYwswQgDlCmpSgIXDF0kN7rRqicoLqWqKkrTokJWR32YE81wh7gTB1xPcA99UfP9i_fInued-I57ok3efnref6AF4XX-wtOvK9_4C4c3DCvdxYNgozjSW-S9p7Sd_FHotkXiMNDgcVxaC5LRGqwTNTw6uVAc3PJWQM9qPtX2aHe_wcSAWCg)
+
+### Examples
+
+#### Display only the first 2 emitted values
+
+```ts
+const until$ = timeout(4500);
+
+const subscribe = pipeObservable(interval(1000), [
+  scanObservablePipe<void, number>(count => (count + 1), 0),
+  takeUntilObservablePipe<number>(until$),
+]);
+
+subscribe((value: number) => {
+  console.log(value);
+});
+```
+
+Output:
+
+```text
+// 1000ms
+1
+// 2000ms
+2
+// 3000ms
+3
+// 4000ms
+4
+// 4500ms => unsubscribe
+```
+

@@ -1,7 +1,12 @@
-import { ICustomError, ICustomErrorOptions } from '../custom-error/custom-error.type';
+import { ICustomError, ICustomErrorMessageOptionalOptions } from '../custom-error/custom-error.type';
+import { ILockErrorName } from './lock-error-name.constant';
 
-export interface ILockError extends ICustomError<'LockError'> {
+export interface ILockErrorOptions extends ICustomErrorMessageOptionalOptions {
 }
 
-export interface ILockErrorOptions extends ICustomErrorOptions {
+export interface ILockErrorProperties {
 }
+
+export type ILockError = ICustomError<ILockErrorName, ILockErrorProperties>;
+
+

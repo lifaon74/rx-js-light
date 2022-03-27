@@ -1,11 +1,16 @@
 import { createCustomError } from '../custom-error/create-custom-error';
-import { INetworkError, INetworkErrorOptions } from './network-error.type';
-import { NETWORK_ERROR_NAME } from './network-error-name.constant';
+import { INetworkErrorName, NETWORK_ERROR_NAME } from './network-error-name.constant';
+import { INetworkError, INetworkErrorOptions, INetworkErrorProperties } from './network-error.type';
 
 export function createNetworkError(
   options?: INetworkErrorOptions,
 ): INetworkError {
-  return Object.assign(createCustomError(NETWORK_ERROR_NAME, { message: 'Network Error', ...options }), options);
+  return createCustomError<INetworkErrorName, INetworkErrorProperties>({
+    name: NETWORK_ERROR_NAME,
+    message: 'Network Error',
+    status: void 0,
+    ...options,
+  });
 }
 
 export function createNetworkErrorFromRequest(

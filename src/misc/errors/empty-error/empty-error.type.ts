@@ -1,9 +1,11 @@
-import { ICustomError, ICustomErrorOptions } from '../custom-error/custom-error.type';
+import { ICustomError, ICustomErrorMessageOptionalOptions } from '../custom-error/custom-error.type';
+import { IEmptyErrorName } from './empty-error-name.constant';
 
-export interface IEmptyError extends ICustomError<'EmptyError'> {
+export interface IEmptyErrorOptions extends ICustomErrorMessageOptionalOptions {
 }
 
-export interface IEmptyErrorOptions extends ICustomErrorOptions {
+export interface IEmptyErrorProperties {
 }
 
+export type IEmptyError = ICustomError<IEmptyErrorName, IEmptyErrorProperties>;
 

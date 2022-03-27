@@ -1,11 +1,16 @@
 import { createCustomError } from '../custom-error/create-custom-error';
-import { ITimeoutError, ITimeoutErrorOptions } from './timeout-error.type';
-import { TIMEOUT_ERROR_NAME } from './timeout-error-name.constant';
+import { ITimeoutErrorName, TIMEOUT_ERROR_NAME } from './timeout-error-name.constant';
+import { ITimeoutError, ITimeoutErrorOptions, ITimeoutErrorProperties } from './timeout-error.type';
 
 export function createTimeoutError(
   options?: ITimeoutErrorOptions,
 ): ITimeoutError {
-  return createCustomError(TIMEOUT_ERROR_NAME, { message: 'Timeout', ...options });
+  return createCustomError<ITimeoutErrorName, ITimeoutErrorProperties>({
+    name: TIMEOUT_ERROR_NAME,
+    message: 'Timeout',
+    ...options,
+  });
+
 }
 
 

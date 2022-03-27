@@ -1,9 +1,14 @@
-import { ICustomError, ICustomErrorOptions } from '../custom-error/custom-error.type';
+import { ICustomError, ICustomErrorMessageOptionalOptions } from '../custom-error/custom-error.type';
+import { ITimeoutErrorName } from './timeout-error-name.constant';
 
-export interface ITimeoutError extends ICustomError<'TimeoutError'> {
+export interface ITimeoutErrorOptions extends ICustomErrorMessageOptionalOptions {
 }
 
-export interface ITimeoutErrorOptions extends ICustomErrorOptions {
+export interface ITimeoutErrorProperties {
 }
+
+export type ITimeoutError = ICustomError<ITimeoutErrorName, ITimeoutErrorProperties>;
+
+
 
 

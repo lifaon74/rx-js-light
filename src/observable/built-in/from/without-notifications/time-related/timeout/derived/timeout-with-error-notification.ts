@@ -7,6 +7,9 @@ import { createTimeoutErrorNotification } from '../../../../../../../misc/notifi
 export function timeoutWithErrorNotification(
   duration: number,
 ): IObservable<IErrorNotification<ITimeoutError>> {
-  return timeout<IErrorNotification<ITimeoutError>>(duration, (): IErrorNotification<ITimeoutError> => createTimeoutErrorNotification());
+  return timeout<IErrorNotification<ITimeoutError>>(
+    duration,
+    (): IErrorNotification<ITimeoutError> => createTimeoutErrorNotification(),
+  );
 }
 

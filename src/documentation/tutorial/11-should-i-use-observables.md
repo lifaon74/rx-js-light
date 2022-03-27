@@ -99,6 +99,8 @@ main();
 
 </details>
 
+It's a little more verbose than Promises, but it gives you cancellation out of the box, and allows more complex operations.
+
 ### Computed variables
 
 Another interesting use case, is updating some values based on events.
@@ -133,7 +135,7 @@ text$((text: string) => {
 // assumes 'input' is a <select> with a list of locales
 const inputLocale$ = map$$(fromEventTarget(input, 'change'), () => input.value);
 
-// an observable emiting the navigator locale
+// an observable emiting the navigator's locale
 const navigatorLocale$ = single(navigator.language);
 
 const locale$ = merge([inputLocale$, navigatorLocale$]);

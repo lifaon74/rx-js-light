@@ -21,3 +21,6 @@ export function readObservableValue<GValue>(
     : onNoValue();
 }
 
+export const UNABLE_TO_READ_OBSERVABLE = (): never => {
+  throw new Error(`Unable to read Observable`);
+};

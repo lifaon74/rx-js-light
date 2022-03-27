@@ -174,6 +174,9 @@ Most of public functions or interfaces have their own documentation into a `.md`
 
 - an http request
   - using fetch: [fromFetch](src/observable/built-in/from/with-notifications/http/from-fetch/from-fetch.md) 🔥
+    - [fromFetchJSON](src/observable/built-in/from/with-notifications/http/from-fetch/derived/json/from-fetch-json.ts)
+    - [fromFetchText](src/observable/built-in/from/with-notifications/http/from-fetch/derived/text/from-fetch-text.ts)
+    - [fromFetchStream](src/observable/built-in/from/with-notifications/http/from-fetch/derived/stream/from-fetch-stream.ts)
   - using xhr: [fromXHR](src/observable/built-in/from/with-notifications/http/xhr/from-xhr/from-xhr.md)
   
 - a blob (reads content): [readBlob](src/observable/built-in/from/with-notifications/dom/read-blob/read-blob.md)
@@ -227,6 +230,7 @@ Most of public functions or interfaces have their own documentation into a `.md`
 
 - take the first value: [firstObservablePipe](src/observable/pipes/built-in/without-notifications/others/first/first-observable-pipe.md)
 - take the X first values: [takeObservablePipe](src/observable/pipes/built-in/without-notifications/others/take/take-observable-pipe.md)
+- take the values until another observable emits: [takeUntilObservablePipe](src/observable/pipes/built-in/without-notifications/others/take-until/take-until-observable-pipe.md)
 - take the first value that passes a condition: [findObservablePipe](src/observable/pipes/built-in/without-notifications/others/find/find-observable-pipe.md)
 
 - time related
@@ -259,6 +263,10 @@ Most of public functions or interfaces have their own documentation into a `.md`
   [createReplayLastSource](src/observer-observable-pair/build-in/source/built-in/replay-last-source/replay-last-source.md),
   [createMulticastReplayLastSource](src/observer-observable-pair/build-in/source/built-in/replay-last-source/derived/create-multicast-replay-last-source.ts) 🔥,
   [createUnicastReplayLastSource](src/observer-observable-pair/build-in/source/built-in/replay-last-source/derived/create-unicast-replay-last-source.ts)
+
+#### create an io stream
+
+- from a websocket: [createWebSocketByteStream](src/observer-observable-pair/build-in/io-stream/built-in/websocket/derived/byte-stream/create-websocket-byte-stream.md)
 
 #### others
 

@@ -1,14 +1,15 @@
 import { IMapFunction } from '../../../../../../observer/pipes/built-in/map/map-function.type';
-import { mapObserverPipe } from '../../../../../../observer/pipes/built-in/map/map-observer-pipe';
-import { IObservable } from '../../../../../type/observable.type';
-import { transformObservableWithObserverPipe } from '../helpers/transform-observable-with-observer-pipe';
+import { IObserver } from '../../../../../../observer/type/observer.type';
+import { IObservable, IUnsubscribe } from '../../../../../type/observable.type';
 
-/**
- * @see mapObserverPipe
- */
+
 export function mapObservable<GIn, GOut>(
   subscribe: IObservable<GIn>,
   mapFunction: IMapFunction<GIn, GOut>,
 ): IObservable<GOut> {
-  return transformObservableWithObserverPipe<GIn, GOut>(subscribe, mapObserverPipe<GIn, GOut>(mapFunction));
+  return (emit: IObserver<GOut>): IUnsubscribe => {
+    return subscribe((value: GIn): void => {
+      emit(mapFunction(value));
+    });
+  };
 }

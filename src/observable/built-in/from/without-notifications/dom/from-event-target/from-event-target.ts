@@ -10,7 +10,7 @@ import { IObservable, IUnsubscribe } from '../../../../../type/observable.type';
 export function fromEventTarget<GType extends string, GEvent extends Event>(
   target: IReadonlyEventTarget<Record<GType, GEvent>>,
   type: GType,
-  options?: boolean | EventListenerOptions,
+  options?: boolean | AddEventListenerOptions,
 ): IObservable<GEvent> {
   return (emit: IObserver<GEvent>): IUnsubscribe => {
     return createEventListener<GType, GEvent>(

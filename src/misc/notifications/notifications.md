@@ -109,7 +109,40 @@ subscribe(
     error: (error: any) => {
       console.log('rejected', error);
     },
-  })
+  }),
 );
 ```
+
+[//]: # (Or even shorter:)
+
+[//]: # ()
+[//]: # (```ts)
+
+[//]: # (subscribe&#40;)
+
+[//]: # (  defaultNotificationObserver&#40;)
+
+[//]: # (    &#40;value: number&#41; => {)
+
+[//]: # (      console.log&#40;'next', value&#41;;)
+
+[//]: # (    },)
+
+[//]: # (    &#40;&#41; => {)
+
+[//]: # (      console.log&#40;'resolved'&#41;;)
+
+[//]: # (    },)
+
+[//]: # (    &#40;error: any&#41; => {)
+
+[//]: # (      console.log&#40;'rejected', error&#41;;)
+
+[//]: # (    },)
+
+[//]: # (  &#41;,)
+
+[//]: # (&#41;;)
+
+[//]: # (```)
 

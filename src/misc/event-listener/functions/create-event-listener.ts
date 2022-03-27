@@ -9,7 +9,7 @@ export function createEventListener<GType extends string, GEvent extends Event>(
   target: IReadonlyEventTarget<Record<GType, GEvent>>,
   type: GType,
   listener: IEventListenerFromEventMap<Record<GType, GEvent>, GType>,
-  options?: boolean | EventListenerOptions,
+  options?: boolean | AddEventListenerOptions,
 ): IRemoveEventListener {
   target.addEventListener(type, listener, options);
   return (): void => {

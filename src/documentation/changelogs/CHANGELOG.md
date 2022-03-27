@@ -1,4 +1,25 @@
 
+## 2.3.0 (unreleased)
+
+### What's new ?
+
+- add `takeUntilObservable`
+- 
+- add `fromFetchText` and `fromFetchStream`
+- 
+- add `createLogObserver` and `$log`
+
+- add `defaultNotificationObserver`
+
+- add `open` and `close` Notifications
+- 
+- add `IOStream` - **WARN** experimental (could change in the future)
+
+### Breaking changes
+
+- rework the `ICustomError`
+
+
 ## 2.2.0 (2022-02-09)
 
 ### What's new ?

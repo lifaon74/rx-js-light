@@ -1,4 +1,4 @@
-import { ICustomErrorOptions } from '../custom-error/custom-error.type';
+import { ICustomErrorMessageOptionalOptions, ICustomErrorMessageOptions, ICustomErrorOptionsBase } from '../custom-error/custom-error.type';
 import {
   IGenericRangeErrorOptions, IRangeError, IRangeOptions, IRangeOptionsNormalized, IRangeOptionsWithVariableName,
 } from './range-error.type';
@@ -39,9 +39,9 @@ export function createGenericRangeErrorMessage(
   return (options === void 0)
     ? 'Out of range'
     : (
-      ((options as ICustomErrorOptions).message === void 0)
+      ((options as ICustomErrorMessageOptionalOptions).message === void 0)
         ? createRangeErrorMessage((options as IRangeOptionsWithVariableName).variableName, normalizeRangeOptions(options as IRangeOptionsWithVariableName))
-        : (options as ICustomErrorOptions).message as string
+        : (options as ICustomErrorMessageOptionalOptions).message as string
     );
 }
 

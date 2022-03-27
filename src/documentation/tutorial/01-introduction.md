@@ -12,7 +12,7 @@ work in a different paradigm.
 
 > Reactive programming is programming with asynchronous data streams.
 
-Actually, this it's new:
+Actually, this isn't new:
 
 - Promises are streams of values with a `success` and `error` state, and you can "pipe" them with `then` or `catch`
 - EventListeners are streams of events

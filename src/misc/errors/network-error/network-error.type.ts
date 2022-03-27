@@ -1,11 +1,15 @@
-import { ICustomError, ICustomErrorOptions } from '../custom-error/custom-error.type';
+import { ICustomError, ICustomErrorMessageOptionalOptions } from '../custom-error/custom-error.type';
+import { INetworkErrorName } from './network-error-name.constant';
 
-export interface INetworkErrorProperties {
+export interface INetworkErrorOptions extends ICustomErrorMessageOptionalOptions {
   status?: number;
 }
 
-export interface INetworkError extends ICustomError<'NetworkError'>, INetworkErrorProperties {
+export interface INetworkErrorProperties {
+  readonly status: number | undefined;
 }
 
-export interface INetworkErrorOptions extends ICustomErrorOptions, INetworkErrorProperties {
-}
+export type INetworkError = ICustomError<INetworkErrorName, INetworkErrorProperties>;
+
+
+

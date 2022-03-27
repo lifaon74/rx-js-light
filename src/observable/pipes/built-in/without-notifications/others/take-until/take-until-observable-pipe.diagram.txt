@@ -1,0 +1,18 @@
+sequenceDiagram
+
+participant observable
+participant untilObservable
+participant takeUntilObservablePipe as takeUntilObservablePipe(untilObservable)
+participant OUT
+
+observable->>takeUntilObservablePipe: 1
+takeUntilObservablePipe->>OUT: 1
+
+observable->>takeUntilObservablePipe: 2
+takeUntilObservablePipe->>OUT: 2
+
+untilObservable->>takeUntilObservablePipe: any
+
+takeUntilObservablePipe-->>observable: unsubscribe
+takeUntilObservablePipe-->>untilObservable: unsubscribe
+
